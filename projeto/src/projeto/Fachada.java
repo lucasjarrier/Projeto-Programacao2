@@ -12,14 +12,16 @@ public class Fachada {
 	public void inicializaSitema() throws Exception {
 		this.sistema = new Sistema();
 	}
+	
 	/**
 	 * METODOS DE CADASTRO.
 	 */
+	
 	public void cadastrarUsuario(String nome, String email, String telefone) throws Exception {
 		sistema.cadastraUsuario(nome,email,telefone);
 	}
-	public void cadastraItens(String nome) throws Exception {
-		sistema.cadastraItens(nome);
+	public void cadastraItens(int usuario, String nome) throws Exception {
+		sistema.cadastraItens(usuario, nome);
 	}
 
 	/**
@@ -32,5 +34,13 @@ public class Fachada {
 	
 	public void deletaUsuario(int posicao) throws Exception {
 		sistema.deletaUsuario(posicao);
+	}
+	
+	public void atualizaItem(int usuario, int item, EstadoItem estado) throws Exception {
+		sistema.atualizaItem(usuario, item, estado);
+	}
+	
+	public void deletaItem(int usuario, int item) throws Exception {
+		sistema.deletaItem(usuario, item);
 	}
 }

@@ -10,7 +10,17 @@ public class Usuario {
 	private ArrayList<Itens> itens;
 
 	
-	public Usuario(String nome, String email, String numero) {
+	public Usuario(String nome, String email, String numero) throws Exception {
+		
+		if (nome == null || nome.trim().isEmpty()) {
+			throw new Exception("Erro no cadastro de usuario: Nome nao pode ser vazio ou nulo");
+		}
+		if (email == null || email.trim().isEmpty()) {
+			throw new Exception("Erro no cadastro de usuario: Nome nao pode ser vazio ou nulo");
+		}
+		if (numero == null || numero.trim().isEmpty()) {
+			throw new Exception("Erro no cadastro de usuario: Nome nao pode ser vazio ou nulo");
+		}
 
 		this.nome = nome;
 		this.email = email;
