@@ -16,10 +16,10 @@ public class Usuario {
 			throw new Exception("Erro no cadastro de usuario: Nome nao pode ser vazio ou nulo");
 		}
 		if (email == null || email.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro de usuario: Nome nao pode ser vazio ou nulo");
+			throw new Exception("Erro no cadastro de usuario: Email nao pode ser vazio ou nulo");
 		}
 		if (numero == null || numero.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro de usuario: Nome nao pode ser vazio ou nulo");
+			throw new Exception("Erro no cadastro de usuario: Numero nao pode ser vazio ou nulo");
 		}
 
 		this.nome = nome;
