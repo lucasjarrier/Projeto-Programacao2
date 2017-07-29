@@ -1,16 +1,16 @@
 package projeto;
 
-public class Itens {
-	
+public class Item {
+
 	private String nome;
 	private EstadoItem estado;
 
-	public Itens(String nome) throws Exception {
-		
+	public Item(String nome) {
+
 		if (nome == null || nome.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro do Item: Nome nao pode ser vazio ou nulo");
+			throw new IllegalArgumentException("Erro no cadastro do Item: Nome nao pode ser vazio ou nulo");
 		}
-		
+
 		this.nome = nome;
 		this.estado = EstadoItem.DISPONIVEL;
 	}
@@ -31,5 +31,5 @@ public class Itens {
 	public String toString() {
 		return "Nome: " + this.nome + " Estado: " + this.estado;
 	}
-	
+
 }

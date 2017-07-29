@@ -20,8 +20,8 @@ public class Fachada {
 	public void cadastrarUsuario(String nome, String email, String telefone) throws Exception {
 		sistema.cadastraUsuario(nome,email,telefone);
 	}
-	public void cadastraItens(int usuario, String nome) throws Exception {
-		sistema.cadastraItens(usuario, nome);
+	public void cadastraItem(int usuario, String nome) throws Exception {
+		sistema.cadastraItem(usuario, nome);
 	}
 
 	/**
