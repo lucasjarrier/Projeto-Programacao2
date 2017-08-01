@@ -2,7 +2,7 @@ package projeto;
 
 public enum EstadoItem {
 	
-	DISPONIVEL("Não emprestado"), 
+	DISPONIVEL("Nao emprestado"), 
 	INDISPONIVEL("Emprestado");
 
 	private String situacao;
