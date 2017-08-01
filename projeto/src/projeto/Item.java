@@ -1,35 +1,34 @@
 package projeto;
 
-public class Item {
-
-	private String nome;
-	private EstadoItem estado;
-
-	public Item(String nome) {
-
+public abstract class Item {
+	
+	protected String nome;
+	protected EstadoItem estado;
+	protected double valor;
+	
+	public Item(String nome, double valor) throws Exception {
 		if (nome == null || nome.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro no cadastro do Item: Nome nao pode ser vazio ou nulo");
+			throw new Exception("Erro no cadastro do Item: Nome nao pode ser vazio ou nulo");
 		}
-
+		
+		this.valor = valor;
 		this.nome = nome;
 		this.estado = EstadoItem.DISPONIVEL;
-	}
-
-	public EstadoItem getEstado() {
-		return estado;
+	}	
+	
+	public double getValor() {
+		return valor;
 	}
 
 	public String getNome() {
 		return nome;
 	}
 
-	public void setEstado(EstadoItem estado) {
-		this.estado = estado;
+	public EstadoItem getEstado() {
+		return estado;
 	}
 
-	@Override
-	public String toString() {
-		return "Nome: " + this.nome + " Estado: " + this.estado;
-	}
-
+	public abstract String toString();
 }
+
+

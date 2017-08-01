@@ -94,8 +94,10 @@ public class Usuario {
 	}
 
 	public void adicionaItem(String nome) {
-		Item item = new Item(nome);
-		itens.add(item);
+		/*
+		 * Item item = new Item(nome); Não pode Instanciar uma classe abstrata.
+		 * itens.add(item);
+		 */
 
 	}
 
