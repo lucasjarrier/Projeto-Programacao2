@@ -28,7 +28,4 @@ public abstract class Item {
 		return estado;
 	}
 
-	public abstract String toString();
 }
-
-

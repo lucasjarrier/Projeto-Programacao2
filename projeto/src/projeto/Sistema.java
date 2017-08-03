@@ -10,14 +10,6 @@ public class Sistema {
 		this.usuarios = new ArrayList<Usuario>();
 	}
 
-	public void validaUsuario(String erro, int usuario) throws IllegalArgumentException {
-		if (usuario <= 0) {
-			throw new IllegalArgumentException(erro + "Usuario invalido");
-		} else if (usuario > usuarios.size()) {
-			throw new IllegalArgumentException(erro + "Usuario nao cadastrado");
-		}
-	}
-
 	public Usuario getUsuario(int usuario) {
 		return this.usuarios.get(usuario - 1);
 	}
@@ -31,14 +23,13 @@ public class Sistema {
 		
 		Usuario novoUsuario = new Usuario(nome, email, numero);
 		this.usuarios.add(novoUsuario);
+
 	}
 
-	public String exibeUsuario(int usuario) throws Exception {
-		validaUsuario("Erro ao exibir usuario: ", usuario);
+	public String exibeUsuario(int usuario) {
 
 		return this.getUsuario(usuario).toString();
 	}
-
 
 	public void atualizaUsuario(String nome, String email, String numero, String atributo, String valor) {
 			
@@ -68,19 +59,12 @@ public class Sistema {
 		
 	}
 
-	public void cadastraItem(int usuario, String nome) throws Exception {
-		validaUsuario("Erro ao cadastrar item", usuario);
-
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new Exception("Erro ao cadastrar item: Nome nao pode ser vazio ou nulo");
-		}
-
+	public void cadastraItem(int usuario, String nome) {
 		this.getUsuario(usuario).adicionaItem(nome);
 	}
 
 	public String exibeItens(int usuario) {
-		validaUsuario("Erro ao exibir itens: ", usuario);
-
+	
 		return this.getUsuario(usuario).exibirItens();
 	}
 
