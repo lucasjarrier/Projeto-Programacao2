@@ -7,7 +7,7 @@ public class JogoDeTabuleiro extends Item {
 
 	protected List<String> pecas;
 	protected boolean completo;
-	protected String saida;
+	protected Pecas estadoJogo;
 
 	public JogoDeTabuleiro(String nome, double valor, boolean completo) throws Exception {
 
@@ -16,22 +16,22 @@ public class JogoDeTabuleiro extends Item {
 
 		if (pecas.size() == 0) {
 			this.completo = true;
-			this.saida = "sim";
+			this.estadoJogo = Pecas.COMPLETO;
 		} else {
 			this.completo = false;
-			this.saida = "não";
+			this.estadoJogo = Pecas.INCOMPLETO;
 		}
 	}
 
 	public void adicionaPecaPerdida() {
 		/*
 		 * Falta Implementar! 
-		 * Adicionar a pessoa que perdeu a peça: "Quem perdeu tal peça?"
+		 * Adicionar a pessoa que perdeu a peï¿½a: "Quem perdeu tal peï¿½a?"
 		 */
 	}
 
 	@Override
 	public String toString() {
-		return "Nome: " + this.nome + " Completo: " + this.saida;
+		return "JOGO DE TABULEIRO: " + this.nome + ", R$ " + this.valor + ", " + this.estado + ", " + this.estadoJogo.getEstadoJogo();
 	}
 }

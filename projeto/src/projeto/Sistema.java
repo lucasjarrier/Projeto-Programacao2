@@ -19,8 +19,7 @@ public class Sistema {
 	}
 	
 	public void cadastraUsuario(String nome, String email, String numero) {
-		validador.validaCadastro(nome,email,numero);
-		
+		Validador.validaUsuario(nome, email, numero);
 		Usuario novoUsuario = new Usuario(nome, email, numero);
 		this.usuarios.add(novoUsuario);
 
@@ -49,7 +48,7 @@ public class Sistema {
 		}
 
 	public void removerUsuario(String nome, String numero) throws Exception {
-		validador.validaRemover(nome, numero);
+		validaRemover(nome, numero);
 		
 		for (int i = 0; i < usuarios.size(); i++) {
 		    if (this.usuarios.get(i).getNome().equals(nome) && this.usuarios.get(i).getNumero().equals(numero)) {

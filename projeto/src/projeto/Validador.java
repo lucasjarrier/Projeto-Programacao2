@@ -14,5 +14,7 @@ public class Validador {
 		}
 	}
 	
-	public static void validaBluray()
+	public static void validaBluray() {
+		
+	}
 }
