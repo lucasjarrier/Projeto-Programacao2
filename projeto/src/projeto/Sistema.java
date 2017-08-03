@@ -13,11 +13,17 @@ public class Sistema {
 	public Usuario getUsuario(int usuario) {
 		return this.usuarios.get(usuario - 1);
 	}
-
+		
+	public String getInfoUsuario(String nome, String numero, String atributo) {
+		
+	}
+	
 	public void cadastraUsuario(String nome, String email, String numero) {
-		validaUsuario(nome, email, numero);
-		Usuario usuario = new Usuario(nome, email, numero);
-		this.usuarios.add(usuario);
+		validador.validaCadastro(nome,email,numero);
+		
+		Usuario novoUsuario = new Usuario(nome, email, numero);
+		this.usuarios.add(novoUsuario);
+
 	}
 
 	public String exibeUsuario(int usuario) {
@@ -25,17 +31,32 @@ public class Sistema {
 		return this.getUsuario(usuario).toString();
 	}
 
-	public void atualizaUsuario(int usuario, String nome, String email, String numero)  {
-		validaUsuario(nome, email, numero);
-		Usuario usuarioAtualizado = getUsuario(usuario);
-		usuarioAtualizado.setNome(nome);
-		usuarioAtualizado.setEmail(email);
-		usuarioAtualizado.setNumero(numero);
-	}
+	public void atualizaUsuario(String nome, String email, String numero, String atributo, String valor) {
+			
+			for (Usuario usuario : usuarios) {
+				if (usuario.getNome().equals(nome) && usuario.getNumero().equals(numero)) {
+					if (atributo == "Nome") {
+	                	usuario.setNome(valor);
+	                }
+	            	if (atributo == "Email") {
+	            		usuario.setNome(valor);
+	            	}
+	            	if (atributo == "Numero") {
+	            		usuario.setNumero(valor);
+	            	}
+	            }
+			}
+		}
 
-	public void deletaUsuario(int usuario)  {
-
-		this.usuarios.remove(usuario - 1);
+	public void removerUsuario(String nome, String numero) throws Exception {
+		validador.validaRemover(nome, numero);
+		
+		for (int i = 0; i < usuarios.size(); i++) {
+		    if (this.usuarios.get(i).getNome().equals(nome) && this.usuarios.get(i).getNumero().equals(numero)) {
+		      this.usuarios.remove(i);
+		    }
+		}
+		
 	}
 
 	public void cadastraItem(int usuario, String nome) {
