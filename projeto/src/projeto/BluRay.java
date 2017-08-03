@@ -1,20 +1,47 @@
 package projeto;
 
-public class BluRay extends Item {
+public abstract class BluRay extends Item {
 
 	/*
-	 * A Classe BluRay é mãe das classes BluRay Filme, BluRay Série, BluRay
+	 * A Classe BluRay ï¿½ mï¿½e das classes BluRay Filme, BluRay Sï¿½rie, BluRay
 	 * Show.
 	 */
 
-	public BluRay(String nome, double valor) throws Exception {
+	private int duracao;
+	private String classificacao;
+	
+	public BluRay(String nome, double valor, int duracao, String classificacao) throws Exception {
 		super(nome, valor);
+		this.duracao = duracao;
+		this.classificacao = classificacao;
+	}
+	
+	public int getDuracao() {
+		return duracao;
+	}
 
+	public String getClassificacao() {
+		return classificacao;
+	}
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((classificacao == null) ? 0 : classificacao.hashCode());
+		result = prime * result + duracao;
+		return result;
 	}
 
 	@Override
-	public String toString() {
-		return "Falta Implementar BluRay";
-
+	public boolean equals(Object obj) {
+		BluRay other = (BluRay) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		return true;
 	}
+
 }

@@ -12,7 +12,7 @@ public class Fachada {
 	}
 	private Sistema sistema;
 	
-	public void inicializaSitema() throws Exception {
+	public void iniciarSistema() throws Exception {
 		this.sistema = new Sistema();
 	}
 	

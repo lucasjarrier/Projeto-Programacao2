@@ -1,3 +1,4 @@
+
 package projeto;
 
 import java.util.ArrayList;
@@ -12,17 +13,6 @@ public class Usuario {
 	private final String LN = System.lineSeparator();
 
 	public Usuario(String nome, String email, String numero) {
-
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro no cadastro de usuario: Nome nao pode ser vazio ou nulo");
-		}
-		if (email == null || email.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro no cadastro de usuario: Email nao pode ser vazio ou nulo");
-		}
-		if (numero == null || numero.trim().isEmpty()) {
-			throw new IllegalArgumentException("Erro no cadastro de usuario: Numero nao pode ser vazio ou nulo");
-		}
-
 		this.nome = nome;
 		this.email = email;
 		this.numero = numero;
@@ -95,7 +85,7 @@ public class Usuario {
 
 	public void adicionaItem(String nome) {
 		/*
-		 * Item item = new Item(nome); Não pode Instanciar uma classe abstrata.
+		 * Item item = new Item(nome); Nï¿½o pode Instanciar uma classe abstrata.
 		 * itens.add(item);
 		 */
 

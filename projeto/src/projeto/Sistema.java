@@ -10,75 +10,56 @@ public class Sistema {
 		this.usuarios = new ArrayList<Usuario>();
 	}
 
-	public void validaUsuario(String erro, int usuario) throws IllegalArgumentException {
-		if (usuario <= 0) {
-			throw new IllegalArgumentException(erro + "Usuario invalido");
-		} else if (usuario > usuarios.size()) {
-			throw new IllegalArgumentException(erro + "Usuario nao cadastrado");
-		}
-	}
-
 	public Usuario getUsuario(int usuario) {
 		return this.usuarios.get(usuario - 1);
 	}
 
 	public void cadastraUsuario(String nome, String email, String numero) {
-
-		Usuario novoUsuario = new Usuario(nome, email, numero);
-		this.usuarios.add(novoUsuario);
+		validaUsuario(nome, email, numero);
+		Usuario usuario = new Usuario(nome, email, numero);
+		this.usuarios.add(usuario);
 	}
 
-	public String exibeUsuario(int usuario) throws Exception {
-		validaUsuario("Erro ao exibir usuario: ", usuario);
+	public String exibeUsuario(int usuario) {
 
 		return this.getUsuario(usuario).toString();
 	}
 
-	public void atualizaUsuario(int usuario, String nome, String email, String numero) throws Exception {
-		validaUsuario("Erro ao atualizar usuario: ", usuario);
-
+	public void atualizaUsuario(int usuario, String nome, String email, String numero)  {
+		validaUsuario(nome, email, numero);
 		Usuario usuarioAtualizado = getUsuario(usuario);
-
 		usuarioAtualizado.setNome(nome);
 		usuarioAtualizado.setEmail(email);
 		usuarioAtualizado.setNumero(numero);
 	}
 
-	public void deletaUsuario(int usuario) throws Exception {
-		validaUsuario("Erro ao deletar usuario: ", usuario);
+	public void deletaUsuario(int usuario)  {
 
 		this.usuarios.remove(usuario - 1);
 	}
 
-	public void cadastraItem(int usuario, String nome) throws Exception {
-		validaUsuario("Erro ao cadastrar item", usuario);
-
-		if (nome == null || nome.trim().isEmpty()) {
-			throw new Exception("Erro ao cadastrar item: Nome nao pode ser vazio ou nulo");
-		}
-
+	public void cadastraItem(int usuario, String nome) {
 		this.getUsuario(usuario).adicionaItem(nome);
 	}
 
 	public String exibeItens(int usuario) {
-		validaUsuario("Erro ao exibir itens: ", usuario);
-
+	
 		return this.getUsuario(usuario).exibirItens();
 	}
 
 	public void atualizaItem(int usuario, int item, EstadoItem estado) {
 
 		if (usuario <= 0) {
-			throw new IllegalArgumentException("Erro ao atualizar item: Usuario inválido");
+			throw new IllegalArgumentException("Erro ao atualizar item: Usuario invï¿½lido");
 		}
 		if (usuario > usuarios.size()) {
-			throw new IllegalArgumentException("Erro ao atualizar item: Usuario não cadastrado");
+			throw new IllegalArgumentException("Erro ao atualizar item: Usuario nï¿½o cadastrado");
 		}
 		if (item <= 0) {
-			throw new IllegalArgumentException("Erro ao atualizar item: Item inválido");
+			throw new IllegalArgumentException("Erro ao atualizar item: Item invï¿½lido");
 		}
 		if (item > usuarios.get(usuario).getItens().size()) {
-			throw new IllegalArgumentException("Erro ao atualizar item: Item não cadastrado");
+			throw new IllegalArgumentException("Erro ao atualizar item: Item nï¿½o cadastrado");
 		}
 
 		/*
@@ -89,16 +70,16 @@ public class Sistema {
 	public void deletaItem(int usuario, int item) {
 
 		if (usuario <= 0) {
-			throw new IllegalArgumentException("Erro ao deletar item: Usuario inválido");
+			throw new IllegalArgumentException("Erro ao deletar item: Usuario invï¿½lido");
 		}
 		if (usuario > usuarios.size()) {
-			throw new IllegalArgumentException("Erro ao deletar item: Usuario não cadastrado");
+			throw new IllegalArgumentException("Erro ao deletar item: Usuario nï¿½o cadastrado");
 		}
 		if (item <= 0) {
-			throw new IllegalArgumentException("Erro ao deletar item: Item inválido");
+			throw new IllegalArgumentException("Erro ao deletar item: Item invï¿½lido");
 		}
 		if (item > usuarios.get(usuario).getItens().size()) {
-			throw new IllegalArgumentException("Erro ao deletar item: Item não cadastrado");
+			throw new IllegalArgumentException("Erro ao deletar item: Item nï¿½o cadastrado");
 		}
 
 	}
