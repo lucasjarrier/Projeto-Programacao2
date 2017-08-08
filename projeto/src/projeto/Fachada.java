@@ -31,12 +31,15 @@ public class Fachada {
 	 * METODOS DE MANIPULA��O.
 	 */
 
-	public void atualizarUsuario(int posicao,String nome, String email, String telefone) throws Exception {
-		sistema.atualizarUsuario(posicao, nome, email, telefone);
+	public void getInfoUsuario(String nome, String telefone, String atributo) throws Exception {
+		sistema.getInfoUsuario(nome, telefone, atributo);
+	}
+	public void atualizarUsuario(String nome, String telefone, String email, String atributo, String valor) throws Exception {
+		sistema.atualizarUsuario(nome, telefone, email, atributo, valor);
 	}
 	
-	public void removerUsuario(int posicao) throws Exception {
-		sistema.removerUsuario(posicao);
+	public void removerUsuario(String nome, String numero) throws Exception {
+		sistema.removerUsuario(nome, numero);
 	}
 	
 	public void atualizaItem(int usuario, int item, EstadoItem estado) throws Exception {
