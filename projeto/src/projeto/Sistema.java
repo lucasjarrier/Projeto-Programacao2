@@ -13,16 +13,36 @@ public class Sistema {
 	public Usuario getUsuario(int usuario) {
 		return this.usuarios.get(usuario - 1);
 	}
-		
-	public String getInfoUsuario(String nome, String numero, String atributo) {
-		
-	}
-	
-	public void cadastraUsuario(String nome, String email, String numero) {
-		Validador.validaUsuario(nome, email, numero);
-		Usuario novoUsuario = new Usuario(nome, email, numero);
-		this.usuarios.add(novoUsuario);
 
+	public String getInfoUsuario(String nome, String telefone, String atributo) {
+		Validador.validaInfoUsuario(nome, telefone, atributo);
+
+		String retorno = "";
+		for (Usuario usuario : this.usuarios) {
+			if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
+				if (atributo.toLowerCase().equals("nome")) {
+					retorno += nome;
+				} else if (atributo.toLowerCase().equals("telefone")) {
+					retorno += telefone;
+				} else if (atributo.toLowerCase().equals("email")) {
+					retorno += usuario.getEmail();
+				}
+			}
+		}
+
+		return retorno;
+
+	}
+
+	public void cadastraUsuario(String nome, String email, String telefone) {
+		Validador.validaUsuario(nome, email, telefone);
+
+		Usuario novoUsuario = new Usuario(nome, email, telefone);
+		if (usuarios.contains(novoUsuario)) {
+			throw new IllegalArgumentException("Usuario ja cadastrado");
+		} else {
+			this.usuarios.add(novoUsuario);
+		}
 	}
 
 	public String exibeUsuario(int usuario) {
@@ -30,31 +50,30 @@ public class Sistema {
 		return this.getUsuario(usuario).toString();
 	}
 
-	public void atualizaUsuario(String nome, String email, String numero, String atributo, String valor) {
-			
-			for (Usuario usuario : usuarios) {
-				if (usuario.getNome().equals(nome) && usuario.getNumero().equals(numero)) {
-					if (atributo == "Nome") {
-	                	usuario.setNome(valor);
-	                }
-	            	if (atributo == "Email") {
-	            		usuario.setNome(valor);
-	            	}
-	            	if (atributo == "Numero") {
-	            		usuario.setNumero(valor);
-	            	}
-	            }
+	public void atualizarUsuario(String nome, String email, String telefone, String atributo, String valor) {
+		Validador.validaAtualizar(nome, telefone, valor, atributo);
+
+		for (Usuario usuario : usuarios) {
+			if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
+				if (atributo.toLowerCase().equals("nome")) {
+					usuario.setNome(valor);
+				} else if (atributo.toLowerCase().equals("email")) {
+					usuario.setEmail(valor);
+				} else if (atributo.toLowerCase().equals("telefone")) {
+					usuario.setTelefone(valor);
+				}
 			}
 		}
+	}
 
-	public void removerUsuario(String nome, String numero) throws Exception {
-		validaRemover(nome, numero);
+	public void removerUsuario(String nome, String telefone) throws Exception {
+		Validador.validaRemover(nome, telefone);
 		
-		for (int i = 0; i < usuarios.size(); i++) {
-		    if (this.usuarios.get(i).getNome().equals(nome) && this.usuarios.get(i).getNumero().equals(numero)) {
-		      this.usuarios.remove(i);
-		    }
-		}
+			for (Usuario usuario : usuarios) {
+				if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
+					this.usuarios.remove(usuario);
+				}
+			}
 		
 	}
 
@@ -63,7 +82,7 @@ public class Sistema {
 	}
 
 	public String exibeItens(int usuario) {
-	
+
 		return this.getUsuario(usuario).exibirItens();
 	}
 

@@ -7,21 +7,21 @@ public class Usuario {
 
 	private String nome;
 	private String email;
-	private String numero;
+	private String telefone;
 	private ArrayList<Item> itens;
 
 	private final String LN = System.lineSeparator();
 
-	public Usuario(String nome, String email, String numero) {
+	public Usuario(String nome, String email, String telefone) {
 		this.nome = nome;
 		this.email = email;
-		this.numero = numero;
+		this.telefone = telefone;
 		this.itens = new ArrayList<Item>();
 	}
 
 	@Override
 	public String toString() {
-		return this.nome + ", " + this.email + ", " + this.numero;
+		return this.nome + ", " + this.email + ", " + this.telefone;
 	}
 
 	public String getNome() {
@@ -32,8 +32,8 @@ public class Usuario {
 		return email;
 	}
 
-	public String getNumero() {
-		return numero;
+	public String getTelefone() {
+		return telefone;
 	}
 
 	public void setNome(String nome) {
@@ -44,8 +44,8 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public void setNumero(String numero) {
-		this.numero = numero;
+	public void setTelefone(String numero) {
+		this.telefone = numero;
 	}
 
 	public ArrayList<Item> getItens() {
@@ -57,7 +57,7 @@ public class Usuario {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		result = prime * result + ((numero == null) ? 0 : numero.hashCode());
+		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
 
@@ -75,10 +75,10 @@ public class Usuario {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
-		if (numero == null) {
-			if (other.numero != null)
+		if (telefone == null) {
+			if (other.telefone != null)
 				return false;
-		} else if (!numero.equals(other.numero))
+		} else if (!telefone.equals(other.telefone))
 			return false;
 		return true;
 	}
