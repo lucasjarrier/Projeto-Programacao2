@@ -1,4 +1,4 @@
-package projeto;
+package item;
 
 public enum EstadoItem {
 	

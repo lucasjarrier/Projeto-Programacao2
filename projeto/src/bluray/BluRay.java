@@ -1,4 +1,6 @@
-package projeto;
+package bluray;
+
+import item.Item;
 
 public abstract class BluRay extends Item {
 

@@ -1,4 +1,4 @@
-package projeto;
+package item;
 
 public abstract class Item {
 	
@@ -10,7 +10,6 @@ public abstract class Item {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new Exception("Erro no cadastro do Item: Nome nao pode ser vazio ou nulo");
 		}
-		
 		this.valor = valor;
 		this.nome = nome;
 		this.estado = EstadoItem.DISPONIVEL;
