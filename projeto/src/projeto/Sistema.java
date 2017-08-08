@@ -1,13 +1,16 @@
 package projeto;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Sistema {
 
 	private ArrayList<Usuario> usuarios;
+	private ArrayList<Item> todosItens;
 
 	public Sistema() {
 		this.usuarios = new ArrayList<Usuario>();
+		this.todosItens = new ArrayList<Item>();
 	}
 
 	public Usuario getUsuario(int usuario) {
@@ -103,5 +106,84 @@ public class Sistema {
 		}
 
 	}
+	
+	public String listarItensOrdenadosPorNome() {
+
+		ArrayList<Item> novoArray = new ArrayList<Item>();
+		for (int i = 0; i < usuarios.size(); i++) {
+			for (int e = 0; e < usuarios.get(i).getItens().size(); e++) {
+				novoArray.addAll(usuarios.get(i).getItens());
+			}
+		}
+		String retorno = "";
+		Collections.sort(novoArray, new NomeComparator());
+
+		for (int i = 0; i < novoArray.size(); i++) {
+			retorno += novoArray.get(i).toString() + " ";
+		}
+		return retorno;
+	}
+
+	/**
+	 * 
+	 * @return Retorna em String todos os Itens cadastrado em ordem de maior
+	 *         Valor.
+	 */
+
+	public String listarItensOrdenadosPorValor() {
+
+		ArrayList<Item> novoArray = new ArrayList<Item>();
+		for (int i = 0; i < usuarios.size(); i++) {
+			for (int e = 0; e < usuarios.get(i).getItens().size(); e++) {
+				novoArray.addAll(usuarios.get(i).getItens());
+			}
+		}
+		String retorno = "";
+		Collections.sort(novoArray, new ValorComparator());
+
+		for (int i = 0; i < novoArray.size(); i++) {
+			retorno += novoArray.get(i).toString() + " ";
+		}
+		return retorno;
+	}
+
+	/**
+	 * 
+	 * @param nomeItem
+	 *            Parametro que recebe o nome de um Item.
+	 * @param nomeUsuario
+	 *            Parametro que recebe o nome de um Usuario que Possui esse
+	 *            Item.
+	 * @param numeroUsuario
+	 *            Parametro que recebe o numero de um USuario que Possui esse
+	 *            Item.
+	 * @return Retorna em String um determinado Item de forma detalhada.
+	 */
+
+	public String pesquisarDetalhesItem(String nomeItem, String nomeUsuario, String numeroUsuario) {
+
+		boolean contemNome = false;
+		boolean contemNumero = false;
+
+		String retorno = "";
+
+		for (int i = 0; i < usuarios.size(); i++) {
+			if (usuarios.get(i).getNome().equals(nomeUsuario)) {
+				contemNome = true;
+			}
+			if (usuarios.get(i).getNumero().equals(numeroUsuario)) {
+				contemNumero = true;
+			}
+			if (contemNome == true && contemNumero == true) {
+				for (int e = 0; e < usuarios.get(i).getItens().size(); e++) {
+					if (usuarios.get(i).getItens().get(e).getNome().equals(nomeItem)) {
+						retorno += usuarios.get(i).getItens().get(e).toString();
+					}
+				}
+			}
+		}
+		return retorno;
+	}
+
 
 }

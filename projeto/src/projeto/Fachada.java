@@ -46,4 +46,23 @@ public class Fachada {
 	public void deletaItem(int usuario, int item) throws Exception {
 		sistema.deletaItem(usuario, item);
 	}
+	
+	/**
+	 *  METODOS DE ORDENACAO.
+	 */
+	
+	public String listarItensOrdenadosPorNome() {
+		return sistema.listarItensOrdenadosPorNome();
+	}
+	public String listarItensOrdenadosPorValor() {
+		return sistema.listarItensOrdenadosPorValor();
+	}
+	
+	/**
+	 *  METODOS DE EXIBICAO.
+	 */
+	
+	public String pesquisarDetalhesItem(String nomeItem, String nomeUsuario, String numeroUsuario) {
+		return sistema.pesquisarDetalhesItem(nomeItem, nomeUsuario, numeroUsuario);
+	}
 }
