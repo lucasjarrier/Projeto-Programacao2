@@ -3,6 +3,13 @@ package projeto;
 
 import java.util.ArrayList;
 
+import bluray.BluRayFilme;
+import bluray.BluRaySerie;
+import bluray.BluRayShow;
+import item.Item;
+import jogos.JogoDeTabuleiro;
+import jogos.JogoEletronico;
+
 public class Usuario {
 
 	private String nome;
@@ -83,14 +90,46 @@ public class Usuario {
 		return true;
 	}
 
-	public void adicionaItem(String nome) {
-		/*
-		 * Item item = new Item(nome); N�o pode Instanciar uma classe abstrata.
-		 * itens.add(item);
-		 */
-
+	public void adicionaFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano) throws Exception {
+		BluRayFilme filme = new BluRayFilme(nome, valor, duracao, classificacao, genero, ano);
+		itens.add(filme);
+	}
+	
+	public void adicionaShow(String nome, double valor, int duracao, String classificacao, String artista, int faixas) throws Exception {
+		BluRayShow show = new BluRayShow(nome, valor, duracao, classificacao, artista, faixas);
+		itens.add(show);
 	}
 
+	public void adicionaSerie(String nome, double valor, int duracao, String classificacao, String descricao,
+			String genero, int temporada) throws Exception {
+		BluRaySerie serie = new BluRaySerie(nome, valor, duracao, classificacao, descricao, genero, temporada);
+		itens.add(serie);
+	}
+	
+	public void adicionaEletronico(String nome, double valor, String plataforma) throws Exception {
+		JogoEletronico jogo = new JogoEletronico(nome, valor, plataforma);
+		itens.add(jogo);
+	}
+	
+	public void adicionaTabuleiro(String nome, double valor) throws Exception {
+		JogoDeTabuleiro jogo = new JogoDeTabuleiro(nome, valor);
+		itens.add(jogo);
+	}
+	
+	private Item getItem(String nomeItem) throws Exception {
+		boolean existeItem = false;
+		for (Item item : itens) {
+			if (item.getNome().equals(nomeItem)) {
+				return item;
+			}
+		}
+		throw new NullPointerException("Item nao encontrado");
+	}
+	
+	public void adicionaPecaPerdida(String nomeItem, String nomePeca) {
+		getItem(nomeItem); // falta terminar
+	}
+	
 	public String exibirItens() {
 		String representacao = "";
 

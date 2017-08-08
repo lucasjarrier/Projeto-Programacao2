@@ -1,4 +1,4 @@
-package projeto;
+package bluray;
 
 public class BluRaySerie extends BluRay {
 	

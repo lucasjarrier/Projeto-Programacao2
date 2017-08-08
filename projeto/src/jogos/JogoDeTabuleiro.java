@@ -1,7 +1,9 @@
-package projeto;
+package jogos;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import item.Item;
 
 public class JogoDeTabuleiro extends Item {
 
@@ -9,11 +11,9 @@ public class JogoDeTabuleiro extends Item {
 	protected boolean completo;
 	protected Pecas estadoJogo;
 
-	public JogoDeTabuleiro(String nome, double valor, boolean completo) throws Exception {
-
+	public JogoDeTabuleiro(String nome, double valor) throws Exception {
 		super(nome, valor);
 		this.pecas = new ArrayList<String>();
-
 		if (pecas.size() == 0) {
 			this.completo = true;
 			this.estadoJogo = Pecas.COMPLETO;
@@ -23,11 +23,8 @@ public class JogoDeTabuleiro extends Item {
 		}
 	}
 
-	public void adicionaPecaPerdida() {
-		/*
-		 * Falta Implementar! 
-		 * Adicionar a pessoa que perdeu a pe�a: "Quem perdeu tal pe�a?"
-		 */
+	public void adicionaPecaPerdida(String peca) {
+		pecas.add(peca);
 	}
 
 	@Override

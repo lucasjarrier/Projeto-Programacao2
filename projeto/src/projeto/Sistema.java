@@ -2,6 +2,8 @@ package projeto;
 
 import java.util.ArrayList;
 
+import item.EstadoItem;
+
 public class Sistema {
 
 	private ArrayList<Usuario> usuarios;
@@ -14,8 +16,8 @@ public class Sistema {
 		return this.usuarios.get(usuario - 1);
 	}
 		
-	public String getInfoUsuario(String nome, String numero, String atributo) {
-		
+	public void getInfoUsuario(String nome, String numero, String atributo) {
+		// falta implementar
 	}
 	
 	public void cadastraUsuario(String nome, String email, String numero) {
@@ -48,8 +50,6 @@ public class Sistema {
 		}
 
 	public void removerUsuario(String nome, String numero) throws Exception {
-		validaRemover(nome, numero);
-		
 		for (int i = 0; i < usuarios.size(); i++) {
 		    if (this.usuarios.get(i).getNome().equals(nome) && this.usuarios.get(i).getNumero().equals(numero)) {
 		      this.usuarios.remove(i);
@@ -58,12 +58,44 @@ public class Sistema {
 		
 	}
 
-	public void cadastraItem(int usuario, String nome) {
-		this.getUsuario(usuario).adicionaItem(nome);
+	private Usuario getUsuario(String nome, String telefone) throws Exception {
+		for (Usuario usuario : usuarios) {
+			if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
+				return usuario;
+			}
+		}
+		throw new IllegalArgumentException("Usuario invalido");
+		
+	}
+	public void cadastraFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
+			String genero, String classificacao, int ano) throws Exception {
+		getUsuario(nomeUsuario, telefone).adicionaFilme(nomeItem, preco, duracao, classificacao, genero, ano);
+	}
+	
+	
+	public void cadastraSerie(String nomeUsuario, String telefone, String nomeItem, double preco, String descricao, int duracao,
+			String genero, String classificacao, int temporada) throws Exception {
+		getUsuario(nomeUsuario, telefone).adicionaSerie(nomeItem, preco, duracao, classificacao, descricao, genero, temporada);	
+	}
+	
+	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao, int faixas,
+			String artista, String genero, String classificacao) throws Exception {
+		getUsuario(nomeUsuario, telefone).adicionaShow(nomeItem, preco, duracao, classificacao, artista, faixas);
 	}
 
-	public String exibeItens(int usuario) {
+	public void cadastraEletronico(String nomeUsuario, String telefone, String nomeItem, 
+			double preco, String plataforma) throws Exception {
+		getUsuario(nomeUsuario, telefone).adicionaEletronico(nomeItem, preco, plataforma);
+	}
 	
+	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco) throws Exception {
+		getUsuario(nomeUsuario, telefone).adicionaTabuleiro(nomeItem, preco);
+	}
+	
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
+		getUsuario(nome, telefone)
+	}
+	public String exibeItens(int usuario) {
 		return this.getUsuario(usuario).exibirItens();
 	}
 
@@ -101,7 +133,9 @@ public class Sistema {
 		if (item > usuarios.get(usuario).getItens().size()) {
 			throw new IllegalArgumentException("Erro ao deletar item: Item n�o cadastrado");
 		}
-
+		
 	}
+	
+	
 
 }

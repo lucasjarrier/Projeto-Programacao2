@@ -1,6 +1,7 @@
 package projeto;
 
 import easyaccept.EasyAccept;
+import item.EstadoItem;
 
 public class Fachada {
 

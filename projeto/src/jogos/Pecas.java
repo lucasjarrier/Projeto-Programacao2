@@ -1,4 +1,4 @@
-package projeto;
+package jogos;
 
 public enum Pecas {
 
