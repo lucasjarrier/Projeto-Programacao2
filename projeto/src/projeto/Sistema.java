@@ -9,18 +9,16 @@ import item.Item;
 public class Sistema {
 
 	private ArrayList<Usuario> usuarios;
-	private ArrayList<Item> todosItens;
 
 	public Sistema() {
 		this.usuarios = new ArrayList<Usuario>();
-		this.todosItens = new ArrayList<Item>();
 	}
 
 	public Usuario getUsuario(int usuario) {
 		return this.usuarios.get(usuario - 1);
 	}
-	
-  public String getInfoUsuario(String nome, String telefone, String atributo) {
+
+	public String getInfoUsuario(String nome, String telefone, String atributo) {
 		Validador.validaInfoUsuario(nome, telefone, atributo);
 
 		String retorno = "";
@@ -71,15 +69,14 @@ public class Sistema {
 		}
 	}
 
-
 	public void removerUsuario(String nome, String telefone) throws Exception {
 		Validador.validaRemover(nome, telefone);
-		
-			for (Usuario usuario : usuarios) {
-				if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
-					this.usuarios.remove(usuario);
-				}
+
+		for (Usuario usuario : usuarios) {
+			if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
+				this.usuarios.remove(usuario);
 			}
+		}
 	}
 
 	private Usuario getUsuario(String nome, String telefone) throws Exception {
@@ -89,37 +86,39 @@ public class Sistema {
 			}
 		}
 		throw new IllegalArgumentException("Usuario invalido");
-		
+
 	}
+
 	public void cadastraFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
 			String genero, String classificacao, int ano) throws Exception {
 		getUsuario(nomeUsuario, telefone).adicionaFilme(nomeItem, preco, duracao, classificacao, genero, ano);
 	}
-	
-	
-	public void cadastraSerie(String nomeUsuario, String telefone, String nomeItem, double preco, String descricao, int duracao,
-			String genero, String classificacao, int temporada) throws Exception {
-		getUsuario(nomeUsuario, telefone).adicionaSerie(nomeItem, preco, duracao, classificacao, descricao, genero, temporada);	
+
+	public void cadastraSerie(String nomeUsuario, String telefone, String nomeItem, double preco, String descricao,
+			int duracao, String genero, String classificacao, int temporada) throws Exception {
+		getUsuario(nomeUsuario, telefone).adicionaSerie(nomeItem, preco, duracao, classificacao, descricao, genero,
+				temporada);
 	}
-	
-	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao, int faixas,
-			String artista, String classificacao) throws Exception {
+
+	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
+			int faixas, String artista, String classificacao) throws Exception {
 		getUsuario(nomeUsuario, telefone).adicionaShow(nomeItem, preco, duracao, classificacao, artista, faixas);
 	}
 
-	public void cadastraEletronico(String nomeUsuario, String telefone, String nomeItem, 
-			double preco, String plataforma) throws Exception {
+	public void cadastraEletronico(String nomeUsuario, String telefone, String nomeItem, double preco,
+			String plataforma) throws Exception {
 		getUsuario(nomeUsuario, telefone).adicionaEletronico(nomeItem, preco, plataforma);
 	}
-	
-	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco) throws Exception {
+
+	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco)
+			throws Exception {
 		getUsuario(nomeUsuario, telefone).adicionaTabuleiro(nomeItem, preco);
 	}
-	
+
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
 		getUsuario(nome, telefone).adicionaPecaPerdida(nomeItem, nomePeca);
 	}
-	
+
 	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
 		if (atributo.toLowerCase().equals("preco")) {
@@ -129,12 +128,13 @@ public class Sistema {
 		}
 		throw new IllegalArgumentException("Item nao encontrado");
 	}
-	
+
 	public String exibeItens(int usuario) {
 		return this.getUsuario(usuario).exibirItens();
 	}
 
-	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor) throws Exception {
+	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor)
+			throws Exception {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
 		if (atributo.toLowerCase().equals("preco")) {
 			usuario.getItem(nomeItem).setValor(Double.parseDouble(valor));
@@ -147,8 +147,8 @@ public class Sistema {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
 		usuario.removeItem(nomeItem);
 	}
-	
-  public String listarItensOrdenadosPorNome() {
+
+	public String listarItensOrdenadosPorNome() {
 
 		ArrayList<Item> novoArray = new ArrayList<Item>();
 		for (int i = 0; i < usuarios.size(); i++) {
@@ -172,6 +172,7 @@ public class Sistema {
 	 */
 
 	public String listarItensOrdenadosPorValor() {
+	
 
 		ArrayList<Item> novoArray = new ArrayList<Item>();
 		for (int i = 0; i < usuarios.size(); i++) {
@@ -198,28 +199,21 @@ public class Sistema {
 	 * @param numeroUsuario
 	 *            Parametro que recebe o numero de um USuario que Possui esse
 	 *            Item.
-	 * @return Retorna em String um determinado Item de forma detalhada.
+	 * @return Se existir(Item,Usuario e Telefone). Retorna em String um
+	 *         determinado Item de forma detalhada.
+	 * @throws Exception 
 	 */
 
-	public String pesquisarDetalhesItem(String nomeItem, String nomeUsuario, String numeroUsuario) {
-
-		boolean contemNome = false;
-		boolean contemNumero = false;
-
+	public String pesquisarDetalhesItem(String nomeItem, String nomeUsuario, String telefoneUsuario){	
+		
+		Validador.validaPesquisaItem(nomeItem, nomeUsuario, telefoneUsuario);
 		String retorno = "";
-
-		for (int i = 0; i < usuarios.size(); i++) {
-			if (usuarios.get(i).getNome().equals(nomeUsuario)) {
-				contemNome = true;
-			}
-			if (usuarios.get(i).getNumero().equals(numeroUsuario)) {
-				contemNumero = true;
-			}
-			if (contemNome == true && contemNumero == true) {
-				for (int e = 0; e < usuarios.get(i).getItens().size(); e++) {
-					if (usuarios.get(i).getItens().get(e).getNome().equals(nomeItem)) {
-						retorno += usuarios.get(i).getItens().get(e).toString();
-					}
+		
+		for (Usuario usuario : this.usuarios) {
+			if (usuario.getNome().equals(nomeUsuario)) {
+				if (usuario.getNumero().equals(telefoneUsuario)) {
+					retorno += (usuario.pequisaDetalhesItens(nomeItem));
+					break;
 				}
 			}
 		}

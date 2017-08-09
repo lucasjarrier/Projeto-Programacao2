@@ -147,5 +147,13 @@ public class Usuario {
 
 		return representacao;
 	}
-
+	
+	public String pequisaDetalhesItens(String nomeItem) {
+		for (Item item : this.itens) {
+			if (item.getNome().equals(nomeItem)) {
+				return item.toString();
+			}
+		}
+	throw new NullPointerException("Item nao encontrado");
+	}
 }
