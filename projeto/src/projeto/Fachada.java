@@ -79,7 +79,7 @@ public class Fachada {
 	public void getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
 		sistema.getInfoItem(nomeUsuario, telefone, nomeItem, atributo);
 	}
-	
+
 	/**
 	 *  METODOS DE ORDENACAO.
 	 */
@@ -93,6 +93,7 @@ public class Fachada {
 	
 	/**
 	 *  METODOS DE EXIBICAO.
+	 * @throws Exception 
 	 */
 	
 	public String pesquisarDetalhesItem(String nomeItem, String nomeUsuario, String numeroUsuario) {
