@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import item.EstadoItem;
+import item.Item;
 
 public class Sistema {
 
@@ -24,7 +25,7 @@ public class Sistema {
 
 		String retorno = "";
 		for (Usuario usuario : this.usuarios) {
-			if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
+			if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
 				if (atributo.toLowerCase().equals("nome")) {
 					retorno += nome;
 				} else if (atributo.toLowerCase().equals("telefone")) {
@@ -58,7 +59,7 @@ public class Sistema {
 		Validador.validaAtualizar(nome, telefone, valor, atributo);
 
 		for (Usuario usuario : usuarios) {
-			if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
+			if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
 				if (atributo.toLowerCase().equals("nome")) {
 					usuario.setNome(valor);
 				} else if (atributo.toLowerCase().equals("email")) {
@@ -75,7 +76,7 @@ public class Sistema {
 		Validador.validaRemover(nome, telefone);
 		
 			for (Usuario usuario : usuarios) {
-				if (usuario.getNome().equals(nome) && usuario.getTelefone().equals(telefone)) {
+				if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
 					this.usuarios.remove(usuario);
 				}
 			}
@@ -102,7 +103,7 @@ public class Sistema {
 	}
 	
 	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao, int faixas,
-			String artista, String genero, String classificacao) throws Exception {
+			String artista, String classificacao) throws Exception {
 		getUsuario(nomeUsuario, telefone).adicionaShow(nomeItem, preco, duracao, classificacao, artista, faixas);
 	}
 
@@ -115,48 +116,36 @@ public class Sistema {
 		getUsuario(nomeUsuario, telefone).adicionaTabuleiro(nomeItem, preco);
 	}
 	
-	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) {
-		getUsuario(nome, telefone)
+	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
+		getUsuario(nome, telefone).adicionaPecaPerdida(nomeItem, nomePeca);
 	}
+	
+	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
+		Usuario usuario = getUsuario(nomeUsuario, telefone);
+		if (atributo.toLowerCase().equals("preco")) {
+			return Double.toString(usuario.getItem(nomeItem).getValor());
+		} else if (atributo.toLowerCase().equals("nome")) {
+			return usuario.getItem(nomeItem).getNome();
+		}
+		throw new IllegalArgumentException("Item nao encontrado");
+	}
+	
 	public String exibeItens(int usuario) {
 		return this.getUsuario(usuario).exibirItens();
 	}
 
-	public void atualizaItem(int usuario, int item, EstadoItem estado) {
-
-		if (usuario <= 0) {
-			throw new IllegalArgumentException("Erro ao atualizar item: Usuario inv�lido");
+	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor) throws Exception {
+		Usuario usuario = getUsuario(nomeUsuario, telefone);
+		if (atributo.toLowerCase().equals("preco")) {
+			usuario.getItem(nomeItem).setValor(Double.parseDouble(valor));
+		} else if (atributo.toLowerCase().equals("nome")) {
+			usuario.getItem(nomeItem).setNome(valor);
 		}
-		if (usuario > usuarios.size()) {
-			throw new IllegalArgumentException("Erro ao atualizar item: Usuario n�o cadastrado");
-		}
-		if (item <= 0) {
-			throw new IllegalArgumentException("Erro ao atualizar item: Item inv�lido");
-		}
-		if (item > usuarios.get(usuario).getItens().size()) {
-			throw new IllegalArgumentException("Erro ao atualizar item: Item n�o cadastrado");
-		}
-
-		/*
-		 * FALTA IMPLEMENTAR ...
-		 */
 	}
 
-	public void deletaItem(int usuario, int item) {
-
-		if (usuario <= 0) {
-			throw new IllegalArgumentException("Erro ao deletar item: Usuario inv�lido");
-		}
-		if (usuario > usuarios.size()) {
-			throw new IllegalArgumentException("Erro ao deletar item: Usuario n�o cadastrado");
-		}
-		if (item <= 0) {
-			throw new IllegalArgumentException("Erro ao deletar item: Item inv�lido");
-		}
-		if (item > usuarios.get(usuario).getItens().size()) {
-			throw new IllegalArgumentException("Erro ao deletar item: Item n�o cadastrado");
-		}
-		
+	public void removerItem(String nomeUsuario, String telefone, String nomeItem) throws Exception {
+		Usuario usuario = getUsuario(nomeUsuario, telefone);
+		usuario.removeItem(nomeItem);
 	}
 	
   public String listarItensOrdenadosPorNome() {
