@@ -2,6 +2,8 @@ package projeto;
 
 import java.util.Comparator;
 
+import item.Item;
+
 public class NomeComparator implements Comparator<Item> {
 
 	@Override

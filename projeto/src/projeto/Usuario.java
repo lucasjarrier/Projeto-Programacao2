@@ -39,7 +39,7 @@ public class Usuario {
 		return email;
 	}
 
-	public String getTelefone() {
+	public String getNumero() {
 		return telefone;
 	}
 
@@ -116,8 +116,7 @@ public class Usuario {
 		itens.add(jogo);
 	}
 	
-	private Item getItem(String nomeItem) throws Exception {
-		boolean existeItem = false;
+	public Item getItem(String nomeItem) throws Exception {
 		for (Item item : itens) {
 			if (item.getNome().equals(nomeItem)) {
 				return item;
@@ -126,8 +125,17 @@ public class Usuario {
 		throw new NullPointerException("Item nao encontrado");
 	}
 	
-	public void adicionaPecaPerdida(String nomeItem, String nomePeca) {
-		getItem(nomeItem); // falta terminar
+	public void adicionaPecaPerdida(String nomeItem, String nomePeca) throws Exception {
+		Item item = getItem(nomeItem);
+		if (item instanceof JogoDeTabuleiro) {
+			JogoDeTabuleiro jogo = (JogoDeTabuleiro) item;
+			jogo.adicionaPecaPerdida(nomePeca);
+		}
+	}
+	
+	public void removeItem(String nomeItem) throws Exception {
+		Item item = getItem(nomeItem);
+		itens.remove(item);
 	}
 	
 	public String exibirItens() {

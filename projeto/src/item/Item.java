@@ -27,4 +27,18 @@ public abstract class Item {
 		return estado;
 	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public void setEstado(EstadoItem estado) {
+		this.estado = estado;
+	}
+
+	public void setValor(double valor) {
+		this.valor = valor;
+	}
+	
+	
+
 }
