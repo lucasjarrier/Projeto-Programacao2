@@ -128,6 +128,10 @@ public class Sistema {
 		getUsuario(nomeUsuario, telefone).adicionaTabuleiro(nomeItem, preco);
 	}
 	
+	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao) throws Exception {
+		getUsuario(nomeUsuario, telefone).adicionaBluRay(nomeBlurayTemporada, duracao);
+	}
+	
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
 		getUsuario(nome, telefone).adicionaPecaPerdida(nomeItem, nomePeca);
 	}

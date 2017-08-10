@@ -80,6 +80,10 @@ public class Fachada {
 		sistema.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
 	
+	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao) throws Exception {
+		sistema.adicionarBluRay(nomeUsuario, telefone, nomeBlurayTemporada, duracao);
+	}
+	
 	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
 		return sistema.getInfoItem(nomeUsuario, telefone, nomeItem, atributo);
 	}

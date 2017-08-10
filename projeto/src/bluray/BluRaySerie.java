@@ -1,10 +1,14 @@
 package bluray;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BluRaySerie extends BluRay {
 	
 	private String descricao;
 	private String genero;
 	private int temporada;
+	private List<Integer> episodios;
 	
 	public BluRaySerie(String nome, double valor, int duracao, String classificacao, String descricao,
 			String genero, int temporada) throws Exception {
@@ -12,6 +16,7 @@ public class BluRaySerie extends BluRay {
 		this.descricao = descricao;
 		this.genero = genero;
 		this.temporada = temporada;
+		this.episodios = new ArrayList<>();
 	}
 	
 	public String getDescricao() {
@@ -58,6 +63,10 @@ public class BluRaySerie extends BluRay {
 	public String toString() {
 		return "SERIE: " + this.nome + ", R$ " + this.valor + ", " + this.estado.getSituacao() + ", " +
 			this.getDuracao() + "min, " + this.getClassificacao() + ", " + this.genero + ", Temporada" + this.temporada;
+	}
+	
+	public void adicionaEpisodio(int duracao) {
+		this.episodios.add(duracao);
 	}
 	
 
