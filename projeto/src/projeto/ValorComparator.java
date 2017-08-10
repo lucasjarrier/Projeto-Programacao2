@@ -14,10 +14,10 @@ public class ValorComparator implements Comparator<Item> {
 		int it2 = (int) item2.getValor();
 
 		if (it1 < it2) {
-			return 1;
+			return -1;
 
 		} else if (it1 > it2) {
-			return -1;
+			return 1;
 
 		} else {
 

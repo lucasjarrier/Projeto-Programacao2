@@ -62,7 +62,7 @@ public class BluRaySerie extends BluRay {
 	@Override
 	public String toString() {
 		return "SERIE: " + this.nome + ", R$ " + this.valor + ", " + this.estado.getSituacao() + ", " +
-			this.getDuracao() + "min, " + this.getClassificacao() + ", " + this.genero + ", Temporada" + this.temporada;
+			this.getDuracao() + " min, " +  this.genero + ", " +  this.getClassificacao() + ", Temporada " + this.temporada;
 	}
 	
 	public void adicionaEpisodio(int duracao) {

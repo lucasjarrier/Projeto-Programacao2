@@ -80,12 +80,12 @@ public class Fachada {
 		sistema.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
 	
-	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao) throws Exception {
-		sistema.adicionarBluRay(nomeUsuario, telefone, nomeBlurayTemporada, duracao);
-	}
-	
 	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
 		return sistema.getInfoItem(nomeUsuario, telefone, nomeItem, atributo);
+	}
+	
+	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao) throws Exception {
+		sistema.adicionarBluRay(nomeUsuario, telefone, nomeBlurayTemporada, duracao);
 	}
 	
 	/**
@@ -103,8 +103,8 @@ public class Fachada {
 	 *  METODOS DE EXIBICAO.
 	 */
 	
-	public String pesquisarDetalhesItem(String nomeItem, String nomeUsuario, String telefoneUsuario) {
-		return sistema.pesquisarDetalhesItem(nomeItem, nomeUsuario, telefoneUsuario);
+	public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
+		return sistema.pesquisarDetalhesItem(nome,telefone,item);
 	}
 	
 	public void fecharSistema() {

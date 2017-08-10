@@ -1,10 +1,10 @@
 package projeto;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
-
 import item.EstadoItem;
 import item.Item;
 
@@ -166,73 +166,74 @@ public class Sistema {
 		usuario.removeItem(nomeItem);
 	}
 	
-  public String listarItensOrdenadosPorNome() {
-	  
-	  ArrayList<Item> itensOrdenados = new ArrayList<>();
-		Set keys  = usuarios.keySet();
-		for(Object key : keys) { 
-			for(Object nomeItem : usuarios.get(key).getItens()) {
-				itensOrdenados.add(usuarios.get(key).getItem((String) nomeItem));
+	public String listarItensOrdenadosPorNome() {
+		  
+		  ArrayList<Item> itensOrdenados = new ArrayList<Item>();
+			Collection<Usuario> valor  = usuarios.values();
+			
+			for(Usuario usuario : valor ) {
+				for(int i = 0; i < usuario.getItens().size(); i++) {
+					itensOrdenados.add(usuario.getItens().get(i));
+				}
+			}
+			
+			Collections.sort(itensOrdenados, new NomeComparator());
+			String retorno = "";
+			
+			for (Item item : itensOrdenados) {
+				retorno += item.toString()+"|";
+			}
+			return retorno;
+		}
+
+		/**
+		 * 
+		 * @return Retorna em String todos os Itens cadastrado em ordem de maior
+		 *         Valor.
+		 */
+
+		public String listarItensOrdenadosPorValor() {	
+			
+			ArrayList<Item> itensOrdenados = new ArrayList<Item>();
+			Collection<Usuario> valor  = usuarios.values();
+			
+			for(Usuario usuario : valor ) {
+				for(int i = 0; i < usuario.getItens().size(); i++) {
+					itensOrdenados.add(usuario.getItens().get(i));
+				}
+			}
+			
+			Collections.sort(itensOrdenados, new ValorComparator());
+			String retorno = "";
+			
+			for (Item item : itensOrdenados) {
+				retorno += item.toString()+"|";
+			}
+			return retorno;
+		}
+
+		/**
+		 * @param Item
+		 *            Parametro que recebe o nome de um Item.
+		 * @param Usuario
+		 *            Parametro que recebe o nome de um Usuario que Possui esse
+		 *            Item.
+		 * @param Usuario
+		 *            Parametro que recebe o numero de um USuario que Possui esse
+		 *            Item.
+		 * @return Retorna em String um determinado Item de forma detalhada. 
+		 */
+
+		public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
+			
+			NomeETelefone usuario = new NomeETelefone(nome, telefone);
+			
+			if(!this.usuarios.containsKey(usuario)) {
+				throw new NullPointerException("Usuario invalido");
+			}
+			
+			return this.usuarios.get(usuario).getItem(item).toString();				
 			}	
-		}
-		
-		Collections.sort(itensOrdenados, new NomeComparator());
-		String retorno = "";
-		for (Item item : itensOrdenados) {
-			retorno += item.toString()+"|";
-		}
-		return retorno;
-	}
-
-	/**
-	 * 
-	 * @return Retorna em String todos os Itens cadastrado em ordem de maior
-	 *         Valor.
-	 */
-
-	public String listarItensOrdenadosPorValor() {	
-		
-		ArrayList<Item> itensOrdenados = new ArrayList<>();
-		Set keys  = usuarios.keySet();
-		for(Object key : keys) { 
-			for(Object nomeItem : usuarios.get(key).getItens()) {
-				itensOrdenados.add(usuarios.get(key).getItem((String) nomeItem));
-			}	
-		}
-		
-		Collections.sort(itensOrdenados, new ValorComparator());
-		String retorno = "";
-		for (Item item : itensOrdenados) {
-			retorno += item.toString()+"|";
-		}
-		return retorno;	
-	}
-
-	/**
-	 * @param Item
-	 *            Parametro que recebe o nome de um Item.
-	 * @param Usuario
-	 *            Parametro que recebe o nome de um Usuario que Possui esse
-	 *            Item.
-	 * @param Usuario
-	 *            Parametro que recebe o numero de um USuario que Possui esse
-	 *            Item.
-	 * @return Retorna em String um determinado Item de forma detalhada. 
-	 */
-
-	public String pesquisarDetalhesItem(String item, String nome, String telefone) {
-
-		Validador.validaPesquisaItem(item, nome, telefone);
-		
-		NomeETelefone usuario = new NomeETelefone(nome, telefone);
-		
-		if(!this.usuarios.containsKey(usuario)) {
-			throw new NullPointerException("Usuario invalido");
-		}
-		
-		return this.usuarios.get(usuario).getItem(item).toString();
-						
-		}	
 	
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor, String item, String dataEmprestimo) {
 		
