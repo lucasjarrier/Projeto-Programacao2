@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="projeto/src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry exported="true" kind="lib" path="C:/Users/GamerS/Downloads/easyaccept.jar"/>
+	<classpathentry kind="lib" path="/home/higorrfa/Downloads/EasyAcceptLab-master/EasyAcceptLab/lib/easyaccept.jar"/>
 	<classpathentry kind="output" path="projeto/bin"/>
 </classpath>

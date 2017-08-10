@@ -88,12 +88,14 @@ public class Usuario {
 		return true;
 	}
 
-	public void adicionaFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano) throws Exception {
+	public void adicionaFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano)
+			throws Exception {
 		BluRayFilme filme = new BluRayFilme(nome, valor, duracao, classificacao, genero, ano);
 		itens.add(filme);
 	}
-	
-	public void adicionaShow(String nome, double valor, int duracao, String classificacao, String artista, int faixas) throws Exception {
+
+	public void adicionaShow(String nome, double valor, int duracao, String classificacao, String artista, int faixas)
+			throws Exception {
 		BluRayShow show = new BluRayShow(nome, valor, duracao, classificacao, artista, faixas);
 		itens.add(show);
 	}
@@ -103,17 +105,27 @@ public class Usuario {
 		BluRaySerie serie = new BluRaySerie(nome, valor, duracao, classificacao, descricao, genero, temporada);
 		itens.add(serie);
 	}
-	
+
 	public void adicionaEletronico(String nome, double valor, String plataforma) throws Exception {
 		JogoEletronico jogo = new JogoEletronico(nome, valor, plataforma);
 		itens.add(jogo);
 	}
-	
+
 	public void adicionaTabuleiro(String nome, double valor) throws Exception {
 		JogoDeTabuleiro jogo = new JogoDeTabuleiro(nome, valor);
 		itens.add(jogo);
 	}
-	
+
+	public void adicionaBluRay(String nomeBlurayTemporada, int duracao) {
+		Item item = getItem(nomeBlurayTemporada);
+		if (item instanceof BluRaySerie) {
+			BluRaySerie serie = (BluRaySerie) item;
+			serie.adicionaEpisodio(duracao);
+
+		}
+
+	}
+
 	public Item getItem(String nomeItem) {
 		for (Item item : itens) {
 			if (item.getNome().equals(nomeItem)) {
@@ -122,7 +134,7 @@ public class Usuario {
 		}
 		throw new IllegalArgumentException("Item nao encontrado");
 	}
-	
+
 	public void adicionaPecaPerdida(String nomeItem, String nomePeca) throws Exception {
 		Item item = getItem(nomeItem);
 		if (item instanceof JogoDeTabuleiro) {
@@ -130,12 +142,12 @@ public class Usuario {
 			jogo.adicionaPecaPerdida(nomePeca);
 		}
 	}
-	
+
 	public void removeItem(String nomeItem) throws Exception {
 		Item item = getItem(nomeItem);
 		itens.remove(item);
 	}
-	
+
 	public String exibirItens() {
 		String representacao = "";
 
