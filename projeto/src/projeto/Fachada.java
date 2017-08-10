@@ -97,10 +97,11 @@ public class Fachada {
 	
 	/**
 	 *  METODOS DE EXIBICAO.
+	 * @throws Exception 
 	 */
 	
-	public String pesquisarDetalhesItem(String nomeItem, String nomeUsuario, String telefoneUsuario) {
-		return sistema.pesquisarDetalhesItem(nomeItem, nomeUsuario, telefoneUsuario);
+	public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
+		return sistema.pesquisarDetalhesItem(nome,telefone,item);
 	}
 	
 	public void fecharSistema() {

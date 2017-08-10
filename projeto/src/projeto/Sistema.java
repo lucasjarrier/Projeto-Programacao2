@@ -1,6 +1,7 @@
 package projeto;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
@@ -164,16 +165,18 @@ public class Sistema {
 	
   public String listarItensOrdenadosPorNome() {
 	  
-	  ArrayList<Item> itensOrdenados = new ArrayList<>();
-		Set keys  = usuarios.keySet();
-		for(Object key : keys) { 
-			for(Object nomeItem : usuarios.get(key).getItens()) {
-				itensOrdenados.add(usuarios.get(key).getItem((String) nomeItem));
-			}	
+	  ArrayList<Item> itensOrdenados = new ArrayList<Item>();
+		Collection<Usuario> valor  = usuarios.values();
+		
+		for(Usuario usuario : valor ) {
+			for(int i = 0; i < usuario.getItens().size(); i++) {
+				itensOrdenados.add(usuario.getItens().get(i));
+			}
 		}
 		
 		Collections.sort(itensOrdenados, new NomeComparator());
 		String retorno = "";
+		
 		for (Item item : itensOrdenados) {
 			retorno += item.toString()+"|";
 		}
@@ -188,20 +191,22 @@ public class Sistema {
 
 	public String listarItensOrdenadosPorValor() {	
 		
-		ArrayList<Item> itensOrdenados = new ArrayList<>();
-		Set keys  = usuarios.keySet();
-		for(Object key : keys) { 
-			for(Object nomeItem : usuarios.get(key).getItens()) {
-				itensOrdenados.add(usuarios.get(key).getItem((String) nomeItem));
-			}	
+		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
+		Collection<Usuario> valor  = usuarios.values();
+		
+		for(Usuario usuario : valor ) {
+			for(int i = 0; i < usuario.getItens().size(); i++) {
+				itensOrdenados.add(usuario.getItens().get(i));
+			}
 		}
 		
 		Collections.sort(itensOrdenados, new ValorComparator());
 		String retorno = "";
+		
 		for (Item item : itensOrdenados) {
 			retorno += item.toString()+"|";
 		}
-		return retorno;	
+		return retorno;
 	}
 
 	/**
@@ -216,9 +221,9 @@ public class Sistema {
 	 * @return Retorna em String um determinado Item de forma detalhada. 
 	 */
 
-	public String pesquisarDetalhesItem(String item, String nome, String telefone) {
+	public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
 
-		Validador.validaPesquisaItem(item, nome, telefone);
+		//Validador.validaPesquisaItem(item, nome, telefone);
 		
 		NomeETelefone usuario = new NomeETelefone(nome, telefone);
 		
