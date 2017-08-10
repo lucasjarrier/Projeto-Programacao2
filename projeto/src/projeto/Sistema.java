@@ -4,12 +4,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.Set;
-
-import Usuario.UsuarioID;
-import Usuario.Usuario;
-import item.EstadoItem;
 import item.Item;
+import usuario.Usuario;
+import usuario.UsuarioID;
 
 public class Sistema {
 

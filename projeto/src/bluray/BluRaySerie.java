@@ -8,7 +8,7 @@ public class BluRaySerie extends BluRay {
 	private String descricao;
 	private String genero;
 	private int temporada;
-	private List<Integer> episodios;
+	private List<Episodio> episodios;
 	
 	public BluRaySerie(String nome, double valor, int duracao, String classificacao, String descricao,
 			String genero, int temporada) throws Exception {
@@ -66,7 +66,8 @@ public class BluRaySerie extends BluRay {
 	}
 	
 	public void adicionaEpisodio(int duracao) {
-		this.episodios.add(duracao);
+		Episodio episodio = new Episodio(duracao);
+		this.episodios.add(episodio);
 	}
 	
 
