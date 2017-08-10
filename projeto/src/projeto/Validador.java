@@ -2,8 +2,7 @@ package projeto;
 
 public class Validador {
 
-	public static void validaUsuario(String nome, String email, String telefone)
-			throws IllegalArgumentException {
+	public static void validaUsuario(String nome, String email, String telefone) throws IllegalArgumentException {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
@@ -12,11 +11,11 @@ public class Validador {
 		}
 		if (telefone == null || telefone.trim().isEmpty()) {
 			throw new IllegalArgumentException("Usuario invalido");
-		}
+		} 
+		
 	}
 
-	public static void validaRemover(String nome, String telefone)
-			throws IllegalArgumentException {
+	public static void validaRemover(String nome, String telefone) throws IllegalArgumentException {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
@@ -25,8 +24,8 @@ public class Validador {
 		}
 	}
 
-	public static void validaAtualizar(String nome, String telefone,
-			String valor, String atributo) throws IllegalArgumentException {
+	public static void validaAtualizar(String nome, String telefone, String valor, String atributo)
+			throws IllegalArgumentException {
 		if (nome.equals(null) || nome.trim().equals("")) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
@@ -41,8 +40,8 @@ public class Validador {
 		}
 	}
 
-	public static void validaInfoUsuario(String nome, String telefone,
-			String atributo) throws IllegalArgumentException {
+	public static void validaInfoUsuario(String nome, String telefone, String atributo)
+			throws IllegalArgumentException {
 		if (nome == null || nome.trim().isEmpty()) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
@@ -53,8 +52,23 @@ public class Validador {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
 	}
-	
+
 	public static void validaBluray() {
+
+	}
+
+	public static void validaPesquisaItem(String nomeItem, String nomeUsuario, String telefoneUsuario) {
+		if (nomeUsuario == null || nomeUsuario.trim().isEmpty()) {
+			throw new IllegalArgumentException("Usuario invalido");
+		}	
+		if(telefoneUsuario == null || telefoneUsuario.trim().isEmpty()) {
+			throw new IllegalArgumentException("Usuario invalido");
+		}
+		if(nomeItem == null || nomeItem.trim().isEmpty()) {
+			throw new IllegalArgumentException("Item invalido");
+		}
+	}
+	public static void validaTabuleiro(String nome, String telefone, String nomeItem, double preco) {
 		
 	}
 	

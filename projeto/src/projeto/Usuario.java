@@ -17,9 +17,7 @@ public class Usuario {
 	private String telefone;
 	private ArrayList<Item> itens;
 
-	private final String LN = System.lineSeparator();
-
-	public Usuario(String nome, String email, String telefone) {
+	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
@@ -39,7 +37,7 @@ public class Usuario {
 		return email;
 	}
 
-	public String getNumero() {
+	public String getTelefone() {
 		return telefone;
 	}
 
@@ -122,7 +120,7 @@ public class Usuario {
 				return item;
 			}
 		}
-		throw new NullPointerException("Item nao encontrado");
+		throw new IllegalArgumentException("Item nao encontrado");
 	}
 	
 	public void adicionaPecaPerdida(String nomeItem, String nomePeca) throws Exception {
@@ -142,7 +140,7 @@ public class Usuario {
 		String representacao = "";
 
 		for (Item item : this.itens) {
-			representacao += item.toString() + LN;
+			representacao += item.toString();
 		}
 
 		return representacao;

@@ -2,117 +2,128 @@ package projeto;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import item.EstadoItem;
 import item.Item;
 
 public class Sistema {
 
-	private ArrayList<Usuario> usuarios;
-	private ArrayList<Item> todosItens;
+	private HashMap<NomeETelefone, Usuario> usuarios;
 
 	public Sistema() {
-		this.usuarios = new ArrayList<Usuario>();
-		this.todosItens = new ArrayList<Item>();
+		this.usuarios = new HashMap<NomeETelefone, Usuario>();
 	}
 
-	public Usuario getUsuario(int usuario) {
-		return this.usuarios.get(usuario - 1);
-	}
-	
-  public String getInfoUsuario(String nome, String telefone, String atributo) {
-		Validador.validaInfoUsuario(nome, telefone, atributo);
-
-		String retorno = "";
-		for (Usuario usuario : this.usuarios) {
-			if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
-				if (atributo.toLowerCase().equals("nome")) {
-					retorno += nome;
-				} else if (atributo.toLowerCase().equals("telefone")) {
-					retorno += telefone;
-				} else if (atributo.toLowerCase().equals("email")) {
-					retorno += usuario.getEmail();
-				}
-			}
-		}
-
-		return retorno;
-	}
-
-	public void cadastraUsuario(String nome, String email, String telefone) {
+	public void cadastrarUsuario(String nome, String telefone, String email) {
 		Validador.validaUsuario(nome, email, telefone);
 
-		Usuario novoUsuario = new Usuario(nome, email, telefone);
-		if (usuarios.contains(novoUsuario)) {
+		if (this.usuarios.containsKey(new NomeETelefone(nome, telefone))) {
 			throw new IllegalArgumentException("Usuario ja cadastrado");
-		} else {
-			this.usuarios.add(novoUsuario);
 		}
+
+		this.usuarios.put((new NomeETelefone(nome, telefone)), new Usuario(nome, telefone, email));
 	}
 
-	public String exibeUsuario(int usuario) {
+	public void removerUsuario(String nome, String telefone) {
+		Validador.validaRemover(nome, telefone);
 
-		return this.getUsuario(usuario).toString();
+		NomeETelefone NomeETelefone = new NomeETelefone(nome, telefone);
+		if (usuarios.containsKey(NomeETelefone)) {
+			this.usuarios.remove(NomeETelefone);
+		} else {
+			throw new IllegalArgumentException("Usuario invalido");
+		}
+
 	}
 
-	public void atualizarUsuario(String nome, String email, String telefone, String atributo, String valor) {
+	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		Validador.validaAtualizar(nome, telefone, valor, atributo);
 
-		for (Usuario usuario : usuarios) {
-			if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
-				if (atributo.toLowerCase().equals("nome")) {
-					usuario.setNome(valor);
-				} else if (atributo.toLowerCase().equals("email")) {
-					usuario.setEmail(valor);
-				} else if (atributo.toLowerCase().equals("telefone")) {
-					usuario.setTelefone(valor);
-				}
-			}
+		NomeETelefone usuario = new NomeETelefone(nome, telefone);
+
+		if (!usuarios.containsKey(usuario)) {
+			throw new IllegalArgumentException("Usuario invalido");
+		}
+
+		if (atributo.equals("Nome")) {
+			this.usuarios.put(new NomeETelefone(valor, telefone),
+					new Usuario(valor, telefone, this.usuarios.get(usuario).getEmail()));
+			usuarios.remove(usuario);
+		} else if (atributo.equals("Telefone")) {
+			this.usuarios.put(new NomeETelefone(nome, valor),
+					new Usuario(nome, valor, this.usuarios.get(usuario).getEmail()));
+			usuarios.remove(usuario);
+		} else if (atributo.equals("Email")) {
+			this.usuarios.get(usuario).setEmail(valor);
 		}
 	}
 
+	public String getInfoUsuario(String nome, String telefone, String atributo) {
+		NomeETelefone usuario = new NomeETelefone(nome, telefone);
+		String info = "";
 
-	public void removerUsuario(String nome, String telefone) throws Exception {
-		Validador.validaRemover(nome, telefone);
-		
-			for (Usuario usuario : usuarios) {
-				if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
-					this.usuarios.remove(usuario);
-				}
-			}
+		if (!usuarios.containsKey(usuario)) {
+			throw new IllegalArgumentException("Usuario invalido");
+		}
+
+		if (atributo.equals("Nome")) {
+			info = usuarios.get(usuario).getNome();
+		} else if (atributo.equals("Telefone")) {
+			info = usuarios.get(usuario).getEmail();
+		} else if (atributo.equals("Email")) {
+			info = usuarios.get(usuario).getEmail();
+		}
+
+		return info;
+
 	}
 
 	private Usuario getUsuario(String nome, String telefone) throws Exception {
-		for (Usuario usuario : usuarios) {
-			if (usuario.getNome().equals(nome) && usuario.getNumero().equals(telefone)) {
-				return usuario;
-			}
+		NomeETelefone usuario = new NomeETelefone(nome, telefone);
+		if (!usuarios.containsKey(usuario)) {
+			throw new IllegalArgumentException("Usuario invalido");
 		}
-		throw new IllegalArgumentException("Usuario invalido");
-		
+		return usuarios.get(usuario);
 	}
+		
 	public void cadastraFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
 			String genero, String classificacao, int ano) throws Exception {
+		if (preco <= 0) {
+			throw new IllegalArgumentException("Preco invalido");
+		}
 		getUsuario(nomeUsuario, telefone).adicionaFilme(nomeItem, preco, duracao, classificacao, genero, ano);
 	}
 	
 	
 	public void cadastraSerie(String nomeUsuario, String telefone, String nomeItem, double preco, String descricao, int duracao,
 			String genero, String classificacao, int temporada) throws Exception {
+		if (preco <= 0) {
+			throw new IllegalArgumentException("Preco invalido");
+		}
 		getUsuario(nomeUsuario, telefone).adicionaSerie(nomeItem, preco, duracao, classificacao, descricao, genero, temporada);	
 	}
 	
 	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao, int faixas,
 			String artista, String classificacao) throws Exception {
+		if (preco <= 0) {
+			throw new IllegalArgumentException("Preco invalido");
+		}
 		getUsuario(nomeUsuario, telefone).adicionaShow(nomeItem, preco, duracao, classificacao, artista, faixas);
 	}
 
 	public void cadastraEletronico(String nomeUsuario, String telefone, String nomeItem, 
 			double preco, String plataforma) throws Exception {
+		if (preco <= 0) {
+			throw new IllegalArgumentException("Preco invalido");
+		}
 		getUsuario(nomeUsuario, telefone).adicionaEletronico(nomeItem, preco, plataforma);
 	}
 	
 	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco) throws Exception {
+		if (preco <= 0) {
+			throw new IllegalArgumentException("Preco invalido");
+		}
 		getUsuario(nomeUsuario, telefone).adicionaTabuleiro(nomeItem, preco);
 	}
 	
@@ -121,17 +132,17 @@ public class Sistema {
 	}
 	
 	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
-		Usuario usuario = getUsuario(nomeUsuario, telefone);
-		if (atributo.toLowerCase().equals("preco")) {
-			return Double.toString(usuario.getItem(nomeItem).getValor());
-		} else if (atributo.toLowerCase().equals("nome")) {
-			return usuario.getItem(nomeItem).getNome();
+		NomeETelefone usuario = new NomeETelefone(nomeUsuario, telefone);
+		String info = "";
+		if (!usuarios.containsKey(usuario)) {
+			throw new IllegalArgumentException("Usuario invalido");
 		}
-		throw new IllegalArgumentException("Item nao encontrado");
-	}
-	
-	public String exibeItens(int usuario) {
-		return this.getUsuario(usuario).exibirItens();
+		if (atributo.equals("Preco")) {
+			info += usuarios.get(usuario).getItem(nomeItem).getValor();
+		} else if (atributo.equals("Nome")) {
+			info += usuarios.get(usuario).getItem(nomeItem).getNome();
+		}
+		return info;
 	}
 
 	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor) throws Exception {
@@ -212,7 +223,7 @@ public class Sistema {
 			if (usuarios.get(i).getNome().equals(nomeUsuario)) {
 				contemNome = true;
 			}
-			if (usuarios.get(i).getNumero().equals(numeroUsuario)) {
+			if (usuarios.get(i).getTelefone().equals(numeroUsuario)) {
 				contemNumero = true;
 			}
 			if (contemNome == true && contemNumero == true) {

@@ -56,13 +56,10 @@ public class BluRaySerie extends BluRay {
 	
 	@Override
 	public String toString() {
-		return "Serie: " + nome + System.lineSeparator() 
-		+ "Duracao: " + this.getDuracao() + System.lineSeparator()
-		+ "Classificacao: " + this.getClassificacao() + System.lineSeparator()
-		+ "Genero: " + this.genero + System.lineSeparator()
-		+ "Temporada: " + this.temporada + System.lineSeparator()
-		+ "Valor: R$ " + this.valor;
+		return "SERIE: " + this.nome + ", R$ " + this.valor + ", " + this.estado.getSituacao() + ", " +
+			this.getDuracao() + "min, " + this.getClassificacao() + ", " + this.genero + ", Temporada" + this.temporada;
 	}
+	
 
 	
 }

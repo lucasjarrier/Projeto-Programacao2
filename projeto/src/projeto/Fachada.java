@@ -5,16 +5,20 @@ import item.EstadoItem;
 
 public class Fachada {
 
+	private Sistema sistema;
+	
+	public Fachada() {
+		this.sistema = new Sistema();
+	}
+	
 	public static void main(String[] args) {
 		args = new String[] {"projeto.Fachada", "projeto/acceptance_test/us1_test.txt", "projeto/acceptance_test/us2_test.txt",
 				"projeto/acceptance_test/us3_test.txt", "projeto/acceptance_test/us4_test.txt"};
-	    EasyAccept.main(args);
-		
+	    EasyAccept.main(args);	
 	}
-	private Sistema sistema;
-	
+
 	public void iniciarSistema() throws Exception {
-		this.sistema = new Sistema();
+		
 	}
 	
 	/**
@@ -22,7 +26,7 @@ public class Fachada {
 	 */
 	
 	public void cadastrarUsuario(String nome, String email, String telefone) throws Exception {
-		sistema.cadastraUsuario(nome,email,telefone);
+		sistema.cadastrarUsuario(nome,email,telefone);
 	}
 	
 	public void cadastrarBluRayFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
@@ -53,11 +57,11 @@ public class Fachada {
 	 * METODOS DE MANIPULA��O.
 	 */
 
-	public void getInfoUsuario(String nome, String telefone, String atributo) throws Exception {
-		sistema.getInfoUsuario(nome, telefone, atributo);
+	public String getInfoUsuario(String nome, String telefone, String atributo) throws Exception {
+		return sistema.getInfoUsuario(nome, telefone, atributo);
 	}
-	public void atualizarUsuario(String nome, String telefone, String email, String atributo, String valor) throws Exception {
-		sistema.atualizarUsuario(nome, telefone, email, atributo, valor);
+	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) throws Exception {
+		sistema.atualizarUsuario(nome, telefone, atributo, valor);
 	}
 	
 	public void removerUsuario(String nome, String numero) throws Exception {
@@ -76,8 +80,8 @@ public class Fachada {
 		sistema.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
 	
-	public void getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
-		sistema.getInfoItem(nomeUsuario, telefone, nomeItem, atributo);
+	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
+		return sistema.getInfoItem(nomeUsuario, telefone, nomeItem, atributo);
 	}
 	
 	/**
@@ -97,5 +101,9 @@ public class Fachada {
 	
 	public String pesquisarDetalhesItem(String nomeItem, String nomeUsuario, String numeroUsuario) {
 		return sistema.pesquisarDetalhesItem(nomeItem, nomeUsuario, numeroUsuario);
+	}
+	
+	public void fecharSistema() {
+		
 	}
 }
