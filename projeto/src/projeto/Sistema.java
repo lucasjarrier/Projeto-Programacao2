@@ -5,31 +5,34 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Set;
+
+import Usuario.UsuarioID;
+import Usuario.Usuario;
 import item.EstadoItem;
 import item.Item;
 
 public class Sistema {
 
-	private HashMap<NomeETelefone, Usuario> usuarios;
+	private HashMap<UsuarioID, Usuario> usuarios;
 
 	public Sistema() {
-		this.usuarios = new HashMap<NomeETelefone, Usuario>();
+		this.usuarios = new HashMap<UsuarioID, Usuario>();
 	}
 
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		Validador.validaUsuario(nome, email, telefone);
 
-		if (this.usuarios.containsKey(new NomeETelefone(nome, telefone))) {
+		if (this.usuarios.containsKey(new UsuarioID(nome, telefone))) {
 			throw new IllegalArgumentException("Usuario ja cadastrado");
 		}
 
-		this.usuarios.put((new NomeETelefone(nome, telefone)), new Usuario(nome, telefone, email));
+		this.usuarios.put((new UsuarioID(nome, telefone)), new Usuario(nome, telefone, email));
 	}
 
 	public void removerUsuario(String nome, String telefone) {
 		Validador.validaRemover(nome, telefone);
 
-		NomeETelefone NomeETelefone = new NomeETelefone(nome, telefone);
+		UsuarioID NomeETelefone = new UsuarioID(nome, telefone);
 		if (usuarios.containsKey(NomeETelefone)) {
 			this.usuarios.remove(NomeETelefone);
 		} else {
@@ -41,18 +44,18 @@ public class Sistema {
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		Validador.validaAtualizar(nome, telefone, valor, atributo);
 
-		NomeETelefone usuario = new NomeETelefone(nome, telefone);
+		UsuarioID usuario = new UsuarioID(nome, telefone);
 
 		if (!usuarios.containsKey(usuario)) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
 
 		if (atributo.equals("Nome")) {
-			this.usuarios.put(new NomeETelefone(valor, telefone),
+			this.usuarios.put(new UsuarioID(valor, telefone),
 					new Usuario(valor, telefone, this.usuarios.get(usuario).getEmail()));
 			usuarios.remove(usuario);
 		} else if (atributo.equals("Telefone")) {
-			this.usuarios.put(new NomeETelefone(nome, valor),
+			this.usuarios.put(new UsuarioID(nome, valor),
 					new Usuario(nome, valor, this.usuarios.get(usuario).getEmail()));
 			usuarios.remove(usuario);
 		} else if (atributo.equals("Email")) {
@@ -61,7 +64,7 @@ public class Sistema {
 	}
 
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
-		NomeETelefone usuario = new NomeETelefone(nome, telefone);
+		UsuarioID usuario = new UsuarioID(nome, telefone);
 		String info = "";
 
 		if (!usuarios.containsKey(usuario)) {
@@ -81,7 +84,7 @@ public class Sistema {
 	}
 
 	private Usuario getUsuario(String nome, String telefone) throws Exception {
-		NomeETelefone usuario = new NomeETelefone(nome, telefone);
+		UsuarioID usuario = new UsuarioID(nome, telefone);
 		if (!usuarios.containsKey(usuario)) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
@@ -137,7 +140,7 @@ public class Sistema {
 	}
 	
 	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
-		NomeETelefone usuario = new NomeETelefone(nomeUsuario, telefone);
+		UsuarioID usuario = new UsuarioID(nomeUsuario, telefone);
 		String info = "";
 		if (!usuarios.containsKey(usuario)) {
 			throw new IllegalArgumentException("Usuario invalido");
@@ -226,7 +229,7 @@ public class Sistema {
 
 		public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
 			
-			NomeETelefone usuario = new NomeETelefone(nome, telefone);
+			UsuarioID usuario = new UsuarioID(nome, telefone);
 			
 			if(!this.usuarios.containsKey(usuario)) {
 				throw new NullPointerException("Usuario invalido");
@@ -237,8 +240,8 @@ public class Sistema {
 	
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor, String item, String dataEmprestimo) {
 		
-		NomeETelefone usuarioDono = new NomeETelefone(nomeDono, telefoneDono);
-		NomeETelefone usuarioReceptor = new NomeETelefone(nomeReceptor, telefoneReceptor);
+		UsuarioID usuarioDono = new UsuarioID(nomeDono, telefoneDono);
+		UsuarioID usuarioReceptor = new UsuarioID(nomeReceptor, telefoneReceptor);
 		
 		if (!usuarios.containsKey(usuarioDono) || !usuarios.containsKey(usuarioReceptor)){        // TRATAR ERROS NA CLASSE VALIDADOR
 			throw new NullPointerException("Usuario invalido");
@@ -249,8 +252,8 @@ public class Sistema {
 	
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor, String item, String dataEmprestimo, String dataDevolucao) {
 		
-		NomeETelefone usuarioDono = new NomeETelefone(nomeDono, telefoneDono);
-		NomeETelefone usuarioReceptor = new NomeETelefone(nomeReceptor, telefoneReceptor);
+		UsuarioID usuarioDono = new UsuarioID(nomeDono, telefoneDono);
+		UsuarioID usuarioReceptor = new UsuarioID(nomeReceptor, telefoneReceptor);
 		
 		if (!usuarios.containsKey(usuarioDono) || !usuarios.containsKey(usuarioReceptor)){        // TRATAR ERROS NA CLASSE VALIDADOR
 			throw new NullPointerException("Usuario invalido");
