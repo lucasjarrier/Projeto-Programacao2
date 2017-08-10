@@ -58,6 +58,7 @@ public class Validador {
 	}
 
 	public static void validaPesquisaItem(String nomeItem, String nomeUsuario, String telefoneUsuario) {
+		
 		if (nomeUsuario == null || nomeUsuario.trim().isEmpty()) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}	

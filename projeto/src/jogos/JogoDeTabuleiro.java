@@ -14,21 +14,16 @@ public class JogoDeTabuleiro extends Item {
 	public JogoDeTabuleiro(String nome, double valor) throws Exception {
 		super(nome, valor);
 		this.pecas = new ArrayList<String>();
-		if (pecas.size() == 0) {
-			this.completo = true;
-			this.estadoJogo = Pecas.COMPLETO;
-		} else {
-			this.completo = false;
-			this.estadoJogo = Pecas.INCOMPLETO;
-		}
+		this.estadoJogo = Pecas.COMPLETO;
 	}
 
 	public void adicionaPecaPerdida(String peca) {
 		pecas.add(peca);
+		this.estadoJogo = Pecas.INCOMPLETO;
 	}
 
 	@Override
 	public String toString() {
-		return "JOGO DE TABULEIRO: " + this.nome + ", R$ " + this.valor + ", " + this.estado + ", " + this.estadoJogo.getEstadoJogo();
+		return "JOGO DE TABULEIRO: " + this.nome + ", R$ " + this.valor + ", " + this.estado.getSituacao() + ", " + this.estadoJogo.getEstadoJogo();
 	}
 }
