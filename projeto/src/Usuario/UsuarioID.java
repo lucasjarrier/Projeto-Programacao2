@@ -1,11 +1,11 @@
-package projeto;
+package Usuario;
 
-public class NomeETelefone {
+public class UsuarioID {
 
 	private String nome;
 	private String telefone;
 
-	public NomeETelefone(String nome, String telefone) {
+	public UsuarioID(String nome, String telefone) {
 		this.nome = nome;
 		this.telefone = telefone;
 	}
@@ -27,7 +27,7 @@ public class NomeETelefone {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		NomeETelefone other = (NomeETelefone) obj;
+		UsuarioID other = (UsuarioID) obj;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;

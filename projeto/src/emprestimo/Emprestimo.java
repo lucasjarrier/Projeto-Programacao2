@@ -1,7 +1,7 @@
 package emprestimo;
 
+import Usuario.Usuario;
 import item.Item;
-import projeto.Usuario;
 
 public class Emprestimo {
 	
