@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import bluray.BluRayFilme;
 import bluray.BluRaySerie;
 import bluray.BluRayShow;
+import emprestimo.Emprestimo;
 import item.Item;
 import jogos.JogoDeTabuleiro;
 import jogos.JogoEletronico;
@@ -16,12 +17,14 @@ public class Usuario {
 	private String email;
 	private String telefone;
 	private ArrayList<Item> itens;
+	private ArrayList<Emprestimo> emprestimos;
 
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		this.itens = new ArrayList<Item>();
+		this.emprestimos = new ArrayList<Emprestimo>();
 	}
 
 	@Override
@@ -127,7 +130,7 @@ public class Usuario {
 	}
 
 	public Item getItem(String nomeItem) {
-		for (Item item : itens) {
+		for (Item item : this.itens) {
 			if (item.getNome().equals(nomeItem)) {
 				return item;
 			}
@@ -156,6 +159,10 @@ public class Usuario {
 		}
 
 		return representacao;
+	}
+	
+	public void registraEmprestimo(Emprestimo emprestimo) {
+		this.emprestimos.add(emprestimo);
 	}
 
 }
