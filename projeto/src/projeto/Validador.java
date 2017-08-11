@@ -53,10 +53,11 @@ public class Validador {
 		}
 	}
 
-	public static void validaBluray() {
-
-	}
-
+	/**
+	 *  
+	 * Validador do metodo pesquisaItem de Sistema, retorna as exceções.
+	 */
+	
 	public static void validaPesquisaItem(String nomeItem, String nomeUsuario, String telefoneUsuario) {
 		
 		if (nomeUsuario == null || nomeUsuario.trim().isEmpty()) {

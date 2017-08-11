@@ -114,11 +114,12 @@ public class Fachada {
 	 * METODOS DE EMPRESTIMO. 
 	 */
 	
-	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReferente, String telefoneReferente, String nomeItem, String dataEmprestimo, int periodo){
-		this.sistema.registrarEmprestimo(nomeDono, telefoneDono, nomeReferente, telefoneReferente, nomeItem, dataEmprestimo);
+	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor, String item, String dataEmprestimo, int periodo) throws Exception {
+		this.sistema.registrarEmprestimo(nomeDono, telefoneDono, nomeReceptor, telefoneReceptor, item, dataEmprestimo, periodo);
+	
 	}
 	
-	public void devolverItem(String nomeDono, String telefoneDono, String nomeReferente, String telefoneReferente, String nomeItem, String dataEmprestimo, String dataDevolucao){
+	public void devolverItem(String nomeDono, String telefoneDono, String nomeReferente, String telefoneReferente, String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		this.sistema.devolverItem(nomeDono, telefoneDono, nomeReferente, telefoneReferente, nomeItem, dataEmprestimo, dataDevolucao);
 	}
 }
