@@ -87,7 +87,7 @@ public class Sistema {
 		}
 		return usuarios.get(usuario);
 	}
-		
+
 	public void cadastraFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
 			String genero, String classificacao, int ano) throws Exception {
 		if (preco <= 0) {
@@ -95,47 +95,49 @@ public class Sistema {
 		}
 		getUsuario(nomeUsuario, telefone).adicionaFilme(nomeItem, preco, duracao, classificacao, genero, ano);
 	}
-	
-	
-	public void cadastraSerie(String nomeUsuario, String telefone, String nomeItem, double preco, String descricao, int duracao,
-			String genero, String classificacao, int temporada) throws Exception {
+
+	public void cadastraSerie(String nomeUsuario, String telefone, String nomeItem, double preco, String descricao,
+			int duracao, String genero, String classificacao, int temporada) throws Exception {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
-		getUsuario(nomeUsuario, telefone).adicionaSerie(nomeItem, preco, duracao, classificacao, descricao, genero, temporada);	
+		getUsuario(nomeUsuario, telefone).adicionaSerie(nomeItem, preco, duracao, classificacao, descricao, genero,
+				temporada);
 	}
-	
-	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao, int faixas,
-			String artista, String classificacao) throws Exception {
+
+	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
+			int faixas, String artista, String classificacao) throws Exception {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaShow(nomeItem, preco, duracao, classificacao, artista, faixas);
 	}
 
-	public void cadastraEletronico(String nomeUsuario, String telefone, String nomeItem, 
-			double preco, String plataforma) throws Exception {
+	public void cadastraEletronico(String nomeUsuario, String telefone, String nomeItem, double preco,
+			String plataforma) throws Exception {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaEletronico(nomeItem, preco, plataforma);
 	}
-	
-	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco) throws Exception {
+
+	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco)
+			throws Exception {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaTabuleiro(nomeItem, preco);
 	}
-	
-	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao) throws Exception {
+
+	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao)
+			throws Exception {
 		getUsuario(nomeUsuario, telefone).adicionaBluRay(nomeBlurayTemporada, duracao);
 	}
-	
+
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
 		getUsuario(nome, telefone).adicionaPecaPerdida(nomeItem, nomePeca);
 	}
-	
+
 	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
 		UsuarioID usuario = new UsuarioID(nomeUsuario, telefone);
 		String info = "";
@@ -148,11 +150,11 @@ public class Sistema {
 			info += usuarios.get(usuario).getItem(nomeItem).getNome();
 		}
 		return info;
-		
 
 	}
 
-	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor) throws Exception {
+	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor)
+			throws Exception {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
 		if (atributo.toLowerCase().equals("preco")) {
 			usuario.getItem(nomeItem).setValor(Double.parseDouble(valor));
@@ -165,97 +167,111 @@ public class Sistema {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
 		usuario.removeItem(nomeItem);
 	}
-	
+
+	/**
+	 * 
+	 * @return Retorna em String todos os Itens cadastrado em ordem alfabetica.
+	 */
+
 	public String listarItensOrdenadosPorNome() {
-		  
-		  ArrayList<Item> itensOrdenados = new ArrayList<Item>();
-			Collection<Usuario> valor  = usuarios.values();
-			
-			for(Usuario usuario : valor ) {
-				for(int i = 0; i < usuario.getItens().size(); i++) {
-					itensOrdenados.add(usuario.getItens().get(i));
-				}
+
+		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
+		Collection<Usuario> valor = usuarios.values();
+
+		for (Usuario usuario : valor) {
+			for (int i = 0; i < usuario.getItens().size(); i++) {
+				itensOrdenados.add(usuario.getItens().get(i));
 			}
-			
-			Collections.sort(itensOrdenados, new NomeComparator());
-			String retorno = "";
-			
-			for (Item item : itensOrdenados) {
-				retorno += item.toString()+"|";
-			}
-			return retorno;
 		}
 
-		/**
-		 * 
-		 * @return Retorna em String todos os Itens cadastrado em ordem de maior
-		 *         Valor.
-		 */
+		Collections.sort(itensOrdenados, new NomeComparator());
+		String retorno = "";
 
-		public String listarItensOrdenadosPorValor() {	
-			
-			ArrayList<Item> itensOrdenados = new ArrayList<Item>();
-			Collection<Usuario> valor  = usuarios.values();
-			
-			for(Usuario usuario : valor ) {
-				for(int i = 0; i < usuario.getItens().size(); i++) {
-					itensOrdenados.add(usuario.getItens().get(i));
-				}
+		for (Item item : itensOrdenados) {
+			retorno += item.toString() + "|";
+		}
+		return retorno;
+	}
+
+	/**
+	 * 
+	 * @return Retorna em String todos os Itens cadastrado em ordem de maior
+	 *         Valor.
+	 */
+
+	public String listarItensOrdenadosPorValor() {
+
+		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
+		Collection<Usuario> valor = usuarios.values();
+
+		for (Usuario usuario : valor) {
+			for (int i = 0; i < usuario.getItens().size(); i++) {
+				itensOrdenados.add(usuario.getItens().get(i));
 			}
-			
-			Collections.sort(itensOrdenados, new ValorComparator());
-			String retorno = "";
-			
-			for (Item item : itensOrdenados) {
-				retorno += item.toString()+"|";
-			}
-			return retorno;
 		}
 
-		/**
-		 * @param Item
-		 *            Parametro que recebe o nome de um Item.
-		 * @param Usuario
-		 *            Parametro que recebe o nome de um Usuario que Possui esse
-		 *            Item.
-		 * @param Usuario
-		 *            Parametro que recebe o numero de um USuario que Possui esse
-		 *            Item.
-		 * @return Retorna em String um determinado Item de forma detalhada. 
-		 */
+		Collections.sort(itensOrdenados, new ValorComparator());
+		String retorno = "";
 
-		public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
-			
-			UsuarioID usuario = new UsuarioID(nome, telefone);
-			
-			if(!this.usuarios.containsKey(usuario)) {
-				throw new NullPointerException("Usuario invalido");
-			}
-			
-			return this.usuarios.get(usuario).getItem(item).toString();				
-			}	
-	
-	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor, String item, String dataEmprestimo) {
-		
-		UsuarioID usuarioDono = new UsuarioID(nomeDono, telefoneDono);
-		UsuarioID usuarioReceptor = new UsuarioID(nomeReceptor, telefoneReceptor);
-		
-		if (!usuarios.containsKey(usuarioDono) || !usuarios.containsKey(usuarioReceptor)){        // TRATAR ERROS NA CLASSE VALIDADOR
+		for (Item item : itensOrdenados) {
+			retorno += item.toString() + "|";
+		}
+		return retorno;
+	}
+
+	/**
+	 * @param Nome
+	 *            Parametro que recebe o nome de um Usuario.
+	 * @param telefone
+	 *            Parametro que recebe o telefone de um Usuario que Possui esse
+	 *            Item.
+	 * @param item
+	 *            Parametro que recebe o nome de um item desse usuario.
+	 * @return Retorna em String um determinado Item de forma detalhada.
+	 */
+
+	public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
+
+		UsuarioID usuario = new UsuarioID(nome, telefone);
+
+		if (!this.usuarios.containsKey(usuario)) {
 			throw new NullPointerException("Usuario invalido");
 		}
-		
+
+		return this.usuarios.get(usuario).getItem(item).toString();
+	}
+
+	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
+			String item, String dataEmprestimo) {
+
+		UsuarioID usuarioDono = new UsuarioID(nomeDono, telefoneDono);
+		UsuarioID usuarioReceptor = new UsuarioID(nomeReceptor, telefoneReceptor);
+
+		if (!usuarios.containsKey(usuarioDono) || !usuarios.containsKey(usuarioReceptor)) { // TRATAR
+																							// ERROS
+																							// NA
+																							// CLASSE
+																							// VALIDADOR
+			throw new NullPointerException("Usuario invalido");
+		}
+
 		// TERMINAR O CODIGO...
 	}
-	
-	public void devolverItem(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor, String item, String dataEmprestimo, String dataDevolucao) {
-		
+
+	public void devolverItem(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
+			String item, String dataEmprestimo, String dataDevolucao) {
+
 		UsuarioID usuarioDono = new UsuarioID(nomeDono, telefoneDono);
 		UsuarioID usuarioReceptor = new UsuarioID(nomeReceptor, telefoneReceptor);
-		
-		if (!usuarios.containsKey(usuarioDono) || !usuarios.containsKey(usuarioReceptor)){        // TRATAR ERROS NA CLASSE VALIDADOR
+
+		if (!usuarios.containsKey(usuarioDono) || !usuarios.containsKey(usuarioReceptor)) { // TRATAR
+																							// ERROS
+																							// NA
+																							// CLASSE
+																							// VALIDADOR
 			throw new NullPointerException("Usuario invalido");
 		}
-		
+
 		// TERMINAR O CODIGO...
 	}
 }
