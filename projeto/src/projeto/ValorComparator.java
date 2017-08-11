@@ -1,6 +1,10 @@
 
 package projeto;
 
+/**
+ *  Classe comparator, ela 
+ */
+
 import java.util.Comparator;
 
 import item.Item;

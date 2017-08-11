@@ -4,16 +4,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.Map;
+
+import emprestimo.Emprestimo;
+import emprestimo.EmprestimoID;
+import item.EstadoItem;
 import item.Item;
 import usuario.Usuario;
 import usuario.UsuarioID;
 
 public class Sistema {
 
-	private HashMap<UsuarioID, Usuario> usuarios;
+	private Map<UsuarioID, Usuario> usuarios;
+	private Map<EmprestimoID, Emprestimo> emprestimos;
 
 	public Sistema() {
 		this.usuarios = new HashMap<UsuarioID, Usuario>();
+		this.emprestimos = new HashMap<EmprestimoID, Emprestimo>();
 	}
 
 	public void cadastrarUsuario(String nome, String telefone, String email) {
@@ -85,7 +92,7 @@ public class Sistema {
 		if (!usuarios.containsKey(usuario)) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
-		return usuarios.get(usuario);
+		return this.usuarios.get(usuario);
 	}
 
 	public void cadastraFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
@@ -168,11 +175,6 @@ public class Sistema {
 		usuario.removeItem(nomeItem);
 	}
 
-	/**
-	 * 
-	 * @return Retorna em String todos os Itens cadastrado em ordem alfabetica.
-	 */
-
 	public String listarItensOrdenadosPorNome() {
 
 		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
@@ -220,13 +222,14 @@ public class Sistema {
 	}
 
 	/**
-	 * @param Nome
-	 *            Parametro que recebe o nome de um Usuario.
-	 * @param telefone
-	 *            Parametro que recebe o telefone de um Usuario que Possui esse
+	 * @param Item
+	 *            Parametro que recebe o nome de um Item.
+	 * @param Usuario
+	 *            Parametro que recebe o nome de um Usuario que Possui esse
 	 *            Item.
-	 * @param item
-	 *            Parametro que recebe o nome de um item desse usuario.
+	 * @param Usuario
+	 *            Parametro que recebe o numero de um USuario que Possui esse
+	 *            Item.
 	 * @return Retorna em String um determinado Item de forma detalhada.
 	 */
 
@@ -242,36 +245,57 @@ public class Sistema {
 	}
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
-			String item, String dataEmprestimo) {
+			String nomeItem, String dataEmprestimo, int periodo) throws Exception {
 
-		UsuarioID usuarioDono = new UsuarioID(nomeDono, telefoneDono);
-		UsuarioID usuarioReceptor = new UsuarioID(nomeReceptor, telefoneReceptor);
+		UsuarioID usuarioDonoID = new UsuarioID(nomeDono, telefoneDono);
+		UsuarioID usuarioReceptorID = new UsuarioID(nomeReceptor, telefoneReceptor);
 
-		if (!usuarios.containsKey(usuarioDono) || !usuarios.containsKey(usuarioReceptor)) { // TRATAR
-																							// ERROS
-																							// NA
-																							// CLASSE
-																							// VALIDADOR
+		if (!this.usuarios.containsKey(usuarioDonoID) || !this.usuarios.containsKey(usuarioReceptorID)) {
 			throw new NullPointerException("Usuario invalido");
 		}
 
-		// TERMINAR O CODIGO...
+		Usuario dono = this.usuarios.get(usuarioDonoID);
+		Usuario receptor = this.usuarios.get(usuarioReceptorID);
+		Item itemEmprestimo = dono.getItem(nomeItem);
+
+		if (itemEmprestimo.getEstado().equals(EstadoItem.INDISPONIVEL)) {
+			throw new IllegalArgumentException("Item emprestado no momento");
+		}
+
+		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
+
+		if (this.emprestimos.containsKey(emprestimoID)) {
+			throw new IllegalArgumentException("Emprestimo ja existe");
+		}
+
+		Emprestimo emprestimo = new Emprestimo(dono, receptor, itemEmprestimo, periodo, dataEmprestimo);
+		emprestimos.put(emprestimoID, emprestimo);
+		dono.registraEmprestimo(emprestimo);
+		receptor.registraEmprestimo(emprestimo);
+
 	}
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
-			String item, String dataEmprestimo, String dataDevolucao) {
+			String nomeItem, String dataEmprestimo, String dataDevolucao) {
+		UsuarioID usuarioDonoID = new UsuarioID(nomeDono, telefoneDono);
+		UsuarioID usuarioReceptorID = new UsuarioID(nomeReceptor, telefoneReceptor);
 
-		UsuarioID usuarioDono = new UsuarioID(nomeDono, telefoneDono);
-		UsuarioID usuarioReceptor = new UsuarioID(nomeReceptor, telefoneReceptor);
-
-		if (!usuarios.containsKey(usuarioDono) || !usuarios.containsKey(usuarioReceptor)) { // TRATAR
-																							// ERROS
-																							// NA
-																							// CLASSE
-																							// VALIDADOR
+		if (!this.usuarios.containsKey(usuarioDonoID) || !this.usuarios.containsKey(usuarioReceptorID)) {
 			throw new NullPointerException("Usuario invalido");
 		}
 
-		// TERMINAR O CODIGO...
+		Usuario dono = this.usuarios.get(usuarioDonoID);
+		Usuario receptor = this.usuarios.get(usuarioReceptorID);
+		Item itemEmprestimo = dono.getItem(nomeItem);
+
+		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
+
+		if (!this.emprestimos.containsKey(emprestimoID)) {
+			throw new IllegalArgumentException("Emprestimo nao encontrado");
+		}
+
+		emprestimos.get(emprestimoID).devolveItem(dataEmprestimo, dataDevolucao);
+
 	}
+
 }
