@@ -80,6 +80,13 @@ public class SistemaTest {
 		assertEquals("0000-0000", sistema.getInfoUsuario("Paulo Baier", "0000-0000", "Telefone"));
 	}
 	
+	@Test
+	public void testGetInfoItem() throws Exception {
+		assertEquals(sistema.getInfoItem("Higor", "97777-7777", "War", "Nome"), "War");
+		assertEquals(sistema.getInfoItem("Jarrier", "98888-8888", "Poker", "Preco"), "300.2");
+		assertEquals(sistema.getInfoItem("Daniel", "95555-5555", "GOT", "Nome"), "GOT");
+		assertEquals(sistema.getInfoItem("Thallyson", "96666-6666", "Peter-Pan", "Preco"), "11.2");
+	}
 
 	@Test
 	public void testPesquisarDetalhesItens() throws Exception {
