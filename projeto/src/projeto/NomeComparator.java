@@ -2,6 +2,10 @@ package projeto;
 
 import java.util.Comparator;
 
+/**
+ *  Classe comparator, ela é responsavel por comparar o nome entre dois itens.
+ */
+
 import item.Item;
 
 public class NomeComparator implements Comparator<Item> {

@@ -174,6 +174,13 @@ public class Sistema {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
 		usuario.removeItem(nomeItem);
 	}
+	
+	/**
+	 * 
+	 * @return Retorna em String todos os Itens cadastrado em ordem alfabetica
+	 */
+
+	
 
 	public String listarItensOrdenadosPorNome() {
 
