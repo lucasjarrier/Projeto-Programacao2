@@ -2,7 +2,7 @@
 package projeto;
 
 /**
- *  Classe comparator, ela 
+ *  Classe comparator, ela é responsavel por comparar um valor inteiro entre dois itens.
  */
 
 import java.util.Comparator;
