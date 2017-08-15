@@ -107,12 +107,48 @@ public class Fachada {
 		return sistema.listarItensOrdenadosPorValor();
 	}
 
+	public String listarCaloteiros() {
+		return sistema.listarCaloteiros();
+	}
+
+	public String listarTop10MelhoresUsuarios() {
+		return sistema.listarTop10MelhoresUsuarios();
+	}
+
+	public String listarTop10PioresUsuarios() {
+		return sistema.listarTop10PioresUsuarios();
+	}
+
 	/**
 	 * METODOS DE EXIBICAO.
 	 */
 
 	public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
 		return sistema.pesquisarDetalhesItem(nome, telefone, item);
+	}
+
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
+		return sistema.listarEmprestimosUsuarioEmprestando(nome, telefone);
+	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+		return sistema.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+	}
+
+	public String listarEmprestimosItem(String nomeItem) {
+		return sistema.listarEmprestimosItem(nomeItem);
+	}
+
+	public String listarItensNaoEmprestados() {
+		return sistema.listarItensNaoEmprestados();
+	}
+
+	public String listarItensEmprestados() {
+		return sistema.listarItensEmprestados();
+	}
+
+	public String listarTop10Itens() {
+		return sistema.listarTop10Itens();
 	}
 
 	public void fecharSistema() {
@@ -135,4 +171,5 @@ public class Fachada {
 		this.sistema.devolverItem(nomeDono, telefoneDono, nomeReferente, telefoneReferente, nomeItem, dataEmprestimo,
 				dataDevolucao);
 	}
+
 }

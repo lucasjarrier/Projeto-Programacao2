@@ -419,4 +419,49 @@ public class Sistema {
 
 	}
 
+	public String listarTop10PioresUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarCaloteiros() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarTop10MelhoresUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarEmprestimosItem(String nomeItem) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarItensNaoEmprestados() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarItensEmprestados() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public String listarTop10Itens() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
