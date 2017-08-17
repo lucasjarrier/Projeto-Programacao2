@@ -1,5 +1,5 @@
 
-package projeto;
+package item;
 
 /**
  *  Classe comparator, ela é responsavel por comparar um valor inteiro entre dois itens.
@@ -7,9 +7,7 @@ package projeto;
 
 import java.util.Comparator;
 
-import item.Item;
-
-public class ValorComparator implements Comparator<Item> {
+public class ItemValorComparator implements Comparator<Item> {
 
 	@Override
 	public int compare(Item item1, Item item2) {
