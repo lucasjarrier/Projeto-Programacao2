@@ -44,6 +44,14 @@ public class SistemaTest {
 		sistema.cadastraFilme("Thallyson", "96666-6666", "Cinderela", 10.50, 50, "Animacao", "LIVRE", 1990);
 		sistema.cadastraFilme("Thallyson", "96666-6666", "Peter-Pan", 11.20, 99, "Animacao", "LIVRE", 2007);
 		sistema.cadastraFilme("Thallyson", "96666-6666", "PeppaPig", 9.99, 69, "Animacao", "LIVRE", 2017);
+		
+		/*
+		 * REGISTRANDO EMPRESTIMOS ENTRE USUARIOS.
+		 */
+		
+		sistema.registrarEmprestimo("Thallyson", "96666-6666", "Jarrier", "98888-8888", "Cinderela", "15/08/2017", 45);
+		sistema.registrarEmprestimo("Daniel", "95555-5555", "Jarrier", "98888-8888",  "GTA", "12/08/2017", 15);
+		sistema.registrarEmprestimo("Jarrier", "98888-8888", "Thallyson", "96666-6666", "CSGO", "13/08/2017", 13);
 
 	}
 	
@@ -112,4 +120,7 @@ public class SistemaTest {
 		assertEquals(sistema.listarItensOrdenadosPorValor(),
 				"SHOW: CHEGOU VERAO, R$ 3.99, Nao emprestado, 100 min, DEZ_ANOS, Wesley, 11 faixas|FILME: PeppaPig, R$ 9.99, Nao emprestado, 69 min, LIVRE, Animacao, 2017|FILME: Cinderela, R$ 10.5, Nao emprestado, 50 min, LIVRE, Animacao, 1990|FILME: Avengers, R$ 11.0, Nao emprestado, 130 min, DEZ_ANOS, Acao, 2010|FILME: Peter-Pan, R$ 11.2, Nao emprestado, 99 min, LIVRE, Animacao, 2007|FILME: Xuxa, R$ 12.0, Nao emprestado, 150 min, LIVRE, Musical, 2000|JOGO DE TABULEIRO: War, R$ 29.0, Nao emprestado, COMPLETO|JOGO ELETRONICO: CSGO, R$ 29.9, Nao emprestado, PC|JOGO ELETRONICO: GTA, R$ 60.0, Nao emprestado, XONE|JOGO ELETRONICO: Batman, R$ 85.0, Nao emprestado, PS4|JOGO DE TABULEIRO: Poker, R$ 300.2, Nao emprestado, COMPLETO|SERIE: GOT, R$ 500.0, Nao emprestado, 730 min, Ficção, DEZOITO_ANOS, Temporada 7|");
 	}
+	
+
+	
 }

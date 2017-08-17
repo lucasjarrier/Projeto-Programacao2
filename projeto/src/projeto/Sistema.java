@@ -10,6 +10,8 @@ import emprestimo.Emprestimo;
 import emprestimo.EmprestimoID;
 import item.EstadoItem;
 import item.Item;
+import item.ItemNomeComparator;
+import item.ItemValorComparator;
 import usuario.Usuario;
 import usuario.UsuarioID;
 
@@ -186,7 +188,7 @@ public class Sistema {
 			}
 		}
 
-		Collections.sort(itensOrdenados, new NomeComparator());
+		Collections.sort(itensOrdenados, new ItemNomeComparator());
 		String retorno = "";
 
 		for (Item item : itensOrdenados) {
@@ -212,7 +214,7 @@ public class Sistema {
 			}
 		}
 
-		Collections.sort(itensOrdenados, new ValorComparator());
+		Collections.sort(itensOrdenados, new ItemValorComparator());
 		String retorno = "";
 
 		for (Item item : itensOrdenados) {
