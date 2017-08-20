@@ -25,6 +25,12 @@ public class Sistema {
 		this.emprestimos = new HashMap<EmprestimoID, Emprestimo>();
 	}
 
+	/**
+	 * Cadastra um novo usuario no sistema.
+	 * @param nome
+	 * @param telefone
+	 * @param email
+	 */
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		Validador.validaUsuario(nome, email, telefone);
 
@@ -35,6 +41,11 @@ public class Sistema {
 		this.usuarios.put((new UsuarioID(nome, telefone)), new Usuario(nome, telefone, email));
 	}
 
+	/**
+	 * Remova usuario ja cadastrado.
+	 * @param nome
+	 * @param telefone
+	 */
 	public void removerUsuario(String nome, String telefone) {
 		Validador.validaRemover(nome, telefone);
 
@@ -47,6 +58,13 @@ public class Sistema {
 
 	}
 
+	/**
+	 * Recebe um atributo e atualiza o valor do atributo no Usuario ja cadastrado.
+	 * @param nome
+	 * @param telefone
+	 * @param atributo
+	 * @param valor
+	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		Validador.validaAtualizar(nome, telefone, valor, atributo);
 
@@ -69,6 +87,13 @@ public class Sistema {
 		}
 	}
 
+	/**
+	 * Recebe um atributo e depedendo do mesmo, retorna o valor atribuido a ele.
+	 * @param nome
+	 * @param telefone
+	 * @param atributo
+	 * @return valor equivalente ao atributo.
+	 */
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
 		UsuarioID usuario = new UsuarioID(nome, telefone);
 		String info = "";
@@ -83,6 +108,8 @@ public class Sistema {
 			info = usuarios.get(usuario).getEmail();
 		} else if (atributo.equals("Email")) {
 			info = usuarios.get(usuario).getEmail();
+		} else if (atributo.equals("Reputacao")) {
+			info += usuarios.get(usuario).getReputacao();
 		}
 
 		return info;
@@ -116,7 +143,9 @@ public class Sistema {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
+		
 		getUsuario(nomeUsuario, telefone).adicionaFilme(nomeItem, preco, duracao, classificacao, genero, ano);
+		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 	
 	/**
@@ -141,6 +170,7 @@ public class Sistema {
 		}
 		getUsuario(nomeUsuario, telefone).adicionaSerie(nomeItem, preco, duracao, classificacao, descricao, genero,
 				temporada);
+		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 	
 	/**
@@ -163,6 +193,7 @@ public class Sistema {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaShow(nomeItem, preco, duracao, classificacao, artista, faixas);
+		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 	
 	/**
@@ -182,6 +213,7 @@ public class Sistema {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaEletronico(nomeItem, preco, plataforma);
+		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 	
 	/**
@@ -200,6 +232,7 @@ public class Sistema {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaTabuleiro(nomeItem, preco);
+		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 	
 	/**
