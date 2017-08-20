@@ -18,6 +18,7 @@ public class Usuario {
 	private String telefone;
 	private ArrayList<Item> itens;
 	private ArrayList<Emprestimo> emprestimos;
+	private double reputacao;
 
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
@@ -25,7 +26,8 @@ public class Usuario {
 		this.telefone = telefone;
 		this.itens = new ArrayList<Item>();
 		this.emprestimos = new ArrayList<Emprestimo>();
-	}
+		this.reputacao = 0.0;
+		}
 
 	@Override
 	public String toString() {
@@ -56,10 +58,20 @@ public class Usuario {
 		this.telefone = numero;
 	}
 
+	public double getReputacao() {
+		return reputacao;
+	}
+
+	public void setReputacao(double reputacao) {
+		this.reputacao = reputacao;
+	}
+
 	public ArrayList<Item> getItens() {
 		return itens;
 	}
-
+	
+	
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -165,4 +177,21 @@ public class Usuario {
 		this.emprestimos.add(emprestimo);
 	}
 
+	/**
+	 * Aumenta reputacao do usuario.
+	 * @param reputacao
+	 */
+	public void aumentarReputacao (double reputacao) {
+		this.reputacao += reputacao;
+	}
+	
+	/**
+	 * Diminui reputacao do usuario em caso de atraso.
+	 * @param reputacao
+	 */
+	public void diminuirReputacao(double reputacao) {
+		this.reputacao -= reputacao;
+	}
 }
+	
+	

@@ -50,6 +50,7 @@ public class Emprestimo {
 			String dataEmprestimo) {
 
 		this.donoItem = donoItem;
+		this.donoItem.aumentarReputacao(itemEmprestado.getValor() * 0.10);
 		this.usuarioReceptor = usuarioReceptor;
 		this.itemEmprestado = itemEmprestado;
 		this.itemEmprestado.setEstado(EstadoItem.INDISPONIVEL);
@@ -144,6 +145,19 @@ public class Emprestimo {
 		}
 
 		this.itemEmprestado.setEstado(EstadoItem.DISPONIVEL);
+		this.calculaAtraso(this.diasDeAtraso);
 	}
 
+	/** 
+	 * Verifica se teve dias de atraso ou não na devolução do emprestimo.
+	 * @param diasDeAtraso
+	 */
+	
+	public void calculaAtraso(int diasDeAtraso) {
+		if (diasDeAtraso > 0) {
+			this.usuarioReceptor.diminuirReputacao(this.itemEmprestado.getValor() * diasDeAtraso * 0.01);
+		} else if (diasDeAtraso <= 0){
+			this.usuarioReceptor.aumentarReputacao(itemEmprestado.getValor() * 0.05);
+		}
+	}
 }
