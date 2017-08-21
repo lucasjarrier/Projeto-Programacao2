@@ -457,8 +457,15 @@ public class Sistema {
 	}
 
 	public String listarCaloteiros() {
-		// TODO Auto-generated method stub
-		return null;
+		String listarCaloteiros = "";
+		Collection<Usuario> caloteiros = usuarios.values();
+		for (Usuario usuario : caloteiros) {
+			if(usuario.getReputacao() < 0) {
+				System.out.println("DOADSOS");
+				listarCaloteiros += usuario.toString() + "|";
+			}
+		}
+		return "Lista de usuarios com reputacao negativa: " + listarCaloteiros;
 	}
 
 	public String listarTop10MelhoresUsuarios() {
