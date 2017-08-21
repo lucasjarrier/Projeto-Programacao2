@@ -9,6 +9,7 @@ import bluray.BluRaySerie;
 import bluray.BluRayShow;
 import emprestimo.Emprestimo;
 import emprestimo.EmprestimoNomeItemComparator;
+import item.EstadoItem;
 import item.Item;
 import jogos.JogoDeTabuleiro;
 import jogos.JogoEletronico;
@@ -217,7 +218,7 @@ public class Usuario {
 
 		Collections.sort(emprestimosPegandoEmprestado, new EmprestimoNomeItemComparator());
 
-		String emprestimos = "Emprestimos: ";
+		String emprestimos = "Emprestimos pegos: ";
 
 		for (Emprestimo emprestimo : emprestimosPegandoEmprestado) {
 			emprestimos += emprestimo.toString() + "|";
@@ -240,6 +241,31 @@ public class Usuario {
 
 		return emprestimos;
 	}
+	
+	public ArrayList<Item> listarItensNaoEmprestados() {
+		ArrayList<Item> itensNaoEmprestados = new ArrayList<Item>();
+
+		for (Item item : this.itens) {
+			if (item.getEstado().equals(EstadoItem.DISPONIVEL)) {
+				itensNaoEmprestados.add(item);
+			}
+		}
+
+		return itensNaoEmprestados;
+	}
+	
+	public String listarItensEmprestados() {
+		String listagem = "";
+
+		for (Item item : this.itens) {
+			if (item.getEstado().equals(EstadoItem.INDISPONIVEL)) {
+				listagem += "Dono do item: " + this.nome + ", " + "Nome do item emprestado:" + item.getNome() + "|";
+			}
+		}
+
+		return listagem;
+	}
+	
 
 	/**
 	 * Aumenta reputacao do usuario.

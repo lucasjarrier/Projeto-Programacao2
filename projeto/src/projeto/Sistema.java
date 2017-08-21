@@ -613,8 +613,9 @@ public class Sistema {
 
 	public String listarEmprestimosItem(String nomeItem) {
 		String emprestimos = "";
+		Collection<Usuario> usuarios = this.usuarios.values();
 
-		for (Usuario usuario : this.usuarios.values()) {
+		for (Usuario usuario : usuarios) {
 			emprestimos += usuario.listaEmprestimosItem(nomeItem);
 		}
 
@@ -626,13 +627,34 @@ public class Sistema {
 	}
 
 	public String listarItensNaoEmprestados() {
-		// TODO Auto-generated method stub
-		return null;
+		ArrayList<Item> itensNaoEmprestados = new ArrayList<Item>();
+		Collection<Usuario> usuarios = this.usuarios.values();
+
+		for (Usuario usuario : usuarios) {
+			itensNaoEmprestados.addAll(usuario.listarItensNaoEmprestados());
+		}
+
+		Collections.sort(itensNaoEmprestados, new ItemNomeComparator());
+		String listagem = "";
+
+		for (Item item : itensNaoEmprestados) {
+			listagem += item.toString() + "|";
+		}
+
+		return listagem;
+
 	}
 
 	public String listarItensEmprestados() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Usuario> usuarios = this.usuarios.values();
+		String listagem = "";
+		
+		for (Usuario usuario : usuarios) {
+			listagem += usuario.listarItensEmprestados();
+		}
+		
+		return listagem;
+		
 	}
 
 	public String listarTop10Itens() {
