@@ -143,6 +143,7 @@ public class Emprestimo {
 			this.diasDeAtraso = 0;
 		} else {
 			this.diasDeAtraso = diasDesdeEmprestimo - this.diasDoEmprestimo;
+		
 		}
 
 		this.itemEmprestado.setEstado(EstadoItem.DISPONIVEL);
@@ -165,15 +166,16 @@ public class Emprestimo {
 
 	@Override
 	public String toString() {
-		String representacao = "EMPRESTIMO - De:" + this.donoItem.getNome() + ", Para: "
-				+ this.usuarioReceptor.getNome() + "," + this.itemEmprestado.getNome() + "," + this.dataEmprestimo + ","
-				+ this.diasDoEmprestimo + " dias, ENTREGA: ";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		String representacao = "EMPRESTIMO - De: " + this.donoItem.getNome() + ", Para: "
+				+ this.usuarioReceptor.getNome() + ", " + this.itemEmprestado.getNome() + ", "
+				+ this.dataEmprestimo.format(formatter) + ", " + this.diasDoEmprestimo + " dias, ENTREGA: ";
 
 		if (this.dataDevolucao == null) {
 			representacao += "Emprestimo em andamento";
 			return representacao;
 		} else {
-			representacao += this.dataDevolucao;
+			representacao += this.dataDevolucao.format(formatter);
 			return representacao;
 		}
 
