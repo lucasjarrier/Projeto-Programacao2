@@ -29,7 +29,7 @@ public class Usuario {
 		this.itens = new ArrayList<Item>();
 		this.emprestimos = new ArrayList<Emprestimo>();
 		this.reputacao = 0.0;
-		}
+	}
 
 	@Override
 	public String toString() {
@@ -71,9 +71,7 @@ public class Usuario {
 	public ArrayList<Item> getItens() {
 		return itens;
 	}
-	
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -121,7 +119,7 @@ public class Usuario {
 		itens.add(serie);
 	}
 
-	public void adicionaEletronico(String nome, double valor, String plataforma)  {
+	public void adicionaEletronico(String nome, double valor, String plataforma) {
 		JogoEletronico jogo = new JogoEletronico(nome, valor, plataforma);
 		itens.add(jogo);
 	}
@@ -172,11 +170,11 @@ public class Usuario {
 
 		return representacao;
 	}
-	
+
 	public void registraEmprestimo(Emprestimo emprestimo) {
 		this.emprestimos.add(emprestimo);
 	}
-	
+
 	public String listarEmprestimosEmprestando() {
 		ArrayList<Emprestimo> emprestimosEmprestando = new ArrayList<Emprestimo>();
 
@@ -186,7 +184,7 @@ public class Usuario {
 				emprestimosEmprestando.add(emprestimo);
 			}
 		}
-		
+
 		if (emprestimosEmprestando.size() == 0) {
 			return "Nenhum item emprestado";
 		}
@@ -202,7 +200,7 @@ public class Usuario {
 		return emprestimos;
 
 	}
-	
+
 	public String listarEmprestimosPegandoEmprestado() {
 		ArrayList<Emprestimo> emprestimosPegandoEmprestado = new ArrayList<Emprestimo>();
 
@@ -212,7 +210,7 @@ public class Usuario {
 				emprestimosPegandoEmprestado.add(emprestimo);
 			}
 		}
-		
+
 		if (emprestimosPegandoEmprestado.size() == 0) {
 			return "Nenhum item pego emprestado";
 		}
@@ -227,7 +225,7 @@ public class Usuario {
 
 		return emprestimos;
 	}
-	
+
 	public String listaEmprestimosItem(String nomeItem) {
 		String emprestimos = "";
 
@@ -242,19 +240,19 @@ public class Usuario {
 
 		return emprestimos;
 	}
-	
-	
 
 	/**
 	 * Aumenta reputacao do usuario.
+	 * 
 	 * @param reputacao
 	 */
-	public void aumentarReputacao (double reputacao) {
+	public void aumentarReputacao(double reputacao) {
 		this.reputacao += reputacao;
 	}
-	
+
 	/**
 	 * Diminui reputacao do usuario em caso de atraso.
+	 * 
 	 * @param reputacao
 	 */
 	public void diminuirReputacao(double reputacao) {
@@ -262,5 +260,3 @@ public class Usuario {
 	}
 
 }
-	
-	
