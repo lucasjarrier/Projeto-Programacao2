@@ -469,7 +469,8 @@ public class Sistema {
 	}
 
 	public String listarTop10MelhoresUsuarios() {
-		// TODO Auto-generated method stub
+		Usuario[] top10usuarios = new Usuario[10];
+		Collection<Usuario> caloteiros = usuarios.values();
 		return null;
 	}
 
