@@ -241,7 +241,6 @@ public class Usuario {
 
 		return emprestimos;
 	}
-<<<<<<< HEAD
 	
 	public ArrayList<Item> listarItensNaoEmprestados() {
 		ArrayList<Item> itensNaoEmprestados = new ArrayList<Item>();
@@ -267,9 +266,6 @@ public class Usuario {
 		return listagem;
 	}
 	
-	
-=======
->>>>>>> master
 
 	/**
 	 * Aumenta reputacao do usuario.
