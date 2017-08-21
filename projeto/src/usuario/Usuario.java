@@ -203,6 +203,12 @@ public class Usuario {
 
 	}
 	
+	/**
+	 * Lista os empréstimos em que o usuário está participando como receptor.
+	 * 
+	 * @return emprestimos em que o usuário atual é receptor
+	 */
+	
 	public String listarEmprestimosPegandoEmprestado() {
 		ArrayList<Emprestimo> emprestimosPegandoEmprestado = new ArrayList<Emprestimo>();
 
