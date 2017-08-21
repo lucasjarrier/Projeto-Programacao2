@@ -148,10 +148,6 @@ public class Fachada {
 		return sistema.listarTop10Itens();
 	}
 
-	public void fecharSistema() {
-
-	}
-
 	/**
 	 * METODOS DE EMPRESTIMO.
 	 */
@@ -169,4 +165,11 @@ public class Fachada {
 				dataDevolucao);
 	}
 
+	/**
+	 *  COMANDO FECHAR SISTEMA.
+	 */
+	
+	public void fecharSistema() {
+
+	}
 }
