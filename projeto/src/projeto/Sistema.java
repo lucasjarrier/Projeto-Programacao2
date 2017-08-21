@@ -117,6 +117,8 @@ public class Sistema {
 			info = usuarios.get(usuario).getEmail();
 		} else if (atributo.equals("Reputacao")) {
 			info += usuarios.get(usuario).getReputacao();
+		} else if (atributo.equals("Cartao")) {
+			info += usuarios.get(usuario).getCartaoReputacao();
 		}
 
 		return info;

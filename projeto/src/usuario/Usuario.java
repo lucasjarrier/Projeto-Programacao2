@@ -22,6 +22,7 @@ public class Usuario {
 	private ArrayList<Item> itens;
 	private ArrayList<Emprestimo> emprestimos;
 	private double reputacao;
+	private CardReputacao cartaoReputacao;
 
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
@@ -30,6 +31,31 @@ public class Usuario {
 		this.itens = new ArrayList<Item>();
 		this.emprestimos = new ArrayList<Emprestimo>();
 		this.reputacao = 0.0;
+		this.cartaoReputacao = cartaoReputacao.Noob;
+		
+	}
+
+	public CardReputacao getCartaoReputacao() {
+		
+		if(reputacao < 0) {
+			this.cartaoReputacao = cartaoReputacao.Caloteiro;
+		}
+		if(reputacao >= 0 && reputacao <= 100) {
+			if(itens.size() > 0) {
+				this.cartaoReputacao = cartaoReputacao.Noob;
+			}
+			else {
+				this.cartaoReputacao = cartaoReputacao.FreeRyder;
+			}
+		}
+		if(reputacao > 100) {
+			this.cartaoReputacao = cartaoReputacao.BomAmigo;
+		}		
+		return cartaoReputacao;
+	}
+
+	public void setCartaoReputacao(CardReputacao cartaoReputacao) {
+		this.cartaoReputacao = cartaoReputacao;
 	}
 
 	@Override
