@@ -116,7 +116,7 @@ public class Sistema {
 
 	}
 
-	private Usuario getUsuario(String nome, String telefone) throws Exception {
+	private Usuario getUsuario(String nome, String telefone) {
 		UsuarioID usuario = new UsuarioID(nome, telefone);
 		if (!usuarios.containsKey(usuario)) {
 			throw new IllegalArgumentException("Usuario invalido");
@@ -139,7 +139,7 @@ public class Sistema {
 	 */
 
 	public void cadastraFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
-			String genero, String classificacao, int ano) throws Exception {
+			String genero, String classificacao, int ano) {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
@@ -164,7 +164,7 @@ public class Sistema {
 	 */
 
 	public void cadastraSerie(String nomeUsuario, String telefone, String nomeItem, double preco, String descricao,
-			int duracao, String genero, String classificacao, int temporada) throws Exception {
+			int duracao, String genero, String classificacao, int temporada) {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
@@ -188,7 +188,7 @@ public class Sistema {
 	 */
 
 	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
-			int faixas, String artista, String classificacao) throws Exception {
+			int faixas, String artista, String classificacao) {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
@@ -208,7 +208,7 @@ public class Sistema {
 	 */
 
 	public void cadastraEletronico(String nomeUsuario, String telefone, String nomeItem, double preco,
-			String plataforma) throws Exception {
+			String plataforma) {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
@@ -226,8 +226,7 @@ public class Sistema {
 	 * @throws Exception Lanca excecao caso o preco seja menor ou igual a zero.
 	 */
 
-	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco)
-			throws Exception {
+	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco) {
 		if (preco <= 0) {
 			throw new IllegalArgumentException("Preco invalido");
 		}
@@ -245,8 +244,7 @@ public class Sistema {
 	 * @throws Exception
 	 */
 
-	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao)
-			throws Exception {
+	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao) {
 		getUsuario(nomeUsuario, telefone).adicionaBluRay(nomeBlurayTemporada, duracao);
 	}
 	
@@ -275,7 +273,7 @@ public class Sistema {
 	 * @throws Exception Lanca excecao caso o usuario nao exista.
 	 */
 
-	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
+	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) {
 		UsuarioID usuario = new UsuarioID(nomeUsuario, telefone);
 		String info = "";
 		if (!usuarios.containsKey(usuario)) {
@@ -300,8 +298,7 @@ public class Sistema {
 	 * @throws Exception Lanca excecao caso o usuario nao exista.
 	 */
 
-	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor)
-			throws Exception {
+	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor) {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
 		if (atributo.toLowerCase().equals("preco")) {
 			usuario.getItem(nomeItem).setValor(Double.parseDouble(valor));
@@ -319,7 +316,7 @@ public class Sistema {
 	 * @throws Exception Lanca excecao caso o usuario nao exista.
 	 */
 
-	public void removerItem(String nomeUsuario, String telefone, String nomeItem) throws Exception {
+	public void removerItem(String nomeUsuario, String telefone, String nomeItem) {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
 		usuario.removeItem(nomeItem);
 	}
@@ -389,7 +386,7 @@ public class Sistema {
 	 * @return Retorna em String um determinado Item de forma detalhada.
 	 */
 
-	public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
+	public String pesquisarDetalhesItem(String nome, String telefone, String item) {
 
 		UsuarioID usuario = new UsuarioID(nome, telefone);
 
@@ -401,7 +398,7 @@ public class Sistema {
 	}
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
-			String nomeItem, String dataEmprestimo, int periodo) throws Exception {
+			String nomeItem, String dataEmprestimo, int periodo) {
 
 		UsuarioID usuarioDonoID = new UsuarioID(nomeDono, telefoneDono);
 		UsuarioID usuarioReceptorID = new UsuarioID(nomeReceptor, telefoneReceptor);
@@ -470,18 +467,27 @@ public class Sistema {
 	}
 
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario usuario = this.getUsuario(nome, telefone);
+		return usuario.listarEmprestimosEmprestando();
 	}
 
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
-		// TODO Auto-generated method stub
-		return null;
+		Usuario usuario = this.getUsuario(nome, telefone);
+		return usuario.listarEmprestimosPegandoEmprestado();
 	}
 
 	public String listarEmprestimosItem(String nomeItem) {
-		// TODO Auto-generated method stub
-		return null;
+		String emprestimos = "";
+
+		for (Usuario usuario : this.usuarios.values()) {
+			emprestimos += usuario.listaEmprestimosItem(nomeItem);
+		}
+		
+		if (emprestimos.equals("")) {
+			return "Nenhum emprestimos associados ao item";
+		} else {
+			return "Emprestimos associados ao item: " + emprestimos;
+		}
 	}
 
 	public String listarItensNaoEmprestados() {

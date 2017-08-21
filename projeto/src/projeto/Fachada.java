@@ -27,33 +27,32 @@ public class Fachada {
 	 * METODOS DE CADASTRO.
 	 */
 
-	public void cadastrarUsuario(String nome, String email, String telefone) throws Exception {
+	public void cadastrarUsuario(String nome, String email, String telefone)  {
 		sistema.cadastrarUsuario(nome, email, telefone);
 	}
 
 	public void cadastrarBluRayFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
-			String genero, String classificacao, int ano) throws Exception {
+			String genero, String classificacao, int ano) {
 		sistema.cadastraFilme(nomeUsuario, telefone, nomeItem, preco, duracao, genero, classificacao, ano);
 	}
 
 	public void cadastrarBluRaySerie(String nomeUsuario, String telefone, String nomeItem, double preco,
-			String descricao, int duracao, String genero, String classificacao, int temporada) throws Exception {
+			String descricao, int duracao, String genero, String classificacao, int temporada) {
 		sistema.cadastraSerie(nomeUsuario, telefone, nomeItem, preco, descricao, duracao, genero, classificacao,
 				temporada);
 	}
 
 	public void cadastrarBluRayShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
-			int faixas, String artista, String classificacao) throws Exception {
+			int faixas, String artista, String classificacao) {
 		sistema.cadastraShow(nomeUsuario, telefone, nomeItem, preco, duracao, faixas, artista, classificacao);
 	}
 
 	public void cadastrarEletronico(String nomeUsuario, String telefone, String nomeItem, double preco,
-			String plataforma) throws Exception {
+			String plataforma) {
 		sistema.cadastraEletronico(nomeUsuario, telefone, nomeItem, preco, plataforma);
 	}
 
-	public void cadastrarJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco)
-			throws Exception {
+	public void cadastrarJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco) {
 		sistema.cadastraJogoTabuleiro(nomeUsuario, telefone, nomeItem, preco);
 	}
 
@@ -61,24 +60,23 @@ public class Fachada {
 	 * METODOS DE MANIPULA��O.
 	 */
 
-	public String getInfoUsuario(String nome, String telefone, String atributo) throws Exception {
+	public String getInfoUsuario(String nome, String telefone, String atributo) {
 		return sistema.getInfoUsuario(nome, telefone, atributo);
 	}
 
-	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) throws Exception {
+	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		sistema.atualizarUsuario(nome, telefone, atributo, valor);
 	}
 
-	public void removerUsuario(String nome, String numero) throws Exception {
+	public void removerUsuario(String nome, String numero) {
 		sistema.removerUsuario(nome, numero);
 	}
 
-	public void atualizarItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor)
-			throws Exception {
+	public void atualizarItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor) {
 		sistema.atualizaItem(nomeUsuario, telefone, nomeItem, atributo, valor);
 	}
 
-	public void removerItem(String nomeUsuario, String telefone, String nomeItem) throws Exception {
+	public void removerItem(String nomeUsuario, String telefone, String nomeItem) {
 		sistema.removerItem(nomeUsuario, telefone, nomeItem);
 	}
 
@@ -86,12 +84,11 @@ public class Fachada {
 		sistema.adicionarPecaPerdida(nome, telefone, nomeItem, nomePeca);
 	}
 
-	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) throws Exception {
+	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) {
 		return sistema.getInfoItem(nomeUsuario, telefone, nomeItem, atributo);
 	}
 
-	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao)
-			throws Exception {
+	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao) {
 		sistema.adicionarBluRay(nomeUsuario, telefone, nomeBlurayTemporada, duracao);
 	}
 
@@ -123,7 +120,7 @@ public class Fachada {
 	 * METODOS DE EXIBICAO.
 	 */
 
-	public String pesquisarDetalhesItem(String nome, String telefone, String item) throws Exception {
+	public String pesquisarDetalhesItem(String nome, String telefone, String item) {
 		return sistema.pesquisarDetalhesItem(nome, telefone, item);
 	}
 
@@ -160,7 +157,7 @@ public class Fachada {
 	 */
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
-			String item, String dataEmprestimo, int periodo) throws Exception {
+			String item, String dataEmprestimo, int periodo) {
 		this.sistema.registrarEmprestimo(nomeDono, telefoneDono, nomeReceptor, telefoneReceptor, item, dataEmprestimo,
 				periodo);
 

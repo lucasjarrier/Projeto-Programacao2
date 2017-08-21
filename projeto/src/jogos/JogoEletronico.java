@@ -6,7 +6,7 @@ public class JogoEletronico extends Item {
 
 	protected String plataforma;
 
-	public JogoEletronico(String nome, double valor, String plataforma) throws Exception {
+	public JogoEletronico(String nome, double valor, String plataforma) {
 		super(nome, valor);
 		this.plataforma = plataforma;
 	}

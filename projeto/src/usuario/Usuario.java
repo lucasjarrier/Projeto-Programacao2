@@ -2,11 +2,13 @@
 package usuario;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import bluray.BluRayFilme;
 import bluray.BluRaySerie;
 import bluray.BluRayShow;
 import emprestimo.Emprestimo;
+import emprestimo.EmprestimoNomeItemComparator;
 import item.Item;
 import jogos.JogoDeTabuleiro;
 import jogos.JogoEletronico;
@@ -103,30 +105,28 @@ public class Usuario {
 		return true;
 	}
 
-	public void adicionaFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano)
-			throws Exception {
+	public void adicionaFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano) {
 		BluRayFilme filme = new BluRayFilme(nome, valor, duracao, classificacao, genero, ano);
 		itens.add(filme);
 	}
 
-	public void adicionaShow(String nome, double valor, int duracao, String classificacao, String artista, int faixas)
-			throws Exception {
+	public void adicionaShow(String nome, double valor, int duracao, String classificacao, String artista, int faixas) {
 		BluRayShow show = new BluRayShow(nome, valor, duracao, classificacao, artista, faixas);
 		itens.add(show);
 	}
 
 	public void adicionaSerie(String nome, double valor, int duracao, String classificacao, String descricao,
-			String genero, int temporada) throws Exception {
+			String genero, int temporada) {
 		BluRaySerie serie = new BluRaySerie(nome, valor, duracao, classificacao, descricao, genero, temporada);
 		itens.add(serie);
 	}
 
-	public void adicionaEletronico(String nome, double valor, String plataforma) throws Exception {
+	public void adicionaEletronico(String nome, double valor, String plataforma)  {
 		JogoEletronico jogo = new JogoEletronico(nome, valor, plataforma);
 		itens.add(jogo);
 	}
 
-	public void adicionaTabuleiro(String nome, double valor) throws Exception {
+	public void adicionaTabuleiro(String nome, double valor) {
 		JogoDeTabuleiro jogo = new JogoDeTabuleiro(nome, valor);
 		itens.add(jogo);
 	}
@@ -150,7 +150,7 @@ public class Usuario {
 		throw new IllegalArgumentException("Item nao encontrado");
 	}
 
-	public void adicionaPecaPerdida(String nomeItem, String nomePeca) throws Exception {
+	public void adicionaPecaPerdida(String nomeItem, String nomePeca) {
 		Item item = getItem(nomeItem);
 		if (item instanceof JogoDeTabuleiro) {
 			JogoDeTabuleiro jogo = (JogoDeTabuleiro) item;
@@ -158,7 +158,7 @@ public class Usuario {
 		}
 	}
 
-	public void removeItem(String nomeItem) throws Exception {
+	public void removeItem(String nomeItem) {
 		Item item = getItem(nomeItem);
 		itens.remove(item);
 	}
@@ -176,6 +176,74 @@ public class Usuario {
 	public void registraEmprestimo(Emprestimo emprestimo) {
 		this.emprestimos.add(emprestimo);
 	}
+	
+	public String listarEmprestimosEmprestando() {
+		ArrayList<Emprestimo> emprestimosEmprestando = new ArrayList<Emprestimo>();
+
+		for (Emprestimo emprestimo : this.emprestimos) {
+			if (emprestimo.getDonoItem().getNome().equals(this.nome)
+					&& emprestimo.getDonoItem().getTelefone().equals(this.telefone)) {
+				emprestimosEmprestando.add(emprestimo);
+			}
+		}
+		
+		if (emprestimosEmprestando.size() == 0) {
+			return "Nenhum item emprestado";
+		}
+
+		Collections.sort(emprestimosEmprestando, new EmprestimoNomeItemComparator());
+
+		String emprestimos = "Emprestimos: ";
+
+		for (Emprestimo emprestimo : emprestimosEmprestando) {
+			emprestimos += emprestimo.toString() + "|";
+		}
+
+		return emprestimos;
+
+	}
+	
+	public String listarEmprestimosPegandoEmprestado() {
+		ArrayList<Emprestimo> emprestimosPegandoEmprestado = new ArrayList<Emprestimo>();
+
+		for (Emprestimo emprestimo : this.emprestimos) {
+			if (emprestimo.getUsuarioReceptor().getNome().equals(this.nome)
+					&& emprestimo.getUsuarioReceptor().getTelefone().equals(this.telefone)) {
+				emprestimosPegandoEmprestado.add(emprestimo);
+			}
+		}
+		
+		if (emprestimosPegandoEmprestado.size() == 0) {
+			return "Nenhum item pego emprestado";
+		}
+
+		Collections.sort(emprestimosPegandoEmprestado, new EmprestimoNomeItemComparator());
+
+		String emprestimos = "Emprestimos: ";
+
+		for (Emprestimo emprestimo : emprestimosPegandoEmprestado) {
+			emprestimos += emprestimo.toString() + "|";
+		}
+
+		return emprestimos;
+	}
+	
+	public String listaEmprestimosItem(String nomeItem) {
+		String emprestimos = "";
+
+		for (Emprestimo emprestimo : this.emprestimos) {
+			if (emprestimo.getDonoItem().getNome().equals(this.nome)
+					&& emprestimo.getDonoItem().getTelefone().equals(this.telefone)) {
+				if (emprestimo.getItemEmprestado().getNome().equals(nomeItem)) {
+					emprestimos += emprestimo.toString() + "|";
+				}
+			}
+		}
+
+		return emprestimos;
+	}
+	
+	
 
 	/**
 	 * Aumenta reputacao do usuario.
@@ -192,6 +260,7 @@ public class Usuario {
 	public void diminuirReputacao(double reputacao) {
 		this.reputacao -= reputacao;
 	}
+
 }
 	
 	

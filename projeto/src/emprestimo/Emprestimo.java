@@ -55,8 +55,9 @@ public class Emprestimo {
 		this.itemEmprestado = itemEmprestado;
 		this.itemEmprestado.setEstado(EstadoItem.INDISPONIVEL);
 		this.diasDoEmprestimo = diasDoEmprestimo;
-		LocalDate data = LocalDate.parse(dataEmprestimo, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		this.dataEmprestimo = data;
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		LocalDate date = LocalDate.parse(dataEmprestimo, formatter);
+		this.dataEmprestimo = date;
 
 	}
 
@@ -148,16 +149,34 @@ public class Emprestimo {
 		this.calculaAtraso(this.diasDeAtraso);
 	}
 
-	/** 
+	/**
 	 * Verifica se teve dias de atraso ou não na devolução do emprestimo.
+	 * 
 	 * @param diasDeAtraso
 	 */
-	
+
 	public void calculaAtraso(int diasDeAtraso) {
 		if (diasDeAtraso > 0) {
 			this.usuarioReceptor.diminuirReputacao(this.itemEmprestado.getValor() * diasDeAtraso * 0.01);
-		} else if (diasDeAtraso <= 0){
+		} else if (diasDeAtraso <= 0) {
 			this.usuarioReceptor.aumentarReputacao(itemEmprestado.getValor() * 0.05);
 		}
 	}
+
+	@Override
+	public String toString() {
+		String representacao = "EMPRESTIMO - De:" + this.donoItem.getNome() + ", Para: "
+				+ this.usuarioReceptor.getNome() + "," + this.itemEmprestado.getNome() + "," + this.dataEmprestimo + ","
+				+ this.diasDoEmprestimo + " dias, ENTREGA: ";
+
+		if (this.dataDevolucao == null) {
+			representacao += "Emprestimo em andamento";
+			return representacao;
+		} else {
+			representacao += this.dataDevolucao;
+			return representacao;
+		}
+
+	}
+
 }

@@ -11,7 +11,7 @@ public class JogoDeTabuleiro extends Item {
 	protected boolean completo;
 	protected Pecas estadoJogo;
 
-	public JogoDeTabuleiro(String nome, double valor) throws Exception {
+	public JogoDeTabuleiro(String nome, double valor) {
 		super(nome, valor);
 		this.pecas = new ArrayList<String>();
 		this.estadoJogo = Pecas.COMPLETO;

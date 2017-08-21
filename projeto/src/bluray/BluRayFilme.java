@@ -5,7 +5,7 @@ public class BluRayFilme extends BluRay {
 	private String genero;
 	private int ano;
 	
-	public BluRayFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano) throws Exception {
+	public BluRayFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano) {
 		super(nome, valor, duracao, classificacao);
 		this.genero = genero;
 		this.ano = ano;

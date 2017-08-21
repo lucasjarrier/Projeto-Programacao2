@@ -11,7 +11,7 @@ public class BluRaySerie extends BluRay {
 	private List<Episodio> episodios;
 	
 	public BluRaySerie(String nome, double valor, int duracao, String classificacao, String descricao,
-			String genero, int temporada) throws Exception {
+			String genero, int temporada) {
 		super(nome, valor, duracao, classificacao);
 		this.descricao = descricao;
 		this.genero = genero;

@@ -6,9 +6,9 @@ public abstract class Item {
 	protected EstadoItem estado;
 	protected double valor;
 	
-	public Item(String nome, double valor) throws Exception {
+	public Item(String nome, double valor) {
 		if (nome == null || nome.trim().isEmpty()) {
-			throw new Exception("Erro no cadastro do Item: Nome nao pode ser vazio ou nulo");
+			throw new IllegalArgumentException("Erro no cadastro do Item: Nome nao pode ser vazio ou nulo");
 		}
 		this.valor = valor;
 		this.nome = nome;
