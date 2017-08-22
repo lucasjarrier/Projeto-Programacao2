@@ -22,7 +22,7 @@ public class Usuario {
 	private ArrayList<Item> itens;
 	private ArrayList<Emprestimo> emprestimos;
 	private double reputacao;
-	private CardReputacao cartaoReputacao;
+	private CartaoReputacao cartaoReputacao;
 	public int periodoPermitido;
 
 	public Usuario(String nome, String telefone, String email) {
@@ -37,7 +37,7 @@ public class Usuario {
 		
 	}
 
-	public CardReputacao getCartaoReputacao() {
+	public CartaoReputacao getCartaoReputacao() {
 		
 		if(reputacao < 0) {
 			this.cartaoReputacao = cartaoReputacao.Caloteiro;
@@ -59,7 +59,7 @@ public class Usuario {
 		return cartaoReputacao;
 	}
 
-	public void setCartaoReputacao(CardReputacao cartaoReputacao) {
+	public void setCartaoReputacao(CartaoReputacao cartaoReputacao) {
 		this.cartaoReputacao = cartaoReputacao;
 	}
 
@@ -311,6 +311,7 @@ public class Usuario {
 	 * 
 	 * @param reputacao
 	 */
+	
 	public void aumentarReputacao(double reputacao) {
 		this.reputacao += reputacao;
 	}

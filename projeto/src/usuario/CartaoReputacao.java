@@ -1,6 +1,6 @@
 package usuario;
 
-public enum CardReputacao {
+public enum CartaoReputacao {
 	
 	Noob("Sim"),
 	Caloteiro("Nao"),
@@ -9,7 +9,7 @@ public enum CardReputacao {
 	
 	private String situacao;
 
-	CardReputacao(String situacao) {
+	CartaoReputacao(String situacao) {
 		this.situacao = situacao;
 	}
 	

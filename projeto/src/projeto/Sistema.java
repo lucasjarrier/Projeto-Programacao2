@@ -491,23 +491,22 @@ public class Sistema {
 			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
 		}
 		
-		
-		// SE TIRAR ESSE IF, CONCERTA O ERRO DA LINHA 41.
+		/*
 		if(periodo > usuarios.get(usuarioReceptorID).getPeriodoPermitido()) {
 			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
 		}
-		
+		*/
 
 		Usuario dono = this.usuarios.get(usuarioDonoID);
-		Usuario receptor = this.usuarios.get(usuarioReceptorID);
 		Item itemEmprestimo = dono.getItem(nomeItem);
 
 		if (itemEmprestimo.getEstado().equals(EstadoItem.INDISPONIVEL)) {
 			throw new IllegalArgumentException("Item emprestado no momento");
 		}
-
+		
+		Usuario receptor = this.usuarios.get(usuarioReceptorID);
 		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
-
+	
 		if (this.emprestimos.containsKey(emprestimoID)) {
 			throw new IllegalArgumentException("Emprestimo ja existe");
 		}
@@ -572,7 +571,7 @@ public class Sistema {
 
 	/**
 	 * 
-	 * @return Retorna uma String todos os usuarios com reputação negativa.
+	 * @return Retorna uma String todos os usuarios com reputaï¿½ï¿½o negativa.
 	 */
 
 	public String listarCaloteiros() {
