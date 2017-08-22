@@ -23,6 +23,7 @@ public class Usuario {
 	private ArrayList<Emprestimo> emprestimos;
 	private double reputacao;
 	private CardReputacao cartaoReputacao;
+	public int periodoPermitido;
 
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
@@ -32,6 +33,7 @@ public class Usuario {
 		this.emprestimos = new ArrayList<Emprestimo>();
 		this.reputacao = 0.0;
 		this.cartaoReputacao = cartaoReputacao.Noob;
+		this.periodoPermitido = 7;
 		
 	}
 
@@ -39,6 +41,7 @@ public class Usuario {
 		
 		if(reputacao < 0) {
 			this.cartaoReputacao = cartaoReputacao.Caloteiro;
+			this.periodoPermitido = 0;
 		}
 		if(reputacao >= 0 && reputacao <= 100) {
 			if(itens.size() > 0) {
@@ -46,16 +49,26 @@ public class Usuario {
 			}
 			else {
 				this.cartaoReputacao = cartaoReputacao.FreeRyder;
+				this.periodoPermitido = 5;	
 			}
 		}
 		if(reputacao > 100) {
 			this.cartaoReputacao = cartaoReputacao.BomAmigo;
+			this.periodoPermitido = 15;
 		}		
 		return cartaoReputacao;
 	}
 
 	public void setCartaoReputacao(CardReputacao cartaoReputacao) {
 		this.cartaoReputacao = cartaoReputacao;
+	}
+
+	public int getPeriodoPermitido() {
+		return periodoPermitido;
+	}
+
+	public void setPeriodoPermitido(int periodoPermitido) {
+		this.periodoPermitido = periodoPermitido;
 	}
 
 	@Override
