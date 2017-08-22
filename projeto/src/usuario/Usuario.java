@@ -305,6 +305,19 @@ public class Usuario {
 		return listagem;
 	}
 	
+	public ArrayList<Item> getItensComEmprestimos() {
+		ArrayList<Item> itensComEmprestimos = new ArrayList<Item>();
+
+		for (Item item : this.itens) {
+			if (item.getNumeroDeEmprestimos() > 0) {
+				itensComEmprestimos.add(item);
+			}
+
+		}
+
+		return itensComEmprestimos;
+	}
+	
 
 	/**
 	 * Aumenta reputacao do usuario.

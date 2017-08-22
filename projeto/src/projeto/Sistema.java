@@ -11,6 +11,7 @@ import emprestimo.EmprestimoID;
 import item.EstadoItem;
 import item.Item;
 import item.ItemNomeComparator;
+import item.ItemNumeroDeEmprestimosComparator;
 import item.ItemValorComparator;
 import usuario.Usuario;
 import usuario.UsuarioID;
@@ -671,8 +672,27 @@ public class Sistema {
 	}
 
 	public String listarTop10Itens() {
-		// TODO Auto-generated method stub
-		return null;
+		Collection<Usuario> usuarios = this.usuarios.values();
+		ArrayList<Item> itens = new ArrayList<Item>();
+		String top10 = "";
+
+		for (Usuario usuario : usuarios) {
+			itens.addAll(usuario.getItensComEmprestimos());
+		}
+
+		Collections.sort(itens, new ItemNumeroDeEmprestimosComparator());
+
+		int i = 1;
+		for (Item item : itens) {
+			if (i > 10) {
+				return top10;
+			}
+			top10 += i + ") " + item.getNumeroDeEmprestimos() + " emprestimos - " + item.toString() + "|";
+			i++;
+		}
+
+		return top10;
+
 	}
 
 }
