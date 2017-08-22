@@ -54,6 +54,7 @@ public class Emprestimo {
 		this.usuarioReceptor = usuarioReceptor;
 		this.itemEmprestado = itemEmprestado;
 		this.itemEmprestado.setEstado(EstadoItem.INDISPONIVEL);
+		this.itemEmprestado.somaNumeroDeEmprestimos();
 		this.diasDoEmprestimo = diasDoEmprestimo;
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		LocalDate date = LocalDate.parse(dataEmprestimo, formatter);
@@ -143,7 +144,7 @@ public class Emprestimo {
 			this.diasDeAtraso = 0;
 		} else {
 			this.diasDeAtraso = diasDesdeEmprestimo - this.diasDoEmprestimo;
-		
+
 		}
 
 		this.itemEmprestado.setEstado(EstadoItem.DISPONIVEL);
