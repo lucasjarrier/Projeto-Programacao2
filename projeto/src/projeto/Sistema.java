@@ -486,6 +486,17 @@ public class Sistema {
 		if (!this.usuarios.containsKey(usuarioDonoID) || !this.usuarios.containsKey(usuarioReceptorID)) {
 			throw new NullPointerException("Usuario invalido");
 		}
+		
+		if(usuarios.get(usuarioReceptorID).getReputacao() < 0) {
+			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
+		}
+		
+		
+		// SE TIRAR ESSE IF, CONCERTA O ERRO DA LINHA 41.
+		if(periodo > usuarios.get(usuarioReceptorID).getPeriodoPermitido()) {
+			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
+		}
+		
 
 		Usuario dono = this.usuarios.get(usuarioDonoID);
 		Usuario receptor = this.usuarios.get(usuarioReceptorID);
