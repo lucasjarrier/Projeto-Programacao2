@@ -681,7 +681,7 @@ public class Sistema {
 		}
 
 		Collections.sort(itens, new ItemNumeroDeEmprestimosComparator());
-		
+
 		int i = 1;
 		for (Item item : itens) {
 			if (i > 10) {
@@ -690,7 +690,7 @@ public class Sistema {
 			top10 += i + ") " + item.getNumeroDeEmprestimos() + " emprestimos - " + item.toString() + "|";
 			i++;
 		}
-		
+
 		return top10;
 
 	}
