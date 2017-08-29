@@ -1,11 +1,13 @@
 
-package item;
+package comparators;
 
 /**
  *  Classe comparator, ela é responsavel por comparar um valor inteiro entre dois itens.
  */
 
 import java.util.Comparator;
+
+import item.Item;
 
 public class ItemValorComparator implements Comparator<Item> {
 

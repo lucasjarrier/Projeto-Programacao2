@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import bluray.BluRayShow;
+import item.BluRayShow;
 
 public class BluRayShowTest {
 

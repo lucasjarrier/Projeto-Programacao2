@@ -124,9 +124,4 @@ public class UsuarioTest {
 		assertEquals("[]", usuario3.getItens().toString());
 	}
 
-	@Test
-	public void testExibirItens() throws Exception {
-		usuario1.adicionaEletronico("League Of Legends", 1, "PC");
-		assertEquals("JOGO ELETRONICO: League Of Legends, R$ 1.0, Nao emprestado, PC", usuario1.exibirItens().toString());
-	}
 }

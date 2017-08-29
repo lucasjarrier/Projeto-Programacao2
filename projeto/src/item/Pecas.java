@@ -1,4 +1,4 @@
-package jogos;
+package item;
 
 public enum Pecas {
 

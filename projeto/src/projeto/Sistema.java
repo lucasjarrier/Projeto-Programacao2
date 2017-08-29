@@ -6,17 +6,18 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import comparators.ItemNomeComparator;
+import comparators.ItemNumeroDeEmprestimosComparator;
+import comparators.ItemValorComparator;
+import comparators.MelhoresUsuariosReputacaoComparator;
+import comparators.PioresUsuariosReputacaoComparator;
 import emprestimo.Emprestimo;
 import emprestimo.EmprestimoID;
 import item.EstadoItem;
 import item.Item;
-import item.ItemNomeComparator;
-import item.ItemNumeroDeEmprestimosComparator;
-import item.ItemValorComparator;
 import usuario.Usuario;
 import usuario.UsuarioID;
-import usuario.MelhoresUsuariosReputacaoComparator;
-import usuario.PioresUsuariosReputacaoComparator;
+import utils.Validador;
 
 public class Sistema {
 
@@ -102,28 +103,14 @@ public class Sistema {
 	 * @param atributo
 	 * @return valor equivalente ao atributo.
 	 */
+	
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
 		UsuarioID usuario = new UsuarioID(nome, telefone);
-		String info = "";
 
 		if (!usuarios.containsKey(usuario)) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
-
-		if (atributo.equals("Nome")) {
-			info = usuarios.get(usuario).getNome();
-		} else if (atributo.equals("Telefone")) {
-			info = usuarios.get(usuario).getEmail();
-		} else if (atributo.equals("Email")) {
-			info = usuarios.get(usuario).getEmail();
-		} else if (atributo.equals("Reputacao")) {
-			info += usuarios.get(usuario).getReputacao();
-		} else if (atributo.equals("Cartao")) {
-			info += usuarios.get(usuario).getCartaoReputacao();
-		}
-
-		return info;
-
+		return usuarios.get(usuario).getInfoUsuario(atributo);
 	}
 
 	private Usuario getUsuario(String nome, String telefone) {
@@ -165,7 +152,6 @@ public class Sistema {
 		}
 
 		getUsuario(nomeUsuario, telefone).adicionaFilme(nomeItem, preco, duracao, classificacao, genero, ano);
-		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 
 	/**
@@ -201,7 +187,6 @@ public class Sistema {
 		}
 		getUsuario(nomeUsuario, telefone).adicionaSerie(nomeItem, preco, duracao, classificacao, descricao, genero,
 				temporada);
-		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 
 	/**
@@ -234,7 +219,6 @@ public class Sistema {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaShow(nomeItem, preco, duracao, classificacao, artista, faixas);
-		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 
 	/**
@@ -261,7 +245,6 @@ public class Sistema {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaEletronico(nomeItem, preco, plataforma);
-		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 
 	/**
@@ -285,7 +268,6 @@ public class Sistema {
 			throw new IllegalArgumentException("Preco invalido");
 		}
 		getUsuario(nomeUsuario, telefone).adicionaTabuleiro(nomeItem, preco);
-		getUsuario(nomeUsuario, telefone).aumentarReputacao(preco * 0.05);
 	}
 
 	/**
@@ -346,16 +328,10 @@ public class Sistema {
 
 	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) {
 		UsuarioID usuario = new UsuarioID(nomeUsuario, telefone);
-		String info = "";
 		if (!usuarios.containsKey(usuario)) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
-		if (atributo.equals("Preco")) {
-			info += usuarios.get(usuario).getItem(nomeItem).getValor();
-		} else if (atributo.equals("Nome")) {
-			info += usuarios.get(usuario).getItem(nomeItem).getNome();
-		}
-		return info;
+		return usuarios.get(usuario).getInfoItem(nomeItem, atributo);
 
 	}
 
@@ -378,11 +354,7 @@ public class Sistema {
 
 	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor) {
 		Usuario usuario = getUsuario(nomeUsuario, telefone);
-		if (atributo.toLowerCase().equals("preco")) {
-			usuario.getItem(nomeItem).setValor(Double.parseDouble(valor));
-		} else if (atributo.toLowerCase().equals("nome")) {
-			usuario.getItem(nomeItem).setNome(valor);
-		}
+		usuario.atualizarItem(nomeItem, atributo, valor);
 	}
 
 	/**
@@ -410,7 +382,6 @@ public class Sistema {
 	 */
 
 	public String listarItensOrdenadosPorNome() {
-
 		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
 		Collection<Usuario> valor = usuarios.values();
 
@@ -419,7 +390,6 @@ public class Sistema {
 				itensOrdenados.add(usuario.getItens().get(i));
 			}
 		}
-
 		Collections.sort(itensOrdenados, new ItemNomeComparator());
 		String retorno = "";
 
@@ -436,19 +406,15 @@ public class Sistema {
 	 */
 
 	public String listarItensOrdenadosPorValor() {
-
 		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
 		Collection<Usuario> valor = usuarios.values();
-
 		for (Usuario usuario : valor) {
 			for (int i = 0; i < usuario.getItens().size(); i++) {
 				itensOrdenados.add(usuario.getItens().get(i));
 			}
 		}
-
 		Collections.sort(itensOrdenados, new ItemValorComparator());
 		String retorno = "";
-
 		for (Item item : itensOrdenados) {
 			retorno += item.toString() + "|";
 		}
@@ -468,22 +434,17 @@ public class Sistema {
 	 */
 
 	public String pesquisarDetalhesItem(String nome, String telefone, String item) {
-
 		UsuarioID usuario = new UsuarioID(nome, telefone);
-
 		if (!this.usuarios.containsKey(usuario)) {
 			throw new NullPointerException("Usuario invalido");
 		}
-
 		return this.usuarios.get(usuario).getItem(item).toString();
 	}
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
 			String nomeItem, String dataEmprestimo, int periodo) {
-
 		UsuarioID usuarioDonoID = new UsuarioID(nomeDono, telefoneDono);
 		UsuarioID usuarioReceptorID = new UsuarioID(nomeReceptor, telefoneReceptor);
-
 		if (!this.usuarios.containsKey(usuarioDonoID) || !this.usuarios.containsKey(usuarioReceptorID)) {
 			throw new NullPointerException("Usuario invalido");
 		}
@@ -492,23 +453,18 @@ public class Sistema {
 			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
 		}
 		
-		
-		// SE TIRAR ESSE IF, CONCERTA O ERRO DA LINHA 41.
-		if(periodo > usuarios.get(usuarioReceptorID).getPeriodoPermitido()) {
+		if (periodo > usuarios.get(usuarioReceptorID).getCartaoReputacao().getPeriodoMaximo()) {
 			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
 		}
 		
-
 		Usuario dono = this.usuarios.get(usuarioDonoID);
 		Usuario receptor = this.usuarios.get(usuarioReceptorID);
 		Item itemEmprestimo = dono.getItem(nomeItem);
-
 		if (itemEmprestimo.getEstado().equals(EstadoItem.INDISPONIVEL)) {
 			throw new IllegalArgumentException("Item emprestado no momento");
 		}
-
+		
 		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
-
 		if (this.emprestimos.containsKey(emprestimoID)) {
 			throw new IllegalArgumentException("Emprestimo ja existe");
 		}
@@ -524,7 +480,6 @@ public class Sistema {
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
 		UsuarioID usuarioDonoID = new UsuarioID(nomeDono, telefoneDono);
 		UsuarioID usuarioReceptorID = new UsuarioID(nomeReceptor, telefoneReceptor);
-
 		if (!this.usuarios.containsKey(usuarioDonoID) || !this.usuarios.containsKey(usuarioReceptorID)) {
 			throw new NullPointerException("Usuario invalido");
 		}
@@ -534,13 +489,11 @@ public class Sistema {
 		Item itemEmprestimo = dono.getItem(nomeItem);
 
 		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
-
 		if (!this.emprestimos.containsKey(emprestimoID)) {
 			throw new IllegalArgumentException("Emprestimo nao encontrado");
 		}
-
 		emprestimos.get(emprestimoID).devolveItem(dataEmprestimo, dataDevolucao);
-
+		
 	}
 
 	/**
@@ -550,7 +503,6 @@ public class Sistema {
 	 */
 
 	public String listarTop10PioresUsuarios() {
-
 		ArrayList<Usuario> top10Usuarios = new ArrayList<Usuario>();
 		Collection<Usuario> users = usuarios.values();
 
