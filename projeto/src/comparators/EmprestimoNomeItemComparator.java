@@ -1,6 +1,8 @@
-package emprestimo;
+package comparators;
 
 import java.util.Comparator;
+
+import emprestimo.Emprestimo;
 
 public class EmprestimoNomeItemComparator implements Comparator<Emprestimo> {
 	@Override

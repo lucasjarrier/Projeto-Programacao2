@@ -1,4 +1,4 @@
-package projeto;
+package utils;
 
 public class Validador {
 
@@ -69,9 +69,6 @@ public class Validador {
 		if(nomeItem == null || nomeItem.trim().isEmpty()) {
 			throw new IllegalArgumentException("Item invalido");
 		}
-	}
-	public static void validaTabuleiro(String nome, String telefone, String nomeItem, double preco) {
-		
 	}
 	
 }

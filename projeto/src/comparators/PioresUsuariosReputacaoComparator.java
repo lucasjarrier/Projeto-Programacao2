@@ -1,6 +1,8 @@
-package usuario;
+package comparators;
 
 import java.util.Comparator;
+
+import usuario.Usuario;
 
 /**
  * 
@@ -8,7 +10,8 @@ import java.util.Comparator;
  * Ordenando com base nas maiores reputações.
  */
 
-public class MelhoresUsuariosReputacaoComparator implements Comparator<Usuario> {
+
+public class PioresUsuariosReputacaoComparator implements Comparator<Usuario> {
 
 	@Override
 	public int compare(Usuario usuario1, Usuario usuario2) {
@@ -16,10 +19,10 @@ public class MelhoresUsuariosReputacaoComparator implements Comparator<Usuario> 
 		double user1 = (double) usuario1.getReputacao();
 		double user2 = (double) usuario2.getReputacao();
 
-		if (user1 > user2) {
+		if (user1 < user2) {
 			return -1;
 
-		} else if (user1 < user2) {
+		} else if (user1 > user2) {
 			return 1;
 
 		} else {

@@ -4,15 +4,20 @@ package usuario;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import bluray.BluRayFilme;
-import bluray.BluRaySerie;
-import bluray.BluRayShow;
+import cartoes.CardBomAmigo;
+import cartoes.CardCaloteiro;
+import cartoes.CardFreeRyder;
+import cartoes.CardNoob;
+import cartoes.CardReputacao;
+import comparators.EmprestimoNomeItemComparator;
 import emprestimo.Emprestimo;
-import emprestimo.EmprestimoNomeItemComparator;
+import item.BluRayFilme;
+import item.BluRaySerie;
+import item.BluRayShow;
 import item.EstadoItem;
 import item.Item;
-import jogos.JogoDeTabuleiro;
-import jogos.JogoEletronico;
+import item.JogoDeTabuleiro;
+import item.JogoEletronico;
 
 public class Usuario {
 
@@ -23,7 +28,6 @@ public class Usuario {
 	private ArrayList<Emprestimo> emprestimos;
 	private double reputacao;
 	private CardReputacao cartaoReputacao;
-	public int periodoPermitido;
 
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
@@ -32,44 +36,36 @@ public class Usuario {
 		this.itens = new ArrayList<Item>();
 		this.emprestimos = new ArrayList<Emprestimo>();
 		this.reputacao = 0.0;
-		this.cartaoReputacao = cartaoReputacao.Noob;
-		this.periodoPermitido = 7;
-		
+		this.cartaoReputacao = new CardNoob();
 	}
 
-	public CardReputacao getCartaoReputacao() {
-		
-		if(reputacao < 0) {
-			this.cartaoReputacao = cartaoReputacao.Caloteiro;
-			this.periodoPermitido = 0;
-		}
-		if(reputacao >= 0 && reputacao <= 100) {
-			if(itens.size() > 0) {
-				this.cartaoReputacao = cartaoReputacao.Noob;
-			}
-			else {
-				this.cartaoReputacao = cartaoReputacao.FreeRyder;
-				this.periodoPermitido = 5;	
-			}
-		}
-		if(reputacao > 100) {
-			this.cartaoReputacao = cartaoReputacao.BomAmigo;
-			this.periodoPermitido = 15;
-		}		
+	public CardReputacao getCartaoReputacao() {	
 		return cartaoReputacao;
 	}
 
-	public void setCartaoReputacao(CardReputacao cartaoReputacao) {
-		this.cartaoReputacao = cartaoReputacao;
+	
+	/**
+	 * Muda o tipo de cartao de acordo com a reputacao do usuario.
+	 * 
+	 */
+	
+	public void setCartaoReputacao() {
+		if (reputacao < 0) {
+			this.cartaoReputacao = new CardCaloteiro();
+		}
+		if (reputacao >= 0 && reputacao <= 100) {
+			if (itens.size() > 0) {
+				this.cartaoReputacao = new CardNoob();
+			}
+			else {
+				this.cartaoReputacao = new CardFreeRyder();
+			}
+		}
+		if (reputacao > 100) {
+			this.cartaoReputacao = new CardBomAmigo();
+		}
 	}
 
-	public int getPeriodoPermitido() {
-		return periodoPermitido;
-	}
-
-	public void setPeriodoPermitido(int periodoPermitido) {
-		this.periodoPermitido = periodoPermitido;
-	}
 
 	@Override
 	public String toString() {
@@ -143,51 +139,117 @@ public class Usuario {
 		return true;
 	}
 
+	/**
+	 * Adiciona um bluray de filme ao usuario.
+	 * @param nome Eh o nome do filme.
+	 * @param valor Eh o valor do item.
+	 * @param duracao Eh a duracao do filme.
+	 * @param classificacao Eh a classificacao do filme.
+	 * @param genero Eh o genero do filme
+	 * @param ano Eh o ano de lancamento do filme.
+	 */
+	
 	public void adicionaFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano) {
 		BluRayFilme filme = new BluRayFilme(nome, valor, duracao, classificacao, genero, ano);
 		itens.add(filme);
+		aumentarReputacao(valor * 0.05);
 	}
 
+	/**
+	 * Adiciona um bluray de show ao usuario.
+	 * @param nome Eh o nome do show.
+	 * @param valor Eh o valor do item.
+	 * @param duracao Eh a duracao do show.
+	 * @param classificacao Eh a classificacao do show.
+	 * @param artista Eh o artista.
+	 * @param faixas Eh a quantidade de faixas do bluray.
+	 */
+	
 	public void adicionaShow(String nome, double valor, int duracao, String classificacao, String artista, int faixas) {
 		BluRayShow show = new BluRayShow(nome, valor, duracao, classificacao, artista, faixas);
 		itens.add(show);
+		aumentarReputacao(valor * 0.05);
 	}
 
+	/**
+	 * Adiciona um bluray de serie ao usuario.
+	 * @param nome Eh o nome da serie.
+	 * @param valor Eh o valor do item.
+	 * @param duracao Eh a duracao do bluray.
+	 * @param classificacao Eh a classificacao etaria do bluray.
+	 * @param descricao Eh a descricao do item.
+	 * @param genero Eh o genero da serie.
+	 * @param temporada Eh a temporada da serie.
+	 */
+	
 	public void adicionaSerie(String nome, double valor, int duracao, String classificacao, String descricao,
 			String genero, int temporada) {
 		BluRaySerie serie = new BluRaySerie(nome, valor, duracao, classificacao, descricao, genero, temporada);
 		itens.add(serie);
+		aumentarReputacao(valor * 0.05);
 	}
 
+	/**
+	 * Adiciona um jogo eletronico ao usuario.
+	 * @param nome Eh o nome do jogo.
+	 * @param valor Eh o valor do jogo.
+	 * @param plataforma Eh a plataforma do jogo.
+	 */
+	
 	public void adicionaEletronico(String nome, double valor, String plataforma) {
 		JogoEletronico jogo = new JogoEletronico(nome, valor, plataforma);
 		itens.add(jogo);
+		aumentarReputacao(valor * 0.05);
 	}
 
+	/**
+	 * Adiciona um jogo de tabuleiro ao usuario.
+	 * @param nome Eh o nome do jogo.
+	 * @param valor Eh o valor do jogo.
+	 */
+	
 	public void adicionaTabuleiro(String nome, double valor) {
 		JogoDeTabuleiro jogo = new JogoDeTabuleiro(nome, valor);
 		itens.add(jogo);
+		aumentarReputacao(valor * 0.05);
 	}
 
+	/**
+	 * Adiciona um episodio a serie.
+	 * @param nomeBlurayTemporada Eh o nome do bluray da serie.
+	 * @param duracao Eh a duracao do episodio.
+	 */
+	
 	public void adicionaBluRay(String nomeBlurayTemporada, int duracao) {
 		Item item = getItem(nomeBlurayTemporada);
 		if (item instanceof BluRaySerie) {
 			BluRaySerie serie = (BluRaySerie) item;
 			serie.adicionaEpisodio(duracao);
-
 		}
 
 	}
 
+	/**
+	 * Retorna um item.
+	 * @param nomeItem Eh o nome do item.
+	 * @return Retorna o item.
+	 */
+	
 	public Item getItem(String nomeItem) {
 		for (Item item : this.itens) {
 			if (item.getNome().equals(nomeItem)) {
 				return item;
 			}
 		}
-		throw new IllegalArgumentException("Item nao encontrado");
+		throw new NullPointerException("Item nao encontrado");
 	}
 
+	/**
+	 * Adiciona uma peca perdida ao jogo de tabuleiro.
+	 * @param nomeItem Eh o nome do jogo.
+	 * @param nomePeca Eh o nome da peca.
+	 */
+	
 	public void adicionaPecaPerdida(String nomeItem, String nomePeca) {
 		Item item = getItem(nomeItem);
 		if (item instanceof JogoDeTabuleiro) {
@@ -196,19 +258,71 @@ public class Usuario {
 		}
 	}
 
+	/**
+	 * Retorna a informacao sobre o usuario.
+	 * @param atributo Eh o atributo o qual se quer a informacao.
+	 * @return Retorna a informacao.
+	 */
+	
+	public String getInfoUsuario(String atributo) {
+		String info = "";
+		if (atributo.toLowerCase().equals("nome")) {
+			info += getNome();
+		} else if (atributo.toLowerCase().equals("telefone")) {
+			info += getTelefone();
+		} else if (atributo.toLowerCase().equals("email")) {
+			info += getEmail();
+		} else if (atributo.toLowerCase().equals("reputacao")) {
+			info += getReputacao();
+		} else if (atributo.toLowerCase().equals("cartao")) {
+			info += getCartaoReputacao().toString();
+		}
+		return info;
+	}
+	
+	/**
+	 * Retorna informacoes do item.
+	 * @param nomeItem Eh o nome do item.
+	 * @param atributo Eh o nome do atributo o qual se quer a informacao.
+	 * @return Retorna a informacao.
+	 */
+	
+	public String getInfoItem(String nomeItem, String atributo) {
+		String info = "";
+		if (atributo.toLowerCase().equals("preco")) {
+			info += getItem(nomeItem).getValor();
+		} else if (atributo.toLowerCase().equals("nome")) {
+			info += getItem(nomeItem).getNome();
+		}
+		return info;
+	}
+	
+	/**
+	 * Atualiza informacoes do item do usuario.
+	 * @param nomeItem Eh o nome do item.
+	 * @param atributo Eh o nome do atributo o qual se quer a informacao.
+	 * @param valor Eh o valor a ser mudado.
+	 */
+	
+	public void atualizarItem(String nomeItem, String atributo, String valor) {
+		Item item = getItem(nomeItem);
+		if (atributo.toLowerCase().equals("preco")) {
+			item.setValor(Double.parseDouble(valor));
+		}
+		if (atributo.toLowerCase().equals("nome")) {
+			item.setNome(valor);
+		}
+	}
+	
+	/**
+	 * 
+	 * Remove um item do usuario.
+	 * @param nomeItem Eh o nome do item.
+	 */
+	
 	public void removeItem(String nomeItem) {
 		Item item = getItem(nomeItem);
 		itens.remove(item);
-	}
-
-	public String exibirItens() {
-		String representacao = "";
-
-		for (Item item : this.itens) {
-			representacao += item.toString();
-		}
-
-		return representacao;
 	}
 
 	public void registraEmprestimo(Emprestimo emprestimo) {
@@ -217,58 +331,45 @@ public class Usuario {
 
 	public String listarEmprestimosEmprestando() {
 		ArrayList<Emprestimo> emprestimosEmprestando = new ArrayList<Emprestimo>();
-
 		for (Emprestimo emprestimo : this.emprestimos) {
 			if (emprestimo.getDonoItem().getNome().equals(this.nome)
 					&& emprestimo.getDonoItem().getTelefone().equals(this.telefone)) {
 				emprestimosEmprestando.add(emprestimo);
 			}
 		}
-
 		if (emprestimosEmprestando.size() == 0) {
 			return "Nenhum item emprestado";
 		}
-
 		Collections.sort(emprestimosEmprestando, new EmprestimoNomeItemComparator());
-
 		String emprestimos = "Emprestimos: ";
-
 		for (Emprestimo emprestimo : emprestimosEmprestando) {
 			emprestimos += emprestimo.toString() + "|";
 		}
-
 		return emprestimos;
-
 	}
 
 	public String listarEmprestimosPegandoEmprestado() {
 		ArrayList<Emprestimo> emprestimosPegandoEmprestado = new ArrayList<Emprestimo>();
-
 		for (Emprestimo emprestimo : this.emprestimos) {
 			if (emprestimo.getUsuarioReceptor().getNome().equals(this.nome)
 					&& emprestimo.getUsuarioReceptor().getTelefone().equals(this.telefone)) {
 				emprestimosPegandoEmprestado.add(emprestimo);
 			}
 		}
-
 		if (emprestimosPegandoEmprestado.size() == 0) {
 			return "Nenhum item pego emprestado";
 		}
-
 		Collections.sort(emprestimosPegandoEmprestado, new EmprestimoNomeItemComparator());
-
 		String emprestimos = "Emprestimos pegos: ";
 
 		for (Emprestimo emprestimo : emprestimosPegandoEmprestado) {
 			emprestimos += emprestimo.toString() + "|";
 		}
-
 		return emprestimos;
 	}
 
 	public String listaEmprestimosItem(String nomeItem) {
 		String emprestimos = "";
-
 		for (Emprestimo emprestimo : this.emprestimos) {
 			if (emprestimo.getDonoItem().getNome().equals(this.nome)
 					&& emprestimo.getDonoItem().getTelefone().equals(this.telefone)) {
@@ -277,44 +378,36 @@ public class Usuario {
 				}
 			}
 		}
-
 		return emprestimos;
 	}
 	
 	public ArrayList<Item> listarItensNaoEmprestados() {
 		ArrayList<Item> itensNaoEmprestados = new ArrayList<Item>();
-
 		for (Item item : this.itens) {
 			if (item.getEstado().equals(EstadoItem.DISPONIVEL)) {
 				itensNaoEmprestados.add(item);
 			}
 		}
-
 		return itensNaoEmprestados;
 	}
 	
 	public String listarItensEmprestados() {
 		String listagem = "";
-
 		for (Item item : this.itens) {
 			if (item.getEstado().equals(EstadoItem.INDISPONIVEL)) {
 				listagem += "Dono do item: " + this.nome + ", " + "Nome do item emprestado:" + item.getNome() + "|";
 			}
 		}
-
 		return listagem;
 	}
 	
 	public ArrayList<Item> getItensComEmprestimos() {
 		ArrayList<Item> itensComEmprestimos = new ArrayList<Item>();
-
 		for (Item item : this.itens) {
 			if (item.getNumeroDeEmprestimos() > 0) {
 				itensComEmprestimos.add(item);
 			}
-
 		}
-
 		return itensComEmprestimos;
 	}
 	
@@ -326,6 +419,7 @@ public class Usuario {
 	 */
 	public void aumentarReputacao(double reputacao) {
 		this.reputacao += reputacao;
+		setCartaoReputacao();
 	}
 
 	/**
@@ -335,6 +429,7 @@ public class Usuario {
 	 */
 	public void diminuirReputacao(double reputacao) {
 		this.reputacao -= reputacao;
+		setCartaoReputacao();
 	}
 
 }

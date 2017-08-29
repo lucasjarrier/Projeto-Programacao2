@@ -1,6 +1,4 @@
-package jogos;
-
-import item.Item;
+package item;
 
 public class JogoEletronico extends Item {
 

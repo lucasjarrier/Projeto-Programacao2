@@ -1,4 +1,4 @@
-package bluray;
+package item;
 
 public class Episodio {
 	private int duracao;
