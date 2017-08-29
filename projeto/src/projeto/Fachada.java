@@ -57,7 +57,7 @@ public class Fachada {
 	}
 
 	/**
-	 * METODOS DE MANIPULA��O.
+	 * METODOS DE MANIPULACAO.
 	 */
 
 	public String getInfoUsuario(String nome, String telefone, String atributo) {

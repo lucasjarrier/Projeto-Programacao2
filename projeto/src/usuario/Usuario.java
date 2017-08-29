@@ -36,7 +36,7 @@ public class Usuario {
 		this.itens = new ArrayList<Item>();
 		this.emprestimos = new ArrayList<Emprestimo>();
 		this.reputacao = 0.0;
-		this.cartaoReputacao = new CardNoob();
+		this.cartaoReputacao = new CardFreeRyder();
 	}
 
 	public CardReputacao getCartaoReputacao() {	
