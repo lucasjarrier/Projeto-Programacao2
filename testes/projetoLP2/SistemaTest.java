@@ -5,16 +5,16 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-import projeto.Sistema;
+import projeto.UsuarioController;
 
 public class SistemaTest {
 
-	Sistema sistema;
+	UsuarioController sistema;
 
 	@Before
 	public void setUp() throws Exception {
 
-		sistema = new Sistema();
+		sistema = new UsuarioController();
 
 		/*
 		 * CRIANDO USUARIOS.

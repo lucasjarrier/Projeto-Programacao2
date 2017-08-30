@@ -4,6 +4,14 @@ import java.util.Comparator;
 
 import item.Item;
 
+/**
+ * Classe que estabelece comparação entre dois itens, tendo o número de vezes
+ * que o item foi emprestado como paramêtro.
+ * 
+ * @author Higor
+ *
+ */
+
 public class ItemNumeroDeEmprestimosComparator implements Comparator<Item> {
 
 	@Override

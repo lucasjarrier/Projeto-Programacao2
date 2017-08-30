@@ -1,5 +1,10 @@
 package cartoes;
 
+/*
+ * Representação de um cartão de reputação Caloteiro. 
+ * 
+ */
+
 public class CardCaloteiro implements CardReputacao {
 
 	public static final int PERIODO_MAXIMO = 0;

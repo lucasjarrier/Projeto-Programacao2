@@ -1,13 +1,17 @@
 
 package comparators;
 
-/**
- *  Classe comparator, ela é responsavel por comparar um valor inteiro entre dois itens.
- */
-
 import java.util.Comparator;
 
 import item.Item;
+
+/**
+ * Classe que estabelece comparação entre itens, tendo o valor do item como
+ * paramêtro de comparação.
+ * 
+ * @author Higor
+ *
+ */
 
 public class ItemValorComparator implements Comparator<Item> {
 
