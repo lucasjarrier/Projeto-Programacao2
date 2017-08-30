@@ -22,11 +22,11 @@ import utils.Validador;
 public class Sistema {
 
 	private Map<UsuarioID, Usuario> usuarios;
-	private Map<EmprestimoID, Emprestimo> emprestimos;
+	private EmprestimoController sistemaEmprestimo;
 
 	public Sistema() {
 		this.usuarios = new HashMap<UsuarioID, Usuario>();
-		this.emprestimos = new HashMap<EmprestimoID, Emprestimo>();
+		this.sistemaEmprestimo = new EmprestimoController();
 	}
 
 	/**
@@ -36,6 +36,8 @@ public class Sistema {
 	 * @param telefone
 	 * @param email
 	 */
+	
+	
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		Validador.validaUsuario(nome, email, telefone);
 
@@ -63,6 +65,8 @@ public class Sistema {
 		}
 
 	}
+	
+	
 
 	/**
 	 * Recebe um atributo e atualiza o valor do atributo no Usuario ja
@@ -448,31 +452,24 @@ public class Sistema {
 		if (!this.usuarios.containsKey(usuarioDonoID) || !this.usuarios.containsKey(usuarioReceptorID)) {
 			throw new NullPointerException("Usuario invalido");
 		}
-		
-		if(usuarios.get(usuarioReceptorID).getReputacao() < 0) {
+
+		if (usuarios.get(usuarioReceptorID).getReputacao() < 0) {
 			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
 		}
-		
+
 		if (periodo > usuarios.get(usuarioReceptorID).getCartaoReputacao().getPeriodoMaximo()) {
 			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
 		}
-		
+
 		Usuario dono = this.usuarios.get(usuarioDonoID);
 		Usuario receptor = this.usuarios.get(usuarioReceptorID);
 		Item itemEmprestimo = dono.getItem(nomeItem);
+
 		if (itemEmprestimo.getEstado().equals(EstadoItem.INDISPONIVEL)) {
 			throw new IllegalArgumentException("Item emprestado no momento");
 		}
-		
-		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
-		if (this.emprestimos.containsKey(emprestimoID)) {
-			throw new IllegalArgumentException("Emprestimo ja existe");
-		}
 
-		Emprestimo emprestimo = new Emprestimo(dono, receptor, itemEmprestimo, periodo, dataEmprestimo);
-		emprestimos.put(emprestimoID, emprestimo);
-		dono.registraEmprestimo(emprestimo);
-		receptor.registraEmprestimo(emprestimo);
+		this.sistemaEmprestimo.registrarEmprestimo(dono, receptor, itemEmprestimo, dataEmprestimo, periodo);
 
 	}
 
@@ -488,12 +485,8 @@ public class Sistema {
 		Usuario receptor = this.usuarios.get(usuarioReceptorID);
 		Item itemEmprestimo = dono.getItem(nomeItem);
 
-		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
-		if (!this.emprestimos.containsKey(emprestimoID)) {
-			throw new IllegalArgumentException("Emprestimo nao encontrado");
-		}
-		emprestimos.get(emprestimoID).devolveItem(dataEmprestimo, dataDevolucao);
-		
+		this.sistemaEmprestimo.devolverItem(dono, receptor, itemEmprestimo, dataEmprestimo, dataDevolucao);
+
 	}
 
 	/**
@@ -567,31 +560,6 @@ public class Sistema {
 		return retorno;
 	}
 
-	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
-		Usuario usuario = this.getUsuario(nome, telefone);
-		return usuario.listarEmprestimosEmprestando();
-	}
-
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
-		Usuario usuario = this.getUsuario(nome, telefone);
-		return usuario.listarEmprestimosPegandoEmprestado();
-	}
-
-	public String listarEmprestimosItem(String nomeItem) {
-		String emprestimos = "";
-		Collection<Usuario> usuarios = this.usuarios.values();
-
-		for (Usuario usuario : usuarios) {
-			emprestimos += usuario.listaEmprestimosItem(nomeItem);
-		}
-
-		if (emprestimos.equals("")) {
-			return "Nenhum emprestimos associados ao item";
-		} else {
-			return "Emprestimos associados ao item: " + emprestimos;
-		}
-	}
-
 	public String listarItensNaoEmprestados() {
 		ArrayList<Item> itensNaoEmprestados = new ArrayList<Item>();
 		Collection<Usuario> usuarios = this.usuarios.values();
@@ -609,18 +577,6 @@ public class Sistema {
 
 		return listagem;
 
-	}
-
-	public String listarItensEmprestados() {
-		Collection<Usuario> usuarios = this.usuarios.values();
-		String listagem = "";
-		
-		for (Usuario usuario : usuarios) {
-			listagem += usuario.listarItensEmprestados();
-		}
-		
-		return listagem;
-		
 	}
 
 	public String listarTop10Itens() {
@@ -645,6 +601,32 @@ public class Sistema {
 
 		return top10;
 
+	}
+	
+	public void validaUsuario(String nome, String telefone) {
+		if (!this.usuarios.containsKey(new UsuarioID(nome,telefone))) {
+			throw new IllegalArgumentException("Usuario invalido");
+		}
+	}
+
+	public String listarEmprestimosEmprestando(String nome, String telefone) {
+		this.validaUsuario(nome, telefone);
+		return this.sistemaEmprestimo.listarEmprestimosEmprestando(nome, telefone);
+	}
+
+	public String listarEmprestimosPegandoEmprestado(String nome, String telefone) {
+		this.validaUsuario(nome, telefone);
+		return this.sistemaEmprestimo.listarEmprestimosPegandoEmprestado(nome, telefone);
+	}
+
+	public String listaEmprestimosItem(String nomeItem) {
+		return this.sistemaEmprestimo.listaEmprestimosItem(nomeItem);
+
+	}
+	
+	public String listarItensEmprestados() {
+		return this.sistemaEmprestimo.listarItensEmprestados();
+			
 	}
 
 }
