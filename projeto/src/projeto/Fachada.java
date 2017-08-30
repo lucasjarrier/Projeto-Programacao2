@@ -125,15 +125,15 @@ public class Fachada {
 	}
 
 	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
-		return sistema.listarEmprestimosUsuarioEmprestando(nome, telefone);
+		return sistema.listarEmprestimosEmprestando(nome, telefone);
 	}
 
 	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
-		return sistema.listarEmprestimosUsuarioPegandoEmprestado(nome, telefone);
+		return sistema.listarEmprestimosPegandoEmprestado(nome, telefone);
 	}
 
 	public String listarEmprestimosItem(String nomeItem) {
-		return sistema.listarEmprestimosItem(nomeItem);
+		return sistema.listaEmprestimosItem(nomeItem);
 	}
 
 	public String listarItensNaoEmprestados() {

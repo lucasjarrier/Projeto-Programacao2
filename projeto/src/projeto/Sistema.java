@@ -1,7 +1,6 @@
 package projeto;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,8 +10,6 @@ import comparators.ItemNumeroDeEmprestimosComparator;
 import comparators.ItemValorComparator;
 import comparators.MelhoresUsuariosReputacaoComparator;
 import comparators.PioresUsuariosReputacaoComparator;
-import emprestimo.Emprestimo;
-import emprestimo.EmprestimoID;
 import item.EstadoItem;
 import item.Item;
 import usuario.Usuario;
@@ -22,11 +19,11 @@ import utils.Validador;
 public class Sistema {
 
 	private Map<UsuarioID, Usuario> usuarios;
-	private Map<EmprestimoID, Emprestimo> emprestimos;
+	private EmprestimoController sistemaEmprestimo;
 
 	public Sistema() {
 		this.usuarios = new HashMap<UsuarioID, Usuario>();
-		this.emprestimos = new HashMap<EmprestimoID, Emprestimo>();
+		this.sistemaEmprestimo = new EmprestimoController();
 	}
 
 	/**
@@ -36,6 +33,7 @@ public class Sistema {
 	 * @param telefone
 	 * @param email
 	 */
+
 	public void cadastrarUsuario(String nome, String telefone, String email) {
 		Validador.validaUsuario(nome, email, telefone);
 
@@ -55,9 +53,9 @@ public class Sistema {
 	public void removerUsuario(String nome, String telefone) {
 		Validador.validaRemover(nome, telefone);
 
-		UsuarioID NomeETelefone = new UsuarioID(nome, telefone);
-		if (usuarios.containsKey(NomeETelefone)) {
-			this.usuarios.remove(NomeETelefone);
+		UsuarioID usuarioID = new UsuarioID(nome, telefone);
+		if (usuarios.containsKey(usuarioID)) {
+			this.usuarios.remove(usuarioID);
 		} else {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
@@ -65,8 +63,7 @@ public class Sistema {
 	}
 
 	/**
-	 * Recebe um atributo e atualiza o valor do atributo no Usuario ja
-	 * cadastrado.
+	 * Recebe um atributo e atualiza o valor do atributo no Usuario ja cadastrado.
 	 * 
 	 * @param nome
 	 * @param telefone
@@ -103,7 +100,7 @@ public class Sistema {
 	 * @param atributo
 	 * @return valor equivalente ao atributo.
 	 */
-	
+
 	public String getInfoUsuario(String nome, String telefone, String atributo) {
 		UsuarioID usuario = new UsuarioID(nome, telefone);
 
@@ -383,53 +380,48 @@ public class Sistema {
 
 	public String listarItensOrdenadosPorNome() {
 		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
-		Collection<Usuario> valor = usuarios.values();
+		String listagem = "";
 
-		for (Usuario usuario : valor) {
-			for (int i = 0; i < usuario.getItens().size(); i++) {
-				itensOrdenados.add(usuario.getItens().get(i));
-			}
+		for (Usuario usuario : this.usuarios.values()) {
+			itensOrdenados.addAll(usuario.getItens());
 		}
 		Collections.sort(itensOrdenados, new ItemNomeComparator());
-		String retorno = "";
 
 		for (Item item : itensOrdenados) {
-			retorno += item.toString() + "|";
+			listagem += item.toString() + "|";
 		}
-		return retorno;
+		return listagem;
 	}
 
 	/**
 	 * 
-	 * @return Retorna em String todos os Itens cadastrado em ordem de maior
-	 *         Valor.
+	 * @return Retorna em String todos os Itens cadastrado em ordem de maior Valor.
 	 */
 
 	public String listarItensOrdenadosPorValor() {
 		ArrayList<Item> itensOrdenados = new ArrayList<Item>();
-		Collection<Usuario> valor = usuarios.values();
-		for (Usuario usuario : valor) {
-			for (int i = 0; i < usuario.getItens().size(); i++) {
-				itensOrdenados.add(usuario.getItens().get(i));
-			}
+		String listagem = "";
+
+		for (Usuario usuario : this.usuarios.values()) {
+
+			itensOrdenados.addAll(usuario.getItens());
 		}
+
 		Collections.sort(itensOrdenados, new ItemValorComparator());
-		String retorno = "";
+
 		for (Item item : itensOrdenados) {
-			retorno += item.toString() + "|";
+			listagem += item.toString() + "|";
 		}
-		return retorno;
+		return listagem;
 	}
 
 	/**
 	 * @param Item
 	 *            Parametro que recebe o nome de um Item.
 	 * @param Usuario
-	 *            Parametro que recebe o nome de um Usuario que Possui esse
-	 *            Item.
+	 *            Parametro que recebe o nome de um Usuario que Possui esse Item.
 	 * @param Usuario
-	 *            Parametro que recebe o numero de um USuario que Possui esse
-	 *            Item.
+	 *            Parametro que recebe o numero de um USuario que Possui esse Item.
 	 * @return Retorna em String um determinado Item de forma detalhada.
 	 */
 
@@ -448,31 +440,24 @@ public class Sistema {
 		if (!this.usuarios.containsKey(usuarioDonoID) || !this.usuarios.containsKey(usuarioReceptorID)) {
 			throw new NullPointerException("Usuario invalido");
 		}
-		
-		if(usuarios.get(usuarioReceptorID).getReputacao() < 0) {
+
+		if (usuarios.get(usuarioReceptorID).getReputacao() < 0) {
 			throw new IllegalArgumentException("Usuario nao pode pegar nenhum item emprestado");
 		}
-		
+
 		if (periodo > usuarios.get(usuarioReceptorID).getCartaoReputacao().getPeriodoMaximo()) {
 			throw new IllegalArgumentException("Usuario impossiblitado de pegar emprestado por esse periodo");
 		}
-		
+
 		Usuario dono = this.usuarios.get(usuarioDonoID);
 		Usuario receptor = this.usuarios.get(usuarioReceptorID);
 		Item itemEmprestimo = dono.getItem(nomeItem);
+
 		if (itemEmprestimo.getEstado().equals(EstadoItem.INDISPONIVEL)) {
 			throw new IllegalArgumentException("Item emprestado no momento");
 		}
-		
-		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
-		if (this.emprestimos.containsKey(emprestimoID)) {
-			throw new IllegalArgumentException("Emprestimo ja existe");
-		}
 
-		Emprestimo emprestimo = new Emprestimo(dono, receptor, itemEmprestimo, periodo, dataEmprestimo);
-		emprestimos.put(emprestimoID, emprestimo);
-		dono.registraEmprestimo(emprestimo);
-		receptor.registraEmprestimo(emprestimo);
+		this.sistemaEmprestimo.registrarEmprestimo(dono, receptor, itemEmprestimo, dataEmprestimo, periodo);
 
 	}
 
@@ -488,12 +473,8 @@ public class Sistema {
 		Usuario receptor = this.usuarios.get(usuarioReceptorID);
 		Item itemEmprestimo = dono.getItem(nomeItem);
 
-		EmprestimoID emprestimoID = new EmprestimoID(dono, receptor, itemEmprestimo);
-		if (!this.emprestimos.containsKey(emprestimoID)) {
-			throw new IllegalArgumentException("Emprestimo nao encontrado");
-		}
-		emprestimos.get(emprestimoID).devolveItem(dataEmprestimo, dataDevolucao);
-		
+		this.sistemaEmprestimo.devolverItem(dono, receptor, itemEmprestimo, dataEmprestimo, dataDevolucao);
+
 	}
 
 	/**
@@ -503,24 +484,21 @@ public class Sistema {
 	 */
 
 	public String listarTop10PioresUsuarios() {
-		ArrayList<Usuario> top10Usuarios = new ArrayList<Usuario>();
-		Collection<Usuario> users = usuarios.values();
+		ArrayList<Usuario> top10Usuarios = new ArrayList<Usuario>(this.usuarios.values());
+		String listagem = "";
 
-		for (Usuario usuario : users) {
-			top10Usuarios.add(usuario);
-		}
-		String retorno = "";
-		int cont = 1;
 		Collections.sort(top10Usuarios, new PioresUsuariosReputacaoComparator());
-		for (int i = 0; i < top10Usuarios.size(); i++) {
-			if (i > 9) {
-				break;
+
+		int cont = 1;
+		for (Usuario usuario : top10Usuarios) {
+			if (cont > 10) {
+				return listagem;
 			}
-			String reputacao = String.format("%.2f", top10Usuarios.get(i).getReputacao());
-			retorno += (cont + ": " + top10Usuarios.get(i).getNome() + " - Reputacao: " + reputacao + "|");
+			String reputacao = String.format("%.2f", usuario.getReputacao());
+			listagem += (cont + ": " + usuario.getNome() + " - Reputacao: " + reputacao + "|");
 			cont++;
 		}
-		return retorno;
+		return listagem;
 	}
 
 	/**
@@ -530,8 +508,8 @@ public class Sistema {
 
 	public String listarCaloteiros() {
 		String listarCaloteiros = "";
-		Collection<Usuario> caloteiros = usuarios.values();
-		for (Usuario usuario : caloteiros) {
+
+		for (Usuario usuario : this.usuarios.values()) {
 			if (usuario.getReputacao() < 0) {
 				listarCaloteiros += usuario.toString() + "|";
 			}
@@ -542,61 +520,31 @@ public class Sistema {
 	/**
 	 * Metodo do programa que ordena os 10 Melhores Usuarios
 	 * 
-	 * @return Retorna um texto no formato de String em ordem de Melhores
-	 *         Usuarios
+	 * @return Retorna um texto no formato de String em ordem de Melhores Usuarios
 	 */
 
 	public String listarTop10MelhoresUsuarios() {
-		ArrayList<Usuario> top10Usuarios = new ArrayList<Usuario>();
-		Collection<Usuario> users = usuarios.values();
+		ArrayList<Usuario> top10Usuarios = new ArrayList<Usuario>(this.usuarios.values());
+		String listagem = "";
 
-		for (Usuario usuario : users) {
-			top10Usuarios.add(usuario);
-		}
-		String retorno = "";
-		int cont = 1;
 		Collections.sort(top10Usuarios, new MelhoresUsuariosReputacaoComparator());
-		for (int i = 0; i < top10Usuarios.size(); i++) {
-			if (i > 9) {
-				break;
+
+		int cont = 1;
+		for (Usuario usuario : top10Usuarios) {
+			if (cont > 10) {
+				return listagem;
 			}
-			String reputacao = String.format("%.2f", top10Usuarios.get(i).getReputacao());
-			retorno += (cont + ": " + top10Usuarios.get(i).getNome() + " - Reputacao: " + reputacao + "|");
+			String reputacao = String.format("%.2f", usuario.getReputacao());
+			listagem += (cont + ": " + usuario.getNome() + " - Reputacao: " + reputacao + "|");
 			cont++;
 		}
-		return retorno;
-	}
-
-	public String listarEmprestimosUsuarioEmprestando(String nome, String telefone) {
-		Usuario usuario = this.getUsuario(nome, telefone);
-		return usuario.listarEmprestimosEmprestando();
-	}
-
-	public String listarEmprestimosUsuarioPegandoEmprestado(String nome, String telefone) {
-		Usuario usuario = this.getUsuario(nome, telefone);
-		return usuario.listarEmprestimosPegandoEmprestado();
-	}
-
-	public String listarEmprestimosItem(String nomeItem) {
-		String emprestimos = "";
-		Collection<Usuario> usuarios = this.usuarios.values();
-
-		for (Usuario usuario : usuarios) {
-			emprestimos += usuario.listaEmprestimosItem(nomeItem);
-		}
-
-		if (emprestimos.equals("")) {
-			return "Nenhum emprestimos associados ao item";
-		} else {
-			return "Emprestimos associados ao item: " + emprestimos;
-		}
+		return listagem;
 	}
 
 	public String listarItensNaoEmprestados() {
 		ArrayList<Item> itensNaoEmprestados = new ArrayList<Item>();
-		Collection<Usuario> usuarios = this.usuarios.values();
 
-		for (Usuario usuario : usuarios) {
+		for (Usuario usuario : this.usuarios.values()) {
 			itensNaoEmprestados.addAll(usuario.listarItensNaoEmprestados());
 		}
 
@@ -611,39 +559,52 @@ public class Sistema {
 
 	}
 
-	public String listarItensEmprestados() {
-		Collection<Usuario> usuarios = this.usuarios.values();
-		String listagem = "";
-		
-		for (Usuario usuario : usuarios) {
-			listagem += usuario.listarItensEmprestados();
-		}
-		
-		return listagem;
-		
-	}
-
 	public String listarTop10Itens() {
-		Collection<Usuario> usuarios = this.usuarios.values();
 		ArrayList<Item> itens = new ArrayList<Item>();
 		String top10 = "";
 
-		for (Usuario usuario : usuarios) {
+		for (Usuario usuario : this.usuarios.values()) {
 			itens.addAll(usuario.getItensComEmprestimos());
 		}
 
 		Collections.sort(itens, new ItemNumeroDeEmprestimosComparator());
 
-		int i = 1;
+		int cont = 1;
 		for (Item item : itens) {
-			if (i > 10) {
+			if (cont > 10) {
 				return top10;
 			}
-			top10 += i + ") " + item.getNumeroDeEmprestimos() + " emprestimos - " + item.toString() + "|";
-			i++;
+			top10 += cont + ") " + item.getNumeroDeEmprestimos() + " emprestimos - " + item.toString() + "|";
+			cont++;
 		}
 
 		return top10;
+
+	}
+
+	public void validaUsuario(String nome, String telefone) {
+		if (!this.usuarios.containsKey(new UsuarioID(nome, telefone))) {
+			throw new IllegalArgumentException("Usuario invalido");
+		}
+	}
+
+	public String listarEmprestimosEmprestando(String nome, String telefone) {
+		this.validaUsuario(nome, telefone);
+		return this.sistemaEmprestimo.listarEmprestimosEmprestando(nome, telefone);
+	}
+
+	public String listarEmprestimosPegandoEmprestado(String nome, String telefone) {
+		this.validaUsuario(nome, telefone);
+		return this.sistemaEmprestimo.listarEmprestimosPegandoEmprestado(nome, telefone);
+	}
+
+	public String listaEmprestimosItem(String nomeItem) {
+		return this.sistemaEmprestimo.listaEmprestimosItem(nomeItem);
+
+	}
+
+	public String listarItensEmprestados() {
+		return this.sistemaEmprestimo.listarItensEmprestados();
 
 	}
 

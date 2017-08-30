@@ -11,8 +11,8 @@ public class Validador {
 		}
 		if (telefone == null || telefone.trim().isEmpty()) {
 			throw new IllegalArgumentException("Usuario invalido");
-		} 
-		
+		}
+
 	}
 
 	public static void validaRemover(String nome, String telefone) throws IllegalArgumentException {
@@ -54,21 +54,21 @@ public class Validador {
 	}
 
 	/**
-	 *  
+	 * 
 	 * Validador do metodo pesquisaItem de Sistema, retorna as exceções.
 	 */
-	
+
 	public static void validaPesquisaItem(String nomeItem, String nomeUsuario, String telefoneUsuario) {
-		
+
 		if (nomeUsuario == null || nomeUsuario.trim().isEmpty()) {
 			throw new IllegalArgumentException("Usuario invalido");
-		}	
-		if(telefoneUsuario == null || telefoneUsuario.trim().isEmpty()) {
+		}
+		if (telefoneUsuario == null || telefoneUsuario.trim().isEmpty()) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
-		if(nomeItem == null || nomeItem.trim().isEmpty()) {
+		if (nomeItem == null || nomeItem.trim().isEmpty()) {
 			throw new IllegalArgumentException("Item invalido");
 		}
 	}
-	
+
 }
