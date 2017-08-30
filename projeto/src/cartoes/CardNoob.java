@@ -1,5 +1,12 @@
 package cartoes;
 
+/**
+ * Representação de um cartão de reputação Noob. 
+ * 
+ * @author Higor
+ *
+ */
+
 public class CardNoob implements CardReputacao {
 
 	public static final int PERIODO_MAXIMO = 7;

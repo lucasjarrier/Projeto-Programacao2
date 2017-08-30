@@ -1,9 +1,24 @@
 package usuario;
 
+/**
+ * Identificador de usuários (nome e telefone) que funciona como chave de acesso
+ * para o objeto. 
+ * 
+ * @author Higor
+ *
+ */
+
 public class UsuarioID {
 
 	private String nome;
 	private String telefone;
+	
+	/**
+	 * Constrói um identificador através de um nome e telefone.
+	 * 
+	 * @param nome nome do usuário
+	 * @param telefone telefone do usuário
+	 */
 
 	public UsuarioID(String nome, String telefone) {
 		this.nome = nome;

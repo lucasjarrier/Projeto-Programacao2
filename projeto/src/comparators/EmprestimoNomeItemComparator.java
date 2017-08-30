@@ -1,8 +1,15 @@
 package comparators;
 
 import java.util.Comparator;
-
 import emprestimo.Emprestimo;
+
+/**
+ * Classe que estabelece comparação entre dois empréstimos, tendo o nome do item
+ * emprestado como paramêtro.
+ * 
+ * @author Higor
+ *
+ */
 
 public class EmprestimoNomeItemComparator implements Comparator<Emprestimo> {
 	@Override

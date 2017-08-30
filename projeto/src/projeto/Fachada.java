@@ -4,10 +4,10 @@ import easyaccept.EasyAccept;
 
 public class Fachada {
 
-	private Sistema sistema;
+	private UsuarioController sistema;
 
 	public Fachada() {
-		this.sistema = new Sistema();
+		this.sistema = new UsuarioController();
 	}
 
 	public static void main(String[] args) {

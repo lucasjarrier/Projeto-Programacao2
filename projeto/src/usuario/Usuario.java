@@ -2,6 +2,7 @@
 package usuario;
 
 import java.util.ArrayList;
+
 import cartoes.CardBomAmigo;
 import cartoes.CardCaloteiro;
 import cartoes.CardFreeRyder;
@@ -15,6 +16,16 @@ import item.Item;
 import item.JogoDeTabuleiro;
 import item.JogoEletronico;
 
+/**
+ * Representação de um Usuário no TrackingThings, cada usuário é identificado
+ * por um nome, email e telefone, possui uma lista de itens, uma numeração em
+ * double que representa sua reputação, e um cartão de reputação que lhe
+ * permite, ou não, certas ações no sistema.
+ * 
+ * @author Higor
+ *
+ */
+
 public class Usuario {
 
 	private String nome;
@@ -24,12 +35,22 @@ public class Usuario {
 	private double reputacao;
 	private CardReputacao cartaoReputacao;
 
+	/**
+	 * Cria um usuário a partir de um nome, telefone e email.
+	 * 
+	 * @param nome
+	 *            nome do usuário
+	 * @param telefone
+	 *            numero telefônico do usuário
+	 * @param email
+	 *            email eletronico do usuário
+	 */
+
 	public Usuario(String nome, String telefone, String email) {
 		this.nome = nome;
 		this.email = email;
 		this.telefone = telefone;
 		this.itens = new ArrayList<Item>();
-
 		this.reputacao = 0.0;
 		this.cartaoReputacao = new CardFreeRyder();
 	}
@@ -135,17 +156,17 @@ public class Usuario {
 	 * Adiciona um bluray de filme ao usuario.
 	 * 
 	 * @param nome
-	 *            Eh o nome do filme.
+	 *            nome do filme
 	 * @param valor
-	 *            Eh o valor do item.
+	 *            valor do item
 	 * @param duracao
-	 *            Eh a duracao do filme.
+	 *            duracao do filme
 	 * @param classificacao
-	 *            Eh a classificacao do filme.
+	 *            classificacao indicativa do filme
 	 * @param genero
-	 *            Eh o genero do filme
+	 *            genero do filme
 	 * @param ano
-	 *            Eh o ano de lancamento do filme.
+	 *            ano de lancamento do filme
 	 */
 
 	public void adicionaFilme(String nome, double valor, int duracao, String classificacao, String genero, int ano) {
@@ -158,17 +179,17 @@ public class Usuario {
 	 * Adiciona um bluray de show ao usuario.
 	 * 
 	 * @param nome
-	 *            Eh o nome do show.
+	 *            nome do show.
 	 * @param valor
-	 *            Eh o valor do item.
+	 *            valor do item.
 	 * @param duracao
-	 *            Eh a duracao do show.
+	 *            duracao do show.
 	 * @param classificacao
-	 *            Eh a classificacao do show.
+	 *            classificacao indicativa do show
 	 * @param artista
-	 *            Eh o artista.
+	 *            nome do artista
 	 * @param faixas
-	 *            Eh a quantidade de faixas do bluray.
+	 *            quantidade de faixas do bluray
 	 */
 
 	public void adicionaShow(String nome, double valor, int duracao, String classificacao, String artista, int faixas) {
@@ -181,19 +202,19 @@ public class Usuario {
 	 * Adiciona um bluray de serie ao usuario.
 	 * 
 	 * @param nome
-	 *            Eh o nome da serie.
+	 *            nome da serie
 	 * @param valor
-	 *            Eh o valor do item.
+	 *            valor do item
 	 * @param duracao
-	 *            Eh a duracao do bluray.
+	 *            duracao do bluray
 	 * @param classificacao
-	 *            Eh a classificacao etaria do bluray.
+	 *            classificacao etaria do bluray
 	 * @param descricao
-	 *            Eh a descricao do item.
+	 *            descricao do item
 	 * @param genero
-	 *            Eh o genero da serie.
+	 *            genero da serie
 	 * @param temporada
-	 *            Eh a temporada da serie.
+	 *            temporada da serie
 	 */
 
 	public void adicionaSerie(String nome, double valor, int duracao, String classificacao, String descricao,
@@ -207,11 +228,11 @@ public class Usuario {
 	 * Adiciona um jogo eletronico ao usuario.
 	 * 
 	 * @param nome
-	 *            Eh o nome do jogo.
+	 *            nome do jogo.
 	 * @param valor
-	 *            Eh o valor do jogo.
+	 *            valor do jogo.
 	 * @param plataforma
-	 *            Eh a plataforma do jogo.
+	 *            plataforma do jogo.
 	 */
 
 	public void adicionaEletronico(String nome, double valor, String plataforma) {
@@ -224,9 +245,9 @@ public class Usuario {
 	 * Adiciona um jogo de tabuleiro ao usuario.
 	 * 
 	 * @param nome
-	 *            Eh o nome do jogo.
+	 *            nome do jogo.
 	 * @param valor
-	 *            Eh o valor do jogo.
+	 *            valor do jogo.
 	 */
 
 	public void adicionaTabuleiro(String nome, double valor) {
@@ -254,11 +275,11 @@ public class Usuario {
 	}
 
 	/**
-	 * Retorna um item.
+	 * Retorna um item da coleção de itens
 	 * 
 	 * @param nomeItem
-	 *            Eh o nome do item.
-	 * @return Retorna o item.
+	 *            nome do item
+	 * @return um objeto Item
 	 */
 
 	public Item getItem(String nomeItem) {
@@ -274,9 +295,9 @@ public class Usuario {
 	 * Adiciona uma peca perdida ao jogo de tabuleiro.
 	 * 
 	 * @param nomeItem
-	 *            Eh o nome do jogo.
+	 *            nome do jogo de tabuleiro
 	 * @param nomePeca
-	 *            Eh o nome da peca.
+	 *            nome de peça perdida
 	 */
 
 	public void adicionaPecaPerdida(String nomeItem, String nomePeca) {
@@ -288,11 +309,11 @@ public class Usuario {
 	}
 
 	/**
-	 * Retorna a informacao sobre o usuario.
+	 * Retorna uma informação sobre determinado usuário.
 	 * 
 	 * @param atributo
-	 *            Eh o atributo o qual se quer a informacao.
-	 * @return Retorna a informacao.
+	 *            o atributo o qual se quer a informacao
+	 * @return retorna o atributo
 	 */
 
 	public String getInfoUsuario(String atributo) {
@@ -315,10 +336,10 @@ public class Usuario {
 	 * Retorna informacoes do item.
 	 * 
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item.
 	 * @param atributo
-	 *            Eh o nome do atributo o qual se quer a informacao.
-	 * @return Retorna a informacao.
+	 *            nome do atributo o qual se quer a informacao.
+	 * @return retorna informação do atributo do item
 	 */
 
 	public String getInfoItem(String nomeItem, String atributo) {
@@ -335,11 +356,11 @@ public class Usuario {
 	 * Atualiza informacoes do item do usuario.
 	 * 
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param atributo
-	 *            Eh o nome do atributo o qual se quer a informacao.
+	 *            nome do atributo o qual se quer a informacao
 	 * @param valor
-	 *            Eh o valor a ser mudado.
+	 *            valor a ser mudado
 	 */
 
 	public void atualizarItem(String nomeItem, String atributo, String valor) {
@@ -357,13 +378,20 @@ public class Usuario {
 	 * Remove um item do usuario.
 	 * 
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 */
 
 	public void removeItem(String nomeItem) {
 		Item item = getItem(nomeItem);
 		itens.remove(item);
 	}
+
+	/**
+	 * Lista os itens que estão setados como EstadoItem.Disponivel, ou seja, itens
+	 * que não estão emprestados no momento.
+	 * 
+	 * @return ArrayList<Item> dos itens não emprestados
+	 */
 
 	public ArrayList<Item> listarItensNaoEmprestados() {
 		ArrayList<Item> itensNaoEmprestados = new ArrayList<Item>();
@@ -374,6 +402,13 @@ public class Usuario {
 		}
 		return itensNaoEmprestados;
 	}
+
+	/**
+	 * Lista os itens que foram emprestados (ou estão sendo emprestados), pelo menos
+	 * umas vez.
+	 * 
+	 * @return ArrayList<Item> dos itens que foram emprestados pelo menos uma vez
+	 */
 
 	public ArrayList<Item> getItensComEmprestimos() {
 		ArrayList<Item> itensComEmprestimos = new ArrayList<Item>();
@@ -390,6 +425,7 @@ public class Usuario {
 	 * 
 	 * @param reputacao
 	 */
+
 	public void aumentarReputacao(double reputacao) {
 		this.reputacao += reputacao;
 		setCartaoReputacao();
@@ -400,6 +436,7 @@ public class Usuario {
 	 * 
 	 * @param reputacao
 	 */
+
 	public void diminuirReputacao(double reputacao) {
 		this.reputacao -= reputacao;
 		setCartaoReputacao();

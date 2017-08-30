@@ -1,8 +1,15 @@
 package comparators;
 
 import java.util.Comparator;
-
 import item.Item;
+
+/**
+ * Classe que estabelece comparação entre dois itens, tendo o nome do item
+ * como paramêtro.
+ * 
+ * @author Higor
+ *
+ */
 
 public class ItemNomeComparator implements Comparator<Item> {
 

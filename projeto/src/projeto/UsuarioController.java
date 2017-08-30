@@ -16,22 +16,38 @@ import usuario.Usuario;
 import usuario.UsuarioID;
 import utils.Validador;
 
-public class Sistema {
+/**
+ * Representação de um Controller de Usuários, que controla e exerce
+ * funcionalidades sobre os usuários.
+ * 
+ * @author Higor
+ *
+ */
+
+public class UsuarioController {
 
 	private Map<UsuarioID, Usuario> usuarios;
-	private EmprestimoController sistemaEmprestimo;
+	private EmprestimoController emprestimoController;
 
-	public Sistema() {
+	/**
+	 * Constrói um Controller de Usuários.
+	 * 
+	 */
+
+	public UsuarioController() {
 		this.usuarios = new HashMap<UsuarioID, Usuario>();
-		this.sistemaEmprestimo = new EmprestimoController();
+		this.emprestimoController = new EmprestimoController();
 	}
 
 	/**
 	 * Cadastra um novo usuario no sistema.
 	 * 
 	 * @param nome
+	 *            nome do usuário
 	 * @param telefone
+	 *            telefone do usuário
 	 * @param email
+	 *            email eletrônico do usuário
 	 */
 
 	public void cadastrarUsuario(String nome, String telefone, String email) {
@@ -45,10 +61,12 @@ public class Sistema {
 	}
 
 	/**
-	 * Remova usuario ja cadastrado.
+	 * Remove usuario já cadastrado.
 	 * 
 	 * @param nome
+	 *            nome do usuário
 	 * @param telefone
+	 *            telefone do usuário
 	 */
 	public void removerUsuario(String nome, String telefone) {
 		Validador.validaRemover(nome, telefone);
@@ -63,12 +81,16 @@ public class Sistema {
 	}
 
 	/**
-	 * Recebe um atributo e atualiza o valor do atributo no Usuario ja cadastrado.
+	 * Recebe um atributo e atualiza o valor do atributo no Usuario já cadastrado.
 	 * 
 	 * @param nome
+	 *            nome do usuário
 	 * @param telefone
+	 *            telefone do usuário
 	 * @param atributo
+	 *            atributo a ser atualizado
 	 * @param valor
+	 *            valor do novo atributo
 	 */
 	public void atualizarUsuario(String nome, String telefone, String atributo, String valor) {
 		Validador.validaAtualizar(nome, telefone, valor, atributo);
@@ -96,8 +118,11 @@ public class Sistema {
 	 * Recebe um atributo e depedendo do mesmo, retorna o valor atribuido a ele.
 	 * 
 	 * @param nome
+	 *            nome do usuário
 	 * @param telefone
+	 *            telefone do usuário
 	 * @param atributo
+	 *            atributo a ser retornado
 	 * @return valor equivalente ao atributo.
 	 */
 
@@ -119,27 +144,25 @@ public class Sistema {
 	}
 
 	/**
-	 * 
-	 * Esse metodo eh responsavel por cadastrar um filme.
+	 * Cadastra um filme no sistema.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuário
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero telefônico do usuário
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param preco
-	 *            Eh o preco do item.
+	 *            preço do item
 	 * @param duracao
-	 *            Eh a duracao do filme.
+	 *            duração do filme
 	 * @param genero
-	 *            Eh o genero do filme.
+	 *            gênero do filme
 	 * @param classificacao
-	 *            Eh a classificacao etaria do filme.
+	 *            classificação indicativa do filme
 	 * @param ano
-	 *            Eh o ano de lancamento do filme.
-	 * @throws Exception
-	 *             Lanca excecao caso o preco seja menor ou igual a zero.
+	 *            ano de lancamento do filme
+	 * 
 	 */
 
 	public void cadastraFilme(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
@@ -152,29 +175,27 @@ public class Sistema {
 	}
 
 	/**
-	 * 
 	 * Esse metodo eh responsavel por cadastrar uma serie.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone do usuario
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param preco
-	 *            Eh o preco do item.
+	 *            preço do item
 	 * @param descricao
-	 *            Eh a descricao da serie.
+	 *            descrição da serie
 	 * @param duracao
-	 *            Eh a duracao da serie.
+	 *            duração da serie
 	 * @param genero
-	 *            Eh o genero da serie.
+	 *            gênero da serie
 	 * @param classificacao
-	 *            Eh a classificacao etaria da serie.
+	 *            classificação indicativa da serie
 	 * @param temporada
-	 *            Eh a temporada da serie.
-	 * @throws Exception
-	 *             Lanca excecao caso o preco seja menor ou igual a zero.
+	 *            temporada da serie
+	 * 
 	 */
 
 	public void cadastraSerie(String nomeUsuario, String telefone, String nomeItem, double preco, String descricao,
@@ -187,27 +208,25 @@ public class Sistema {
 	}
 
 	/**
-	 * 
-	 * Esse metodo eh responsavel por cadastrar um show.
+	 * Cadastra um show no sistema.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone do usuário
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param preco
-	 *            Eh o preco do item.
+	 *            preço do item
 	 * @param duracao
-	 *            Eh a duracao da serie.
+	 *            duração da serie
 	 * @param faixas
-	 *            Eh a quantidade de faixas do show.
+	 *            quantidade de faixas do show
 	 * @param artista
-	 *            Eh o nome do artista.
+	 *            nome do artista
 	 * @param classificacao
-	 *            Eh a classificacao etaria do show.
-	 * @throws Exception
-	 *             Lanca excecao caso o preco seja menor ou igual a zero.
+	 *            classificacao indicativa do show
+	 * 
 	 */
 
 	public void cadastraShow(String nomeUsuario, String telefone, String nomeItem, double preco, int duracao,
@@ -219,21 +238,19 @@ public class Sistema {
 	}
 
 	/**
-	 * 
-	 * Esse metodo eh responsavel por cadastrar jogos eletronicos.
+	 * Cadastra um jogo eletrônico no sistema.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param preco
-	 *            Eh o preco do item.
+	 *            preço do item
 	 * @param plataforma
-	 *            Eh a plataforma do jogo.
-	 * @throws Exception
-	 *             Lanca excecao caso o preco seja menor ou igual a zero.
+	 *            plataforma do jogo
+	 * 
 	 */
 
 	public void cadastraEletronico(String nomeUsuario, String telefone, String nomeItem, double preco,
@@ -245,19 +262,17 @@ public class Sistema {
 	}
 
 	/**
-	 * 
-	 * Esse metodo eh responsavel por cadastrar um jogo de tabuleiro.
+	 * Cadastra um jogo de tabuleiro no sistema.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone do usuário
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param preco
-	 *            Eh o preco do item.
-	 * @throws Exception
-	 *             Lanca excecao caso o preco seja menor ou igual a zero.
+	 *            preço do item
+	 * 
 	 */
 
 	public void cadastraJogoTabuleiro(String nomeUsuario, String telefone, String nomeItem, double preco) {
@@ -268,18 +283,17 @@ public class Sistema {
 	}
 
 	/**
-	 * 
-	 * Esse metodo eh responsavel por adicionar um episodio numa serie.
+	 * Adiciona um episódio a um BluRaySerie.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone do usuário
 	 * @param nomeBlurayTemporada
-	 *            Eh o nome do bluray no qual quer se adicionar o episodio.
+	 *            nome do bluray
 	 * @param duracao
-	 *            Eh a duracao do episodio.
-	 * @throws Exception
+	 *            duracao do episodio a ser adicionado
+	 * 
 	 */
 
 	public void adicionarBluRay(String nomeUsuario, String telefone, String nomeBlurayTemporada, int duracao) {
@@ -287,18 +301,16 @@ public class Sistema {
 	}
 
 	/**
-	 * 
-	 * Esse metodo adiciona uma peca perdida do jogo de tabuleiro.
+	 * Adiciona uma peça perdida a um jogo de tabuleiro.
 	 * 
 	 * @param nome
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone do usuario
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param nomePeca
-	 *            Eh o nome da peca perdida.
-	 * @throws Exception
+	 *            nome da peça perdida
 	 */
 
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
@@ -306,21 +318,19 @@ public class Sistema {
 	}
 
 	/**
-	 * 
-	 * Esse metodo retorna informacoes sobre os itens de acordo com o atributo
+	 * Esse metodo retorna informações sobre o item de acordo com o atributo
 	 * escolhido.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone do usuario
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param atributo
-	 *            Eh o atributo que se quer ter a informacao.
-	 * @return Retorna o atributo escolhido.
-	 * @throws Exception
-	 *             Lanca excecao caso o usuario nao exista.
+	 *            atributo que se quer ter a informacao
+	 * @return atributo escolhido
+	 * 
 	 */
 
 	public String getInfoItem(String nomeUsuario, String telefone, String nomeItem, String atributo) {
@@ -333,20 +343,19 @@ public class Sistema {
 	}
 
 	/**
-	 * Esse metodo atualiza atributos do item.
+	 * Esse metodo atualiza determinado atributo do item.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone
 	 * @param nomeItem
-	 *            Eh o nome do item.
+	 *            nome do item
 	 * @param atributo
-	 *            Eh o atributo que se quer atualizar.
+	 *            atributo que se quer atualizar
 	 * @param valor
-	 *            Eh o que vai ser substituido.
-	 * @throws Exception
-	 *             Lanca excecao caso o usuario nao exista.
+	 *            novo valor do atributo
+	 * 
 	 */
 
 	public void atualizaItem(String nomeUsuario, String telefone, String nomeItem, String atributo, String valor) {
@@ -356,16 +365,15 @@ public class Sistema {
 
 	/**
 	 * 
-	 * Esse metodo remove algum item do usuario.
+	 * Esse metodo remove um item do usuario.
 	 * 
 	 * @param nomeUsuario
-	 *            Eh o nome do usuario.
+	 *            nome do usuario
 	 * @param telefone
-	 *            Eh o numero do telefone.
+	 *            numero do telefone do usuário
 	 * @param nomeItem
-	 *            Eh o nome do item.
-	 * @throws Exception
-	 *             Lanca excecao caso o usuario nao exista.
+	 *            nome do item a ser removido
+	 * 
 	 */
 
 	public void removerItem(String nomeUsuario, String telefone, String nomeItem) {
@@ -374,8 +382,9 @@ public class Sistema {
 	}
 
 	/**
+	 * Lista os itens cadastrados de todos os usuários ordenados pelo nome.
 	 * 
-	 * @return Retorna em String todos os Itens cadastrado em ordem alfabetica
+	 * @return listagem de todos itens ordenados pelo nome
 	 */
 
 	public String listarItensOrdenadosPorNome() {
@@ -394,8 +403,9 @@ public class Sistema {
 	}
 
 	/**
+	 * Lista os itens cadastrados de todos os usuários ordenados pelo valor.
 	 * 
-	 * @return Retorna em String todos os Itens cadastrado em ordem de maior Valor.
+	 * @return listagem de todos os itens ordenados pelo valor
 	 */
 
 	public String listarItensOrdenadosPorValor() {
@@ -416,13 +426,15 @@ public class Sistema {
 	}
 
 	/**
-	 * @param Item
-	 *            Parametro que recebe o nome de um Item.
-	 * @param Usuario
-	 *            Parametro que recebe o nome de um Usuario que Possui esse Item.
-	 * @param Usuario
-	 *            Parametro que recebe o numero de um USuario que Possui esse Item.
-	 * @return Retorna em String um determinado Item de forma detalhada.
+	 * Pesquisa detalhes de determinado item.
+	 * 
+	 * @param nome
+	 *            nome do usuário
+	 * @param telefone
+	 *            telefone do usuário
+	 * @param item
+	 *            nome do item a retornar essas informações
+	 * @return detalhes do item em String
 	 */
 
 	public String pesquisarDetalhesItem(String nome, String telefone, String item) {
@@ -432,6 +444,26 @@ public class Sistema {
 		}
 		return this.usuarios.get(usuario).getItem(item).toString();
 	}
+
+	/**
+	 * Esse método passa os paramêtros para o método de registro de empréstimo no
+	 * Controller de Empréstimos.
+	 * 
+	 * @param nomeDono
+	 *            nome do usuário dono do item
+	 * @param telefoneDono
+	 *            telefone do usuário dono do item
+	 * @param nomeReceptor
+	 *            nome do usuário que vai receber o item
+	 * @param telefoneReceptor
+	 *            telefone do usuário que vai receber o item
+	 * @param nomeItem
+	 *            nome do item a ser emprestado
+	 * @param dataEmprestimo
+	 *            data inicial do emprestimo
+	 * @param periodo
+	 *            periodo em dias até a devolução
+	 */
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
 			String nomeItem, String dataEmprestimo, int periodo) {
@@ -457,9 +489,29 @@ public class Sistema {
 			throw new IllegalArgumentException("Item emprestado no momento");
 		}
 
-		this.sistemaEmprestimo.registrarEmprestimo(dono, receptor, itemEmprestimo, dataEmprestimo, periodo);
+		this.emprestimoController.registrarEmprestimo(dono, receptor, itemEmprestimo, dataEmprestimo, periodo);
 
 	}
+
+	/**
+	 * Esse método passa os paramêtros para o método de devolução de empréstimo no
+	 * Controller de Empréstimos.
+	 * 
+	 * @param nomeDono
+	 *            nome do usuário dono do item
+	 * @param telefoneDono
+	 *            telefone do usuário dono do item
+	 * @param nomeReceptor
+	 *            nome do usuário que vai receber o item
+	 * @param telefoneReceptor
+	 *            telefone do usuário que vai receber o item
+	 * @param nomeItem
+	 *            nome do item a ser emprestado
+	 * @param dataEmprestimo
+	 *            data inicial do emprestimo
+	 * @param dataDevolucao
+	 *            data em que item foi devolvido
+	 */
 
 	public void devolverItem(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
 			String nomeItem, String dataEmprestimo, String dataDevolucao) {
@@ -473,14 +525,14 @@ public class Sistema {
 		Usuario receptor = this.usuarios.get(usuarioReceptorID);
 		Item itemEmprestimo = dono.getItem(nomeItem);
 
-		this.sistemaEmprestimo.devolverItem(dono, receptor, itemEmprestimo, dataEmprestimo, dataDevolucao);
+		this.emprestimoController.devolverItem(dono, receptor, itemEmprestimo, dataEmprestimo, dataDevolucao);
 
 	}
 
 	/**
-	 * Metodo do programa que ordena os 10 Piores Usuarios
+	 * Lista os 10 usuários com as reputações mais baixas.
 	 * 
-	 * @return Retorna um texto no formato de String em ordem de Piores Usuarios
+	 * @return listagem de 10 usuários com reputações mais baixas.
 	 */
 
 	public String listarTop10PioresUsuarios() {
@@ -502,8 +554,9 @@ public class Sistema {
 	}
 
 	/**
+	 * Lista os usuários do sistema que possuem reputação negativa.
 	 * 
-	 * @return Retorna uma String todos os usuarios com reputação negativa.
+	 * @return listagem dos usuários caloteiros.
 	 */
 
 	public String listarCaloteiros() {
@@ -518,9 +571,9 @@ public class Sistema {
 	}
 
 	/**
-	 * Metodo do programa que ordena os 10 Melhores Usuarios
+	 * Lista os 10 usuários com as reputações mais altas.
 	 * 
-	 * @return Retorna um texto no formato de String em ordem de Melhores Usuarios
+	 * @return listagem de 10 usuários com as melhores reputações.
 	 */
 
 	public String listarTop10MelhoresUsuarios() {
@@ -541,6 +594,12 @@ public class Sistema {
 		return listagem;
 	}
 
+	/**
+	 * Listagem de itens dos usuários que não estão sendo emprestados.
+	 * 
+	 * @return lista itens que estão disponíveis.
+	 */
+
 	public String listarItensNaoEmprestados() {
 		ArrayList<Item> itensNaoEmprestados = new ArrayList<Item>();
 
@@ -558,6 +617,12 @@ public class Sistema {
 		return listagem;
 
 	}
+
+	/**
+	 * Lista os 10 itens mais emprestados.
+	 * 
+	 * @return listagem com os itens mais emprestados.
+	 */
 
 	public String listarTop10Itens() {
 		ArrayList<Item> itens = new ArrayList<Item>();
@@ -582,29 +647,42 @@ public class Sistema {
 
 	}
 
+	/**
+	 * Valida se um usuário existe.
+	 * 
+	 * @param nome
+	 *            nome do usuário
+	 * @param telefone
+	 *            telefone do usuário
+	 */
+
 	public void validaUsuario(String nome, String telefone) {
 		if (!this.usuarios.containsKey(new UsuarioID(nome, telefone))) {
 			throw new IllegalArgumentException("Usuario invalido");
 		}
 	}
 
+	/*
+	 * Métodos que passam paramêtros para o Controller de Empréstimos.
+	 */
+
 	public String listarEmprestimosEmprestando(String nome, String telefone) {
 		this.validaUsuario(nome, telefone);
-		return this.sistemaEmprestimo.listarEmprestimosEmprestando(nome, telefone);
+		return this.emprestimoController.listarEmprestimosEmprestando(nome, telefone);
 	}
 
 	public String listarEmprestimosPegandoEmprestado(String nome, String telefone) {
 		this.validaUsuario(nome, telefone);
-		return this.sistemaEmprestimo.listarEmprestimosPegandoEmprestado(nome, telefone);
+		return this.emprestimoController.listarEmprestimosPegandoEmprestado(nome, telefone);
 	}
 
 	public String listaEmprestimosItem(String nomeItem) {
-		return this.sistemaEmprestimo.listaEmprestimosItem(nomeItem);
+		return this.emprestimoController.listaEmprestimosItem(nomeItem);
 
 	}
 
 	public String listarItensEmprestados() {
-		return this.sistemaEmprestimo.listarItensEmprestados();
+		return this.emprestimoController.listarItensEmprestados();
 
 	}
 

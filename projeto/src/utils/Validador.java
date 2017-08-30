@@ -1,5 +1,12 @@
 package utils;
 
+/**
+ * Entidade que valida métodos do sistema, checando possíveis erros de entrada.
+ * 
+ * @author Higor
+ *
+ */
+
 public class Validador {
 
 	public static void validaUsuario(String nome, String email, String telefone) throws IllegalArgumentException {

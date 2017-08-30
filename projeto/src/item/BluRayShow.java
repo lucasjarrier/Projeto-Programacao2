@@ -1,9 +1,30 @@
 package item;
 
+/**
+ * Representação de uma classe BlueRaySerie que é representada por um nome,
+ * valor, duracao, e a classificação indicativa, nome do artista e numero de
+ * faixas.
+ * 
+ * @author Higor
+ *
+ */
+
 public class BluRayShow  extends BluRay {
 
 	private String artista;
 	private int faixas;
+	
+	/**
+	 * Constrói um BluRaySerie a partir de um nome, valor, duracao, classificacao
+	 * indicativa, nome do artista e número de faixas.
+	 * 
+	 * @param nome
+	 * @param valor
+	 * @param duracao
+	 * @param classificacao
+	 * @param artista
+	 * @param faixas
+	 */
 	
 	public BluRayShow(String nome, double valor, int duracao, String classificacao, String artista, int faixas) {
 		super(nome, valor, duracao, classificacao);

@@ -1,5 +1,12 @@
 package cartoes;
 
+/**
+ * Representação de um cartão de reputação FreeRyder. 
+ * 
+ * @author Higor
+ *
+ */
+
 public class CardFreeRyder implements CardReputacao {
 
 	public static final int PERIODO_MAXIMO = 5;

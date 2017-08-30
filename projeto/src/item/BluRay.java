@@ -1,14 +1,26 @@
 package item;
 
+/**
+ * Representação de uma classe abstrata BlueRay que é representada por um nome,
+ * valor, duracao, e a classificação indicativa.
+ * 
+ * @author Higor
+ *
+ */
+
 public abstract class BluRay extends Item {
-
-	/*
-	 * A Classe BluRay ï¿½ mï¿½e das classes BluRay Filme, BluRay Sï¿½rie, BluRay
-	 * Show.
-	 */
-
+	//Atributos
 	private int duracao;
 	private String classificacao;
+	
+	/**
+	 * Constrói um BluRay a partir do nome, valor, duracao e classificação.
+	 * 
+	 * @param nome nome do bluray
+	 * @param valor valor do bluray
+	 * @param duracao duracao do bluray
+	 * @param classificacao classificação indicatica do bluray
+	 */
 	
 	public BluRay(String nome, double valor, int duracao, String classificacao) {
 		super(nome, valor);

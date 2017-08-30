@@ -151,7 +151,8 @@ public class Emprestimo {
 	}
 
 	/**
-	 * Verifica se teve dias de atraso ou não na devolução do emprestimo.
+	 * Aumenta ou diminui a reputação de um usuário de acordo com os dias de atraso
+	 * da devolução.
 	 * 
 	 * @param diasDeAtraso
 	 */

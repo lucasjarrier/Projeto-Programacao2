@@ -5,9 +5,11 @@ import java.util.Comparator;
 import usuario.Usuario;
 
 /**
+ * Classe que estabelece comparação entre dois usuários, tendo a reputação do
+ * usuário como parâmetro.
  * 
- * Classe Comparator, Compara a reputação de Usuarios.
- * Ordenando com base nas maiores reputações.
+ * @author Higor
+ *
  */
 
 public class MelhoresUsuariosReputacaoComparator implements Comparator<Usuario> {

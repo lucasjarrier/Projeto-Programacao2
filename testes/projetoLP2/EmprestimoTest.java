@@ -3,16 +3,16 @@ package projetoLP2;
 import org.junit.Before;
 import org.junit.Test;
 
-import projeto.Sistema;
+import projeto.UsuarioController;
 
 public class EmprestimoTest {
 
-	Sistema sistema;
+	UsuarioController sistema;
 
 	@Before
 	public void setUp() throws Exception {
 
-		sistema = new Sistema();
+		sistema = new UsuarioController();
 
 		/*
 		 * CRIANDO USUARIOS.
