@@ -375,7 +375,6 @@ public class Usuario {
 		return itensNaoEmprestados;
 	}
 
-	
 	public ArrayList<Item> getItensComEmprestimos() {
 		ArrayList<Item> itensComEmprestimos = new ArrayList<Item>();
 		for (Item item : this.itens) {

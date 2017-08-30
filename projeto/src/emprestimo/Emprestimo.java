@@ -29,10 +29,9 @@ public class Emprestimo {
 	private LocalDate dataDevolucao;
 
 	/**
-	 * Constrói um Emprestimo a partir de um usuário que possui um item, um
-	 * usuário que quer esse item emprestado, um item a ser emprestado, os dias
-	 * estipulados para esse empréstimo, e a data em que o empréstimo foi
-	 * realizado.
+	 * Constrói um Emprestimo a partir de um usuário que possui um item, um usuário
+	 * que quer esse item emprestado, um item a ser emprestado, os dias estipulados
+	 * para esse empréstimo, e a data em que o empréstimo foi realizado.
 	 * 
 	 * @param donoItem
 	 *            Usuario que possui o item

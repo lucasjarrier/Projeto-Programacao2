@@ -16,11 +16,9 @@ import usuario.Usuario;
 public class EmprestimoController {
 
 	private Map<EmprestimoID, Emprestimo> emprestimos;
-	private ArrayList<Emprestimo> historicoEmprestimos;
 
 	public EmprestimoController() {
 		this.emprestimos = new HashMap<EmprestimoID, Emprestimo>();
-		this.historicoEmprestimos = new ArrayList<Emprestimo>();
 	}
 
 	public void registrarEmprestimo(Usuario donoItem, Usuario usuarioReceptor, Item item, String dataEmprestimo,
@@ -32,7 +30,6 @@ public class EmprestimoController {
 		}
 		Emprestimo emprestimo = new Emprestimo(donoItem, usuarioReceptor, item, diasDoEmprestimo, dataEmprestimo);
 		this.emprestimos.put(emprestimoID, emprestimo);
-		historicoEmprestimos.add(emprestimo);
 	}
 
 	public void devolverItem(Usuario usuarioDono, Usuario usuarioEmprestimo, Item item, String dataInicial,
@@ -49,7 +46,7 @@ public class EmprestimoController {
 	public String listarEmprestimosEmprestando(String nome, String telefone) {
 		ArrayList<Emprestimo> emprestimosEmprestando = new ArrayList<Emprestimo>();
 
-		for (Emprestimo emprestimo : this.historicoEmprestimos) {
+		for (Emprestimo emprestimo : this.emprestimos.values()) {
 			if (emprestimo.getDonoItem().getNome().equals(nome)
 					&& emprestimo.getDonoItem().getTelefone().equals(telefone)) {
 				emprestimosEmprestando.add(emprestimo);
@@ -73,7 +70,7 @@ public class EmprestimoController {
 	public String listarEmprestimosPegandoEmprestado(String nome, String telefone) {
 		ArrayList<Emprestimo> emprestimosPegandoEmprestado = new ArrayList<Emprestimo>();
 
-		for (Emprestimo emprestimo : this.historicoEmprestimos) {
+		for (Emprestimo emprestimo : this.emprestimos.values()) {
 			if (emprestimo.getUsuarioReceptor().getNome().equals(nome)
 					&& emprestimo.getUsuarioReceptor().getTelefone().equals(telefone)) {
 				emprestimosPegandoEmprestado.add(emprestimo);
@@ -96,7 +93,7 @@ public class EmprestimoController {
 		String emprestimos = "Emprestimos associados ao item: ";
 		ArrayList<Emprestimo> emprestimosList = new ArrayList<Emprestimo>();
 
-		for (Emprestimo emprestimo : this.historicoEmprestimos) {
+		for (Emprestimo emprestimo : this.emprestimos.values()) {
 			if (emprestimo.getItemEmprestado().getNome().equals(nomeItem) && !emprestimosList.contains(emprestimo)) {
 				emprestimos += emprestimo.toString() + "|";
 				emprestimosList.add(emprestimo);
@@ -110,24 +107,24 @@ public class EmprestimoController {
 
 		return emprestimos;
 	}
-		
-	
+
 	public String listarItensEmprestados() {
 		String listagem = "";
 		ArrayList<Emprestimo> emprestimosList = new ArrayList<Emprestimo>();
 
-		for (Emprestimo emprestimo : this.historicoEmprestimos) {
+		for (Emprestimo emprestimo : this.emprestimos.values()) {
 			if (emprestimo.getItemEmprestado().getEstado().equals(EstadoItem.INDISPONIVEL)
 					&& emprestimo.getDataDevolucao() == null) {
 				emprestimosList.add(emprestimo);
 			}
 		}
-		
+
 		Collections.sort(emprestimosList, new EmprestimoNomeDonoItemComparator());
 
 		for (Emprestimo emprestimo : emprestimosList) {
 
-			listagem += "Dono do item: " + emprestimo.getDonoItem().getNome() + ", Nome do item emprestado: " + emprestimo.getItemEmprestado().getNome() + "|";
+			listagem += "Dono do item: " + emprestimo.getDonoItem().getNome() + ", Nome do item emprestado: "
+					+ emprestimo.getItemEmprestado().getNome() + "|";
 
 		}
 
