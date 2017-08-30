@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import comparators.EmprestimoNomeDonoItemComparator;
 import comparators.EmprestimoNomeItemComparator;
 import emprestimo.Emprestimo;
 import emprestimo.EmprestimoID;
@@ -115,19 +116,18 @@ public class EmprestimoController {
 		String listagem = "";
 		ArrayList<Emprestimo> emprestimosList = new ArrayList<Emprestimo>();
 
-		for (Emprestimo emprestimo : this.emprestimos.values()) {
+		for (Emprestimo emprestimo : this.historicoEmprestimos) {
 			if (emprestimo.getItemEmprestado().getEstado().equals(EstadoItem.INDISPONIVEL)
-					&& !emprestimosList.contains(emprestimo)) {
+					&& emprestimo.getDataDevolucao() == null) {
 				emprestimosList.add(emprestimo);
 			}
 		}
-
-		Collections.sort(emprestimosList, new EmprestimoNomeItemComparator());
+		
+		Collections.sort(emprestimosList, new EmprestimoNomeDonoItemComparator());
 
 		for (Emprestimo emprestimo : emprestimosList) {
 
-			listagem += "Dono do item:" + emprestimo.getDonoItem().getNome() + ", Nome do item emprestado: "
-					+ emprestimo.getItemEmprestado().getNome() + "|";
+			listagem += "Dono do item: " + emprestimo.getDonoItem().getNome() + ", Nome do item emprestado: " + emprestimo.getItemEmprestado().getNome() + "|";
 
 		}
 
