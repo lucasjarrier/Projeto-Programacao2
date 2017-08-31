@@ -1,5 +1,12 @@
 package projeto;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -17,20 +24,20 @@ import usuario.UsuarioID;
 import utils.Validador;
 
 /**
- * Representação de um Controller de Usuários, que controla e exerce
- * funcionalidades sobre os usuários.
+ * Representaï¿½ï¿½o de um Controller de Usuï¿½rios, que controla e exerce
+ * funcionalidades sobre os usuï¿½rios.
  * 
  * @author Higor
  *
  */
 
-public class UsuarioController {
+public class UsuarioController implements Serializable {
 
 	private Map<UsuarioID, Usuario> usuarios;
 	private EmprestimoController emprestimoController;
 
 	/**
-	 * Constrói um Controller de Usuários.
+	 * Constrï¿½i um Controller de Usuï¿½rios.
 	 * 
 	 */
 
@@ -39,15 +46,53 @@ public class UsuarioController {
 		this.emprestimoController = new EmprestimoController();
 	}
 
+	public void iniciarSistema() {
+        Map<UsuarioID, Usuario> uc = null;
+        EmprestimoController ec = null;
+        try {
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("projeto.dat"));
+            uc = (HashMap<UsuarioID, Usuario>) ois.readObject();
+            ec = (EmprestimoController) ois.readObject();
+            this.usuarios = uc;
+            this.emprestimoController = ec;
+            ois.close();
+
+        } catch (FileNotFoundException e) {
+            this.usuarios = new HashMap<UsuarioID, Usuario>();
+            this.emprestimoController = new EmprestimoController();
+            return;
+
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public void fecharSistema() {
+        try {
+            ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("projeto.dat"));
+            oos.writeObject(this.usuarios);
+            oos.writeObject(this.emprestimoController);
+            oos.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+	
 	/**
 	 * Cadastra um novo usuario no sistema.
 	 * 
 	 * @param nome
-	 *            nome do usuário
+	 *            nome do usuï¿½rio
 	 * @param telefone
-	 *            telefone do usuário
+	 *            telefone do usuï¿½rio
 	 * @param email
-	 *            email eletrônico do usuário
+	 *            email eletrï¿½nico do usuï¿½rio
 	 */
 
 	public void cadastrarUsuario(String nome, String telefone, String email) {
@@ -61,12 +106,12 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Remove usuario já cadastrado.
+	 * Remove usuario jï¿½ cadastrado.
 	 * 
 	 * @param nome
-	 *            nome do usuário
+	 *            nome do usuï¿½rio
 	 * @param telefone
-	 *            telefone do usuário
+	 *            telefone do usuï¿½rio
 	 */
 	public void removerUsuario(String nome, String telefone) {
 		Validador.validaRemover(nome, telefone);
@@ -81,12 +126,12 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Recebe um atributo e atualiza o valor do atributo no Usuario já cadastrado.
+	 * Recebe um atributo e atualiza o valor do atributo no Usuario jï¿½ cadastrado.
 	 * 
 	 * @param nome
-	 *            nome do usuário
+	 *            nome do usuï¿½rio
 	 * @param telefone
-	 *            telefone do usuário
+	 *            telefone do usuï¿½rio
 	 * @param atributo
 	 *            atributo a ser atualizado
 	 * @param valor
@@ -118,9 +163,9 @@ public class UsuarioController {
 	 * Recebe um atributo e depedendo do mesmo, retorna o valor atribuido a ele.
 	 * 
 	 * @param nome
-	 *            nome do usuário
+	 *            nome do usuï¿½rio
 	 * @param telefone
-	 *            telefone do usuário
+	 *            telefone do usuï¿½rio
 	 * @param atributo
 	 *            atributo a ser retornado
 	 * @return valor equivalente ao atributo.
@@ -147,19 +192,19 @@ public class UsuarioController {
 	 * Cadastra um filme no sistema.
 	 * 
 	 * @param nomeUsuario
-	 *            nome do usuário
+	 *            nome do usuï¿½rio
 	 * @param telefone
-	 *            numero telefônico do usuário
+	 *            numero telefï¿½nico do usuï¿½rio
 	 * @param nomeItem
 	 *            nome do item
 	 * @param preco
-	 *            preço do item
+	 *            preï¿½o do item
 	 * @param duracao
-	 *            duração do filme
+	 *            duraï¿½ï¿½o do filme
 	 * @param genero
-	 *            gênero do filme
+	 *            gï¿½nero do filme
 	 * @param classificacao
-	 *            classificação indicativa do filme
+	 *            classificaï¿½ï¿½o indicativa do filme
 	 * @param ano
 	 *            ano de lancamento do filme
 	 * 
@@ -184,15 +229,15 @@ public class UsuarioController {
 	 * @param nomeItem
 	 *            nome do item
 	 * @param preco
-	 *            preço do item
+	 *            preï¿½o do item
 	 * @param descricao
-	 *            descrição da serie
+	 *            descriï¿½ï¿½o da serie
 	 * @param duracao
-	 *            duração da serie
+	 *            duraï¿½ï¿½o da serie
 	 * @param genero
-	 *            gênero da serie
+	 *            gï¿½nero da serie
 	 * @param classificacao
-	 *            classificação indicativa da serie
+	 *            classificaï¿½ï¿½o indicativa da serie
 	 * @param temporada
 	 *            temporada da serie
 	 * 
@@ -213,13 +258,13 @@ public class UsuarioController {
 	 * @param nomeUsuario
 	 *            nome do usuario
 	 * @param telefone
-	 *            numero do telefone do usuário
+	 *            numero do telefone do usuï¿½rio
 	 * @param nomeItem
 	 *            nome do item
 	 * @param preco
-	 *            preço do item
+	 *            preï¿½o do item
 	 * @param duracao
-	 *            duração da serie
+	 *            duraï¿½ï¿½o da serie
 	 * @param faixas
 	 *            quantidade de faixas do show
 	 * @param artista
@@ -238,7 +283,7 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Cadastra um jogo eletrônico no sistema.
+	 * Cadastra um jogo eletrï¿½nico no sistema.
 	 * 
 	 * @param nomeUsuario
 	 *            nome do usuario
@@ -247,7 +292,7 @@ public class UsuarioController {
 	 * @param nomeItem
 	 *            nome do item
 	 * @param preco
-	 *            preço do item
+	 *            preï¿½o do item
 	 * @param plataforma
 	 *            plataforma do jogo
 	 * 
@@ -267,11 +312,11 @@ public class UsuarioController {
 	 * @param nomeUsuario
 	 *            nome do usuario
 	 * @param telefone
-	 *            numero do telefone do usuário
+	 *            numero do telefone do usuï¿½rio
 	 * @param nomeItem
 	 *            nome do item
 	 * @param preco
-	 *            preço do item
+	 *            preï¿½o do item
 	 * 
 	 */
 
@@ -283,12 +328,12 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Adiciona um episódio a um BluRaySerie.
+	 * Adiciona um episï¿½dio a um BluRaySerie.
 	 * 
 	 * @param nomeUsuario
 	 *            nome do usuario
 	 * @param telefone
-	 *            numero do telefone do usuário
+	 *            numero do telefone do usuï¿½rio
 	 * @param nomeBlurayTemporada
 	 *            nome do bluray
 	 * @param duracao
@@ -301,7 +346,7 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Adiciona uma peça perdida a um jogo de tabuleiro.
+	 * Adiciona uma peï¿½a perdida a um jogo de tabuleiro.
 	 * 
 	 * @param nome
 	 *            nome do usuario
@@ -310,7 +355,7 @@ public class UsuarioController {
 	 * @param nomeItem
 	 *            nome do item
 	 * @param nomePeca
-	 *            nome da peça perdida
+	 *            nome da peï¿½a perdida
 	 */
 
 	public void adicionarPecaPerdida(String nome, String telefone, String nomeItem, String nomePeca) throws Exception {
@@ -318,7 +363,7 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Esse metodo retorna informações sobre o item de acordo com o atributo
+	 * Esse metodo retorna informaï¿½ï¿½es sobre o item de acordo com o atributo
 	 * escolhido.
 	 * 
 	 * @param nomeUsuario
@@ -370,7 +415,7 @@ public class UsuarioController {
 	 * @param nomeUsuario
 	 *            nome do usuario
 	 * @param telefone
-	 *            numero do telefone do usuário
+	 *            numero do telefone do usuï¿½rio
 	 * @param nomeItem
 	 *            nome do item a ser removido
 	 * 
@@ -382,7 +427,7 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Lista os itens cadastrados de todos os usuários ordenados pelo nome.
+	 * Lista os itens cadastrados de todos os usuï¿½rios ordenados pelo nome.
 	 * 
 	 * @return listagem de todos itens ordenados pelo nome
 	 */
@@ -403,7 +448,7 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Lista os itens cadastrados de todos os usuários ordenados pelo valor.
+	 * Lista os itens cadastrados de todos os usuï¿½rios ordenados pelo valor.
 	 * 
 	 * @return listagem de todos os itens ordenados pelo valor
 	 */
@@ -429,11 +474,11 @@ public class UsuarioController {
 	 * Pesquisa detalhes de determinado item.
 	 * 
 	 * @param nome
-	 *            nome do usuário
+	 *            nome do usuï¿½rio
 	 * @param telefone
-	 *            telefone do usuário
+	 *            telefone do usuï¿½rio
 	 * @param item
-	 *            nome do item a retornar essas informações
+	 *            nome do item a retornar essas informaï¿½ï¿½es
 	 * @return detalhes do item em String
 	 */
 
@@ -446,23 +491,23 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Esse método passa os paramêtros para o método de registro de empréstimo no
-	 * Controller de Empréstimos.
+	 * Esse mï¿½todo passa os paramï¿½tros para o mï¿½todo de registro de emprï¿½stimo no
+	 * Controller de Emprï¿½stimos.
 	 * 
 	 * @param nomeDono
-	 *            nome do usuário dono do item
+	 *            nome do usuï¿½rio dono do item
 	 * @param telefoneDono
-	 *            telefone do usuário dono do item
+	 *            telefone do usuï¿½rio dono do item
 	 * @param nomeReceptor
-	 *            nome do usuário que vai receber o item
+	 *            nome do usuï¿½rio que vai receber o item
 	 * @param telefoneReceptor
-	 *            telefone do usuário que vai receber o item
+	 *            telefone do usuï¿½rio que vai receber o item
 	 * @param nomeItem
 	 *            nome do item a ser emprestado
 	 * @param dataEmprestimo
 	 *            data inicial do emprestimo
 	 * @param periodo
-	 *            periodo em dias até a devolução
+	 *            periodo em dias atï¿½ a devoluï¿½ï¿½o
 	 */
 
 	public void registrarEmprestimo(String nomeDono, String telefoneDono, String nomeReceptor, String telefoneReceptor,
@@ -494,17 +539,17 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Esse método passa os paramêtros para o método de devolução de empréstimo no
-	 * Controller de Empréstimos.
+	 * Esse mï¿½todo passa os paramï¿½tros para o mï¿½todo de devoluï¿½ï¿½o de emprï¿½stimo no
+	 * Controller de Emprï¿½stimos.
 	 * 
 	 * @param nomeDono
-	 *            nome do usuário dono do item
+	 *            nome do usuï¿½rio dono do item
 	 * @param telefoneDono
-	 *            telefone do usuário dono do item
+	 *            telefone do usuï¿½rio dono do item
 	 * @param nomeReceptor
-	 *            nome do usuário que vai receber o item
+	 *            nome do usuï¿½rio que vai receber o item
 	 * @param telefoneReceptor
-	 *            telefone do usuário que vai receber o item
+	 *            telefone do usuï¿½rio que vai receber o item
 	 * @param nomeItem
 	 *            nome do item a ser emprestado
 	 * @param dataEmprestimo
@@ -530,9 +575,9 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Lista os 10 usuários com as reputações mais baixas.
+	 * Lista os 10 usuï¿½rios com as reputaï¿½ï¿½es mais baixas.
 	 * 
-	 * @return listagem de 10 usuários com reputações mais baixas.
+	 * @return listagem de 10 usuï¿½rios com reputaï¿½ï¿½es mais baixas.
 	 */
 
 	public String listarTop10PioresUsuarios() {
@@ -554,9 +599,9 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Lista os usuários do sistema que possuem reputação negativa.
+	 * Lista os usuï¿½rios do sistema que possuem reputaï¿½ï¿½o negativa.
 	 * 
-	 * @return listagem dos usuários caloteiros.
+	 * @return listagem dos usuï¿½rios caloteiros.
 	 */
 
 	public String listarCaloteiros() {
@@ -571,9 +616,9 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Lista os 10 usuários com as reputações mais altas.
+	 * Lista os 10 usuï¿½rios com as reputaï¿½ï¿½es mais altas.
 	 * 
-	 * @return listagem de 10 usuários com as melhores reputações.
+	 * @return listagem de 10 usuï¿½rios com as melhores reputaï¿½ï¿½es.
 	 */
 
 	public String listarTop10MelhoresUsuarios() {
@@ -595,9 +640,9 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Listagem de itens dos usuários que não estão sendo emprestados.
+	 * Listagem de itens dos usuï¿½rios que nï¿½o estï¿½o sendo emprestados.
 	 * 
-	 * @return lista itens que estão disponíveis.
+	 * @return lista itens que estï¿½o disponï¿½veis.
 	 */
 
 	public String listarItensNaoEmprestados() {
@@ -648,12 +693,12 @@ public class UsuarioController {
 	}
 
 	/**
-	 * Valida se um usuário existe.
+	 * Valida se um usuï¿½rio existe.
 	 * 
 	 * @param nome
-	 *            nome do usuário
+	 *            nome do usuï¿½rio
 	 * @param telefone
-	 *            telefone do usuário
+	 *            telefone do usuï¿½rio
 	 */
 
 	public void validaUsuario(String nome, String telefone) {
@@ -663,7 +708,7 @@ public class UsuarioController {
 	}
 
 	/*
-	 * Métodos que passam paramêtros para o Controller de Empréstimos.
+	 * Mï¿½todos que passam paramï¿½tros para o Controller de Emprï¿½stimos.
 	 */
 
 	public String listarEmprestimosEmprestando(String nome, String telefone) {

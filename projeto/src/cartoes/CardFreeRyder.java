@@ -1,5 +1,7 @@
 package cartoes;
 
+import java.io.Serializable;
+
 /**
  * Representação de um cartão de reputação FreeRyder. 
  * 
@@ -7,7 +9,7 @@ package cartoes;
  *
  */
 
-public class CardFreeRyder implements CardReputacao {
+public class CardFreeRyder implements CardReputacao, Serializable {
 
 	public static final int PERIODO_MAXIMO = 5;
 	

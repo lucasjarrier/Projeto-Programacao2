@@ -124,4 +124,22 @@ public class UsuarioTest {
 		assertEquals("[]", usuario3.getItens().toString());
 	}
 
+	@Test
+    public void testGetInfoUsuario() {
+        usuario1.adicionaEletronico("CS:GO", 30, "PC");
+        assertEquals("Yoda", usuario1.getInfoUsuario("Nome"));
+        assertEquals("2122-2324", usuario2.getInfoUsuario("Telefone"));
+        assertEquals("cabalo123@yahoo.com.br", usuario3.getInfoUsuario("Email"));
+        assertEquals("1.5", usuario1.getInfoUsuario("Reputacao"));
+        assertEquals("Noob", usuario1.getInfoUsuario("Cartao"));
+    }
+
+    @Test
+    public void testGetInfoItem() {
+        usuario2.adicionaEletronico("Habbo", 0, "PC");
+        usuario3.adicionaEletronico("FIFA", 150, "PlayStation");
+        assertEquals("Habbo", usuario2.getInfoItem("Habbo", "Nome"));
+        assertEquals("150.0", usuario3.getInfoItem("FIFA", "Preco"));
+    }
+	
 }

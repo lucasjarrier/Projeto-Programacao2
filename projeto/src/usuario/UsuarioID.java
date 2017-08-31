@@ -1,5 +1,7 @@
 package usuario;
 
+import java.io.Serializable;
+
 /**
  * Identificador de usuários (nome e telefone) que funciona como chave de acesso
  * para o objeto. 
@@ -8,7 +10,7 @@ package usuario;
  *
  */
 
-public class UsuarioID {
+public class UsuarioID implements Serializable {
 
 	private String nome;
 	private String telefone;

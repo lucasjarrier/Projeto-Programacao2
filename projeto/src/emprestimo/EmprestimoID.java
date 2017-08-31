@@ -1,5 +1,7 @@
 package emprestimo;
 
+import java.io.Serializable;
+
 import item.Item;
 import usuario.Usuario;
 
@@ -11,7 +13,7 @@ import usuario.Usuario;
  *
  */
 
-public class EmprestimoID {
+public class EmprestimoID implements Serializable {
 	private Usuario donoItem;
 	private Usuario usuarioReceptor;
 	private Item itemEmprestado;

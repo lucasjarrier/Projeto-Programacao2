@@ -1,5 +1,7 @@
 package item;
 
+import java.io.Serializable;
+
 /**
  * Representação de uma classe BlueRayFilme que é representada por um nome,
  * valor, duracao, e a classificação indicativa.
@@ -8,7 +10,7 @@ package item;
  *
  */
 
-public class BluRayFilme extends BluRay {
+public class BluRayFilme extends BluRay implements Serializable {
 	//Atributos
 	private String genero;
 	private int ano;

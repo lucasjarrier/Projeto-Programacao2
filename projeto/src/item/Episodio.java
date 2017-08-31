@@ -1,5 +1,7 @@
 package item;
 
+import java.io.Serializable;
+
 /**
  * Representação de um episódio, todo é episódio é representado por uma duração.
  * 
@@ -7,7 +9,7 @@ package item;
  *
  */
 
-public class Episodio {
+public class Episodio implements Serializable {
 	private int duracao;
 
 	/**

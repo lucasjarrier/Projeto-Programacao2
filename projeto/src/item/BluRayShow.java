@@ -1,5 +1,7 @@
 package item;
 
+import java.io.Serializable;
+
 /**
  * Representação de uma classe BlueRaySerie que é representada por um nome,
  * valor, duracao, e a classificação indicativa, nome do artista e numero de
@@ -9,7 +11,7 @@ package item;
  *
  */
 
-public class BluRayShow  extends BluRay {
+public class BluRayShow  extends BluRay implements Serializable {
 
 	private String artista;
 	private int faixas;

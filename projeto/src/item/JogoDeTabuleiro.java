@@ -1,5 +1,6 @@
 package item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  */
 
-public class JogoDeTabuleiro extends Item {
+public class JogoDeTabuleiro extends Item implements Serializable {
 
 	protected List<String> pecas;
 	protected Pecas estadoJogo;
