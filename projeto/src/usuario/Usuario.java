@@ -86,34 +86,65 @@ public class Usuario implements Serializable {
 		return this.nome + ", " + this.email + ", " + this.telefone;
 	}
 
+	/**
+	 * @return nome do usuario
+	 */
 	public String getNome() {
 		return nome;
 	}
 
+	/**
+	 * @return email do usuario
+	 */
+	
 	public String getEmail() {
 		return email;
 	}
 
+	/**
+	 * @return telefone do usuario
+	 */
+	
 	public String getTelefone() {
 		return telefone;
 	}
 
+	/**
+	 * @param muda nome do usuario
+	 */
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
 
+	/**
+	 * @param muda email do usuario
+	 */
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
+	/**
+	 * @param muda telefone do usuario
+	 */
+	
 	public void setTelefone(String numero) {
 		this.telefone = numero;
 	}
 
+	/**
+	 * @return reputacao do usuario
+	 */
+	
 	public double getReputacao() {
 		return reputacao;
 	}
 
+	/**
+	 * @param altera reputacao do usuario
+	 */
+	
 	public void setReputacao(double reputacao) {
 		this.reputacao = reputacao;
 	}
