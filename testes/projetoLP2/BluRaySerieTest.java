@@ -21,10 +21,39 @@ public class BluRaySerieTest {
 	}
 	
 	@Test
+	public void testGetDescricao() {
+		
+		assertEquals("O arqueiro verde!", arrow.getDescricao());
+		assertEquals("A quimica do mal", bb.getDescricao());
+		assertEquals("A melhor serie do mundo!", soa.getDescricao());
+	}
+	
+	@Test
+	public void testGetGenero() {
+		assertEquals("Acao", arrow.getGenero());
+		assertEquals("Drama", bb.getGenero());
+		assertEquals("Drama/Acao", soa.getGenero());
+	}
+	
+	@Test
+	public void testGetTemporada() {
+		assertEquals(1, arrow.getTemporada());
+		assertEquals(2, bb.getTemporada());
+		assertEquals(7, soa.getTemporada());
+	}
+	
+	@Test
 	public void testToString() {
 		assertEquals("SERIE: Arrow, R$ 39.99, Nao emprestado, 450 min, Acao, QUATORZE_ANOS, Temporada 1", arrow.toString());
 		assertEquals("SERIE: Breaking Bad, R$ 88.99, Nao emprestado, 378 min, Drama, DEZESSEIS_ANOS, Temporada 2", bb.toString());
 		assertEquals("SERIE: Sons of Anarchy, R$ 129.99, Nao emprestado, 475 min, Drama/Acao, DEZESSEIS_ANOS, Temporada 7", soa.toString());
+	}
+	
+	@Test
+	public void testAdicionaEpisodio() {
+		arrow.adicionaEpisodio(20);
+		bb.adicionaEpisodio(50);
+		soa.adicionaEpisodio(45);
 	}
 	
 }

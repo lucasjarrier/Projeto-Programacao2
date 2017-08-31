@@ -22,7 +22,24 @@ public class BluRayFilmeTest {
 		suspense = new BluRayFilme("Poeira em alto mar", 10.59, 186, "DEZESSEIS_ANOS", "Suspense", 1985);
 	}
 
+	@Test
+	public void testGetGenero() {
+		
+		assertEquals("Acao", acao.getGenero());
+		assertEquals("Comedia", comedia.getGenero());
+		assertEquals("Terror", terror.getGenero());
+		assertEquals("Suspense", suspense.getGenero());
+	}
 
+	@Test
+	public void testGetAno() {
+		
+		assertEquals(2008, acao.getAno());
+		assertEquals(2009, comedia.getAno());
+		assertEquals(1956, terror.getAno());
+		assertEquals(1985, suspense.getAno());
+		
+	}
 	@Test
 	public void testToString() {
 		assertEquals("FILME: Quebrando Regras, R$ 5.99, Nao emprestado, 140 min, QUATORZE_ANOS, Acao, 2008", acao.toString());

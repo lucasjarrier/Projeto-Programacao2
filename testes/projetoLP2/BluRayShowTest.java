@@ -22,6 +22,21 @@ public class BluRayShowTest {
 		canacommel = new BluRayShow("Forro Cana com Mel: Eh bem docin, papai!", 20.99, 80, "LIVRE", "Cana com Mel", 18);
 	}
 
+	@Test
+	public void testGetArtista() {
+		assertEquals("Gil Bala", gilbala.getArtista());
+		assertEquals("Aldair Playboy", aldairplayboy.getArtista());
+		assertEquals("Forro Pegado", forropegado.getArtista());
+		assertEquals("Cana com Mel", canacommel.getArtista());	
+	}
+	
+	@Test
+	public void testGetFaixas() {
+		assertEquals(15, gilbala.getFaixas());
+		assertEquals(15, aldairplayboy.getFaixas());
+		assertEquals(20, forropegado.getFaixas());
+		assertEquals(18, canacommel.getFaixas());
+	}
 	
 
 	@Test
