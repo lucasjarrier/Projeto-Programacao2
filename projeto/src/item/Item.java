@@ -1,5 +1,7 @@
 package item;
 
+import java.io.Serializable;
+
 /**
  * Representação de um item, que usuário possui, a partir de um nome, valor e
  * estado (disponível ou indisponível).
@@ -8,7 +10,7 @@ package item;
  *
  */
 
-public abstract class Item {
+public abstract class Item implements Serializable {
 
 	protected String nome;
 	protected EstadoItem estado;

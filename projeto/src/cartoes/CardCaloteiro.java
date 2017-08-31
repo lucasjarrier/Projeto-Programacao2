@@ -1,11 +1,13 @@
 package cartoes;
 
+import java.io.Serializable;
+
 /*
  * Representação de um cartão de reputação Caloteiro. 
  * 
  */
 
-public class CardCaloteiro implements CardReputacao {
+public class CardCaloteiro implements CardReputacao, Serializable {
 
 	public static final int PERIODO_MAXIMO = 0;
 	

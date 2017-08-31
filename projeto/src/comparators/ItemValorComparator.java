@@ -1,6 +1,7 @@
 
 package comparators;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 import item.Item;

@@ -1,5 +1,6 @@
 package projeto;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -21,7 +22,7 @@ import usuario.Usuario;
  *
  */
 
-public class EmprestimoController {
+public class EmprestimoController implements Serializable {
 
 	private Map<EmprestimoID, Emprestimo> emprestimos;
 

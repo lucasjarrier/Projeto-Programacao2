@@ -1,6 +1,7 @@
 
 package usuario;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 import cartoes.CardBomAmigo;
@@ -26,7 +27,7 @@ import item.JogoEletronico;
  *
  */
 
-public class Usuario {
+public class Usuario implements Serializable {
 
 	private String nome;
 	private String email;

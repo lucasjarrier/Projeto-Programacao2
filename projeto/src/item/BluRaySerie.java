@@ -1,5 +1,6 @@
 package item;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *
  */
 
-public class BluRaySerie extends BluRay {
+public class BluRaySerie extends BluRay implements Serializable {
 
 	private String descricao;
 	private String genero;

@@ -1,5 +1,6 @@
 package emprestimo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -18,7 +19,7 @@ import usuario.Usuario;
  *
  */
 
-public class Emprestimo {
+public class Emprestimo implements Serializable {
 	// Atributos
 	private Usuario donoItem;
 	private Usuario usuarioReceptor;

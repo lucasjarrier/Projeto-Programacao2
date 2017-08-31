@@ -1,5 +1,7 @@
 package cartoes;
 
+import java.io.Serializable;
+
 /**
  * Representação de um cartão de reputação Bom Amigo. 
  * 
@@ -7,7 +9,7 @@ package cartoes;
  *
  */
 
-public class CardBomAmigo implements CardReputacao {
+public class CardBomAmigo implements CardReputacao, Serializable {
 
 	public static final int PERIODO_MAXIMO = 15;
 	

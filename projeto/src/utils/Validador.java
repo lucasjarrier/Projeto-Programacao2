@@ -1,5 +1,7 @@
 package utils;
 
+import java.io.Serializable;
+
 /**
  * Entidade que valida métodos do sistema, checando possíveis erros de entrada.
  * 
@@ -7,7 +9,7 @@ package utils;
  *
  */
 
-public class Validador {
+public class Validador implements Serializable {
 
 	public static void validaUsuario(String nome, String email, String telefone) throws IllegalArgumentException {
 		if (nome == null || nome.trim().isEmpty()) {

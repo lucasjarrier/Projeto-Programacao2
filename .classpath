@@ -1,12 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
-	<classpathentry kind="src" path="projeto/src" />
-	<classpathentry kind="src" path="testes" />
-	<classpathentry kind="con"
-		path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4" />
-	<classpathentry kind="con"
-		path="org.eclipse.jdt.launching.JRE_CONTAINER" />
-	<classpathentry kind="lib"
-		path="C:/Users/Higor/Downloads/EasyAcceptLab-master/EasyAcceptLab/lib/easyaccept.jar" />
-	<classpathentry kind="output" path="projeto/bin" />
+	<classpathentry kind="src" path="projeto/src"/>
+	<classpathentry kind="src" path="testes"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/Users/HP/Downloads/easyaccept.jar"/>
+	<classpathentry kind="output" path="projeto/bin"/>
 </classpath>

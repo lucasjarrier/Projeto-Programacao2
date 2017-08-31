@@ -1,5 +1,7 @@
 package item;
 
+import java.io.Serializable;
+
 /**
  * Representação de um jogo eletrônico, que além de ser representado pelos
  * atributos da classe que é herdeira, também é representado por uma plataforma.
@@ -8,7 +10,7 @@ package item;
  *
  */
 
-public class JogoEletronico extends Item {
+public class JogoEletronico extends Item implements Serializable {
 
 	protected String plataforma;
 

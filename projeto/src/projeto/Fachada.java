@@ -1,8 +1,10 @@
 package projeto;
 
+import java.io.Serializable;
+
 import easyaccept.EasyAccept;
 
-public class Fachada {
+public class Fachada implements Serializable {
 
 	private UsuarioController sistema;
 
@@ -10,17 +12,8 @@ public class Fachada {
 		this.sistema = new UsuarioController();
 	}
 
-	public static void main(String[] args) {
-		args = new String[] { "projeto.Fachada", "projeto/acceptance_test/us1_test.txt",
-				"projeto/acceptance_test/us2_test.txt", "projeto/acceptance_test/us3_test.txt",
-				"projeto/acceptance_test/us4_test.txt", "projeto/acceptance_test/us5_test.txt",
-				"projeto/acceptance_test/us6_test.txt", "projeto/acceptance_test/us7_test.txt",
-				"projeto/acceptance_test/us8_test.txt" };
-		EasyAccept.main(args);
-	}
-
 	public void iniciarSistema() throws Exception {
-
+		sistema.iniciarSistema();
 	}
 
 	/**
@@ -170,6 +163,6 @@ public class Fachada {
 	 */
 	
 	public void fecharSistema() {
-
+		sistema.fecharSistema();
 	}
 }
