@@ -45,6 +45,11 @@ public class UsuarioController implements Serializable {
 		this.usuarios = new HashMap<UsuarioID, Usuario>();
 		this.emprestimoController = new EmprestimoController();
 	}
+	
+	/**
+	 * Inicializa o sistema.
+	 * 
+	 */
 
 	public void iniciarSistema() {
         Map<UsuarioID, Usuario> uc = null;
@@ -70,7 +75,12 @@ public class UsuarioController implements Serializable {
 
         }
     }
-
+	
+	/**
+	 * Fecha o sistema. 
+	 * 
+	 */
+	
     public void fecharSistema() {
         try {
             ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("projeto.dat"));
